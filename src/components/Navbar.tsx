@@ -95,9 +95,9 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               className="font-body text-sm px-4 py-2 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-colors"
-            >
-              {t("nav.contact")}
-            </a>
+                >
+                  {t("nav.cta")}
+                </a>
           </div>
 
           {/* Mobile hamburger */}
@@ -139,7 +139,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="font-body text-sm px-4 py-2 rounded border border-accent text-accent"
             >
-              {t("nav.contact")}
+              {t("nav.cta")}
             </a>
           </div>
         </div>
