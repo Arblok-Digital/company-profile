@@ -87,7 +87,7 @@ export default function Navbar() {
               onClick={() => setLanguage(language === "id" ? "en" : "id")}
               className="font-mono text-xs text-ink-2 hover:text-accent transition-colors uppercase tracking-wider cursor-pointer border-none bg-transparent"
             >
-              {language === "id" ? "EN" : "ID"}
+              {language === "id" ? "ID" : "EN"}
             </button>
 
             <a
@@ -95,9 +95,9 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               className="font-body text-sm px-4 py-2 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-colors"
-                >
-                  {t("nav.cta")}
-                </a>
+            >
+              {t("nav.cta")}
+            </a>
           </div>
 
           {/* Mobile hamburger */}
@@ -131,7 +131,7 @@ export default function Navbar() {
               onClick={() => { setLanguage(language === "id" ? "en" : "id"); setIsOpen(false); }}
               className="font-mono text-xs text-ink-2 hover:text-accent transition-colors uppercase tracking-wider cursor-pointer border-none bg-transparent"
             >
-              {language === "id" ? "EN" : "ID"}
+              {language === "id" ? "ID" : "EN"}
             </button>
             <a
               href="https://wa.me/6289508053795"
