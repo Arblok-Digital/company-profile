@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "../LanguageContext";
 
 export default function Navbar() {
@@ -12,219 +11,139 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      if (window.scrollY > 40) setScrolled(true);
+      else setScrolled(false);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navLinks = [
+    { to: "/#about", label: t("nav.vision") },
+    { to: "/#services", label: t("nav.services") },
+    { to: "/#portfolio", label: t("nav.portfolio") },
+    { to: "/articles", label: t("nav.articles"), exact: true },
+    { to: "/consultant", label: "AI Consultant", exact: true },
+  ];
+
   return (
     <nav
-      id="main-navbar"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-slate-900/80 backdrop-blur-md border-b border-slate-800 py-4"
-          : "bg-transparent py-6"
+          ? "bg-paper/80 backdrop-blur-md border-b border-rule"
+          : "bg-paper border-b border-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <Link
             to="/#hero"
             onClick={() => setIsOpen(false)}
-            className="flex items-center space-x-2.5 group no-underline"
+            className="flex items-center gap-2 no-underline group"
           >
-            <div className="w-10 h-10 rounded-lg overflow-hidden border border-slate-850 group-hover:rotate-6 transition-all duration-300 shadow-md">
+            <div className="w-9 h-9 rounded overflow-hidden border border-rule flex-shrink-0">
               <img
                 src="/arblok_logo.webp"
                 alt="Logo Arblok Digital"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
-                id="nav-logo-image"
               />
             </div>
-            <div className="flex flex-col">
-              <span className="font-display font-bold text-lg tracking-wider text-white">
+            <div className="flex flex-col leading-tight">
+              <span className="font-display text-lg leading-none text-ink tracking-tight">
                 ARBLOK
               </span>
-              <span className="font-mono text-[10px] text-cyan-400 tracking-widest uppercase">
+              <span className="font-mono text-[9px] text-accent tracking-[0.2em] uppercase">
                 DIGITAL
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-            <Link
-              to="/#hero"
-              className={`font-sans text-sm font-medium transition-colors ${
-                currentPath === "/"
-                  ? "text-cyan-400 font-semibold"
-                  : "text-slate-300 hover:text-cyan-400"
-              }`}
-            >
-              {t("nav.home")}
-            </Link>
-            <Link
-              to="/#about"
-              className="font-sans text-sm text-slate-300 hover:text-cyan-400 transition-colors"
-            >
-              {t("nav.vision")}
-            </Link>
-            <Link
-              to="/#services"
-              className="font-sans text-sm text-slate-300 hover:text-cyan-400 transition-colors"
-            >
-              {t("nav.services")}
-            </Link>
-            <Link
-              to="/#portfolio"
-              className="font-sans text-sm text-slate-300 hover:text-cyan-400 transition-colors"
-            >
-              {t("nav.portfolio")}
-            </Link>
-            <Link
-              to="/articles"
-              className={`font-sans text-sm font-medium transition-colors ${
-                currentPath === "/articles"
-                  ? "text-cyan-400 font-semibold"
-                  : "text-slate-300 hover:text-cyan-400"
-              }`}
-            >
-              {t("nav.articles")}
-            </Link>
-            <Link
-              to="/consultant"
-              className={`font-sans text-sm font-medium transition-colors flex items-center gap-1.5 ${
-                currentPath === "/consultant"
-                  ? "text-cyan-400 font-semibold"
-                  : "text-slate-300 hover:text-cyan-400"
-              }`}
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-              </span>
-              {t("nav.consultant")}
-            </Link>
-          </div>
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => {
+              const isActive = link.exact
+                ? currentPath === link.to
+                : currentPath === "/" && link.to.startsWith("/#");
+              return (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`font-body text-sm transition-colors ${
+                    isActive
+                      ? "text-accent font-medium"
+                      : "text-ink-2 hover:text-ink"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
 
-          {/* Right Controls & Call to Action Button */}
-          <div className="hidden md:flex items-center space-x-4">
-            {/* Sleek Language Switcher */}
+            <span className="text-rule">|</span>
+
             <button
               onClick={() => setLanguage(language === "id" ? "en" : "id")}
-              className="px-3 py-1.5 rounded-lg border border-slate-800 hover:border-slate-700 bg-slate-950/60 hover:bg-slate-900 text-xs font-mono font-bold text-cyan-400 hover:text-cyan-300 transition-all flex items-center gap-1.5 cursor-pointer"
-              title="Ganti Bahasa / Change Language"
+              className="font-mono text-xs text-ink-2 hover:text-accent transition-colors uppercase tracking-wider cursor-pointer border-none bg-transparent"
             >
-              <span>🌐</span>
-              <span>{language.toUpperCase()}</span>
+              {language === "id" ? "EN" : "ID"}
             </button>
 
             <a
               href="https://wa.me/6289508053795"
               target="_blank"
-              rel="noreferrer"
-              className="font-display text-sm font-medium bg-slate-800 text-slate-200 hover:text-white hover:bg-slate-700 border border-slate-700 px-5 py-2.5 rounded-full inline-flex items-center gap-2 group transition-all"
+              rel="noopener noreferrer"
+              className="font-body text-sm px-4 py-2 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-colors"
             >
-              {t("nav.cta")}
-              <ArrowUpRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              {t("nav.contact")}
             </a>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center gap-3">
-            {/* Language Switcher in Mobile Header */}
-            <button
-              onClick={() => setLanguage(language === "id" ? "en" : "id")}
-              className="px-2.5 py-1.5 rounded-lg border border-slate-800 bg-slate-950/60 text-xs font-mono font-bold text-cyan-400 flex items-center gap-1 cursor-pointer"
-            >
-              <span>🌐</span>
-              <span>{language.toUpperCase()}</span>
-            </button>
-
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-slate-400 hover:text-white focus:outline-none p-1.5 bg-transparent border-none cursor-pointer"
-              aria-label="Toggle Menu"
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden cursor-pointer border-none bg-transparent p-2"
+            aria-label="Toggle menu"
+          >
+            <div className={`w-5 h-px bg-ink mb-1.5 transition-all ${isOpen ? "rotate-45 translate-y-[3.5px]" : ""}`} />
+            <div className={`w-5 h-px bg-ink mb-1.5 transition-all ${isOpen ? "opacity-0" : ""}`} />
+            <div className={`w-5 h-px bg-ink transition-all ${isOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden transition-all duration-300 overflow-hidden ${
-          isOpen ? "max-h-screen opacity-100 py-4 border-b border-slate-800 bg-slate-950" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="px-4 pt-2 pb-4 space-y-3">
-          <Link
-            to="/#hero"
-            onClick={() => setIsOpen(false)}
-            className="w-full block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800"
-          >
-            {t("nav.home")}
-          </Link>
-          <Link
-            to="/#about"
-            onClick={() => setIsOpen(false)}
-            className="w-full block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800"
-          >
-            {t("nav.vision")}
-          </Link>
-          <Link
-            to="/#services"
-            onClick={() => setIsOpen(false)}
-            className="w-full block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800"
-          >
-            {t("nav.services")}
-          </Link>
-          <Link
-            to="/#portfolio"
-            onClick={() => setIsOpen(false)}
-            className="w-full block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800"
-          >
-            {t("nav.portfolio")}
-          </Link>
-          <Link
-            to="/articles"
-            onClick={() => setIsOpen(false)}
-            className="w-full block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800"
-          >
-            {t("nav.articles")}
-          </Link>
-          <Link
-            to="/consultant"
-            onClick={() => setIsOpen(false)}
-            className="w-full block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800 flex items-center gap-2"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-            </span>
-            {t("nav.consultant")}
-          </Link>
-          <div className="pt-2 px-3">
+      {/* Mobile menu */}
+      {isOpen && (
+        <div className="md:hidden bg-paper border-t border-rule px-6 py-6 space-y-4">
+          {navLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              onClick={() => setIsOpen(false)}
+              className="block font-body text-base text-ink hover:text-accent transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div className="pt-4 border-t border-rule flex items-center gap-4">
+            <button
+              onClick={() => { setLanguage(language === "id" ? "en" : "id"); setIsOpen(false); }}
+              className="font-mono text-xs text-ink-2 hover:text-accent transition-colors uppercase tracking-wider cursor-pointer border-none bg-transparent"
+            >
+              {language === "id" ? "EN" : "ID"}
+            </button>
             <a
               href="https://wa.me/6289508053795"
               target="_blank"
-              rel="noreferrer"
-              className="w-full text-center font-display text-sm font-medium bg-gradient-to-r from-cyan-500 to-indigo-600 text-white px-5 py-3 rounded-xl inline-flex items-center justify-center gap-2 transition-all"
+              rel="noopener noreferrer"
+              className="font-body text-sm px-4 py-2 rounded border border-accent text-accent"
             >
-              {t("nav.cta")}
-              <ArrowUpRight className="w-4 h-4" />
+              {t("nav.contact")}
             </a>
           </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 }

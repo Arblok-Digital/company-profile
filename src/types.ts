@@ -11,10 +11,11 @@ export interface PortfolioItem {
   description: string;
   features: string[];
   badge: string;
-  status: "Production-ready" | "Active Development" | "Featured";
+  status: "Production-ready" | "Active Development" | "Featured" | "Top 100 Global";
   techStack: string[];
   link?: string;
   image?: string;
+  imageLabel?: string;
   certificateUrl?: string;
   credentialId?: string;
 }

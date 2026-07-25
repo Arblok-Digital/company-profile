@@ -12,25 +12,29 @@ import { LanguageProvider } from "./LanguageContext";
 
 function ProfilePage() {
   return (
-    <div className="animate-fade-in">
+    <>
       <Hero />
       <About />
       <Services />
       <Portfolio />
-    </div>
+    </>
   );
 }
 
 function ScrollToAnchor() {
   const { hash } = useLocation();
+  const NAV_HEIGHT = 80; // h-16 sm:h-20 = 80px
 
   useEffect(() => {
     if (hash) {
       const id = hash.substring(1);
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }, 120);
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      });
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -60,16 +64,16 @@ function OldHashRedirect() {
 
 function AppContent() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className="min-h-screen bg-paper text-ink font-body antialiased selection:bg-accent/30 selection:text-accent-ink">
       <OldHashRedirect />
       <ScrollToAnchor />
       <Navbar />
       <main className="transition-all duration-300">
         <Routes>
           <Route path="/" element={<ProfilePage />} />
-          <Route path="/articles" element={<div className="animate-fade-in"><Articles /></div>} />
-          <Route path="/articles/:slug" element={<div className="animate-fade-in"><Articles /></div>} />
-          <Route path="/consultant" element={<div className="animate-fade-in pt-12"><AiConsultant /></div>} />
+          <Route path="/articles" element={<Articles />} />
+          <Route path="/articles/:slug" element={<Articles />} />
+          <Route path="/consultant" element={<div className="pt-12"><AiConsultant /></div>} />
         </Routes>
       </main>
       <Footer />

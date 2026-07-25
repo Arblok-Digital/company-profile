@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ExternalLink, Layers, ArrowUpRight, Award, Flame, CheckCircle, Smartphone } from "lucide-react";
+import { Award, ExternalLink } from "lucide-react";
 import { PortfolioItem } from "../types";
 import { useLanguage } from "../LanguageContext";
 
@@ -7,7 +7,6 @@ export default function Portfolio() {
   const { language } = useLanguage();
   const [activeFilter, setActiveFilter] = useState<string>("Semua");
 
-  // Sync filter state when language changes
   useEffect(() => {
     setActiveFilter(language === "id" ? "Semua" : "All");
   }, [language]);
@@ -17,110 +16,116 @@ export default function Portfolio() {
       id: "sekolah-rapi",
       title: "SekolahRapi",
       category: "Web Application",
-      description: "Platform administrasi & keuangan sekolah paling praktis se-Indonesia. Pendaftaran siswa online tanpa antri, manajemen SPP otomatis, dan laporan keuangan real-time — semua dari HP, bahkan tanpa internet. Offline-ready, multi-sekolah, gratis selamanya. Solusi digitalisasi sekolah yang bikin yayasan dan bendahara bernafas lega.",
+      description: "Platform administrasi & keuangan sekolah paling praktis se-Indonesia. Pendaftaran siswa online tanpa antri, manajemen SPP otomatis, dan laporan keuangan real-time — semua dari HP, bahkan tanpa internet.",
       badge: "Fintech Edukasi",
       status: "Production-ready",
-      techStack: ["Next.js", "PWA", "PostgreSQL", "Offline-first", "Multi-tenant"],
+      techStack: ["Next.js", "PWA", "PostgreSQL", "Offline-first"],
       features: [
-        "Pendaftaran siswa online dengan formulir digital + tracking pembayaran otomatis",
-        "Manajemen SPP otomatis — tunggakan terdeteksi, laporan siap cetak tiap bulan",
-        "Dashboard keuangan real-time untuk owner/yayasan dari mana saja",
-        "Offline-ready — input transaksi tanpa internet, auto-sync pas online"
+        "Pendaftaran siswa online + tracking pembayaran otomatis",
+        "Manajemen SPP — tunggakan terdeteksi, laporan siap cetak",
+        "Dashboard keuangan real-time untuk yayasan",
+        "Offline-ready — input tanpa internet, auto-sync pas online",
       ],
       link: "https://sekolah-rapi.vercel.app/",
-      image: "/portfolio/sekolah-rapi.jpg"
+      image: "/portfolio/sekolah-rapi.jpg",
+      imageLabel: "SekolahRapi dashboard preview",
     },
     {
       id: "sekolah-pro",
       title: "SekolahPro",
       category: "Web Application",
-      description: "Sistem Informasi Akademik & Manajemen Sekolah terpadu untuk efisiensi administrasi, guru, siswa, dan orang tua. Transformasi ekosistem pendidikan ke era digital.",
-      badge: "SaaS EduTech",
+      description: "Platform penerimaan peserta didik baru (PPDB) online modern yang komprehensif. Dari registrasi calon siswa hingga verifikasi berkas kelulusan tanpa ribet manajemen manual.",
+      badge: "EduTech",
       status: "Production-ready",
-      techStack: ["React", "Node.js", "PostgreSQL", "Role-based Auth", "Student Ledger"],
+      techStack: ["Next.js", "Supabase", "PostgreSQL", "RLS"],
       features: [
-        "Portal interaktif guru, siswa, dan wali murid dalam satu sistem",
-        "Manajemen keuangan sekolah, SPP, dan tagihan terintegrasi",
-        "Input nilai rapor kurikulum merdeka & rekap absen otomatis",
-        "Sistem pengumuman massal berbasis WhatsApp/SMS Gateway"
+        "Formulir PPDB online dengan upload dokumen digital",
+        "Pipeline seleksi dan verifikasi berkas otomatis",
+        "Dashboard monitoring pendaftaran untuk panitia",
+        "PostgreSQL Row Level Security proteksi data siswa",
       ],
-      link: "https://sekolah-pro.vercel.app/",
-      image: "/portfolio/sekolah-pro.jpg"
+      link: "#",
+      image: "/portfolio/sekolah-pro.jpg",
+      imageLabel: "SekolahPro dashboard preview",
     },
     {
       id: "solana-warung",
       title: "Solana Warung",
       category: "Web3 & Blockchain",
-      description: "Platform e-commerce Web3 mikro-pembayaran yang mengintegrasikan perdagangan retail tradisional dengan teknologi blockchain. Solusi pembayaran tanpa batas dunia.",
-      badge: "Top 100 Global Google Comp.",
-      status: "Production-ready",
-      techStack: ["React", "Solana Web3.js", "Anchor Protocol", "Tailwind", "Durable Storage"],
+      description: "Platform rewards Web3 untuk UMKM. Pembeli dapat mengonversi koin digital menjadi diskon atau merchandise di warung kelontong favorit mereka — dengan transaksi near-zero gas fee.",
+      badge: "Web3 UMKM",
+      status: "Top 100 Global",
+      techStack: ["Solana", "React", "Anchor", "Web3.js"],
       features: [
-        "Meraih penghargaan Top 100 Global dalam kompetisi inovasi Google (Google Developer Groups)",
-        "Mikro-pembayaran instan dengan biaya gas transaksi mendekati nol",
-        "Verifikasi kepemilikan kupon belanja berbasis token digital",
-        "Pencatatan inventori warung terenkripsi dan transparan"
+        "Transaksi mikro Web3 dengan near-zero gas fee",
+        "Kupon diskon digital on-chain via token",
+        "Riwayat inventaris merchant terenkripsi & terdesentralisasi",
       ],
+      link: "#",
       image: "/portfolio/solana-warung.jpg",
+      imageLabel: "Solana Warung product preview",
       certificateUrl: "https://goo.gle/jvc-cert-verifier",
-      credentialId: "JVC2605-N74Z-Y7DN"
+      credentialId: "JVC2605-N74Z-Y7DN",
     },
     {
       id: "e-warga",
       title: "E-Warga",
       category: "Web Application",
-      description: "Platform digitalisasi pengurusan surat pengantar desa/kelurahan otomatis dari tingkat RT, RW, Kecamatan, hingga Disdukcapil. Arsitektur modular handal siap kustomisasi birokrasi skala nasional.",
-      badge: "Inovasi Birokrasi",
+      description: "Sistem digitalisasi birokrasi kelurahan. Manajemen data penduduk, pengajuan surat RT/RW, dan notifikasi WhatsApp tanpa biaya API. Offline-ready untuk daerah dengan koneksi terbatas.",
+      badge: "GovTech",
       status: "Production-ready",
-      techStack: ["React PWA", "NPM Workspaces", "Supabase", "Workflow Pipeline", "RLS Security"],
+      techStack: ["React", "Supabase", "PWA", "Offline-first"],
       features: [
-        "Sistem monorepo terukur memisahkan core-logic & UI",
-        "Workflow pipeline terpusat untuk transisi persetujuan RT/RW",
-        "Kompresi berkas KTP & KK otomatis di frontend (<150KB)",
-        "Notifikasi WhatsApp click-to-chat gratis tanpa biaya API"
+        "Data penduduk terpusat dengan RLS per RW/RT",
+        "Pengajuan surat online dengan pipeline persetujuan",
+        "Notifikasi WhatsApp gratis tanpa API gateway",
+        "Dashboard statistik kependudukan real-time",
       ],
-      link: "https://ewarga-tau.vercel.app/",
-      image: "/portfolio/e-warga.jpg"
+      link: "#",
+      image: "/portfolio/e-warga.jpg",
+      imageLabel: "E-Warga admin panel preview",
     },
     {
       id: "kasirpro-grosir",
       title: "KasirPro Grosiran",
       category: "Web Application",
       description: "Sistem Manajemen Kasir & Inventori skala grosir/gudang untuk optimasi transaksi rantai pasok dan volume tinggi. Solusi enterprise untuk efisiensi distribusi barang.",
-      badge: "SaaS Grosir & Supply Chain",
+      badge: "SaaS Grosir",
       status: "Production-ready",
-      techStack: ["React", "Express", "PostgreSQL", "Real-time Sync", "Analytics Dashboard"],
+      techStack: ["React", "Express", "PostgreSQL", "Real-time Sync", "Analytics"],
       features: [
         "Transaksi grosir & eceran super cepat teruji beban tinggi",
         "Manajemen multi-gudang dan sinkronisasi stok otomatis",
         "Skema harga grosir bertingkat berdasarkan kuantitas beli",
-        "Laporan neraca laba-rugi & performa sales secara instan"
+        "Laporan neraca laba-rugi & performa sales secara instan",
       ],
       link: "https://kasirproid-app-grosiran.vercel.app/",
-      image: "/portfolio/kasirpro-grosir.jpg"
+      image: "/portfolio/kasirpro-grosir.jpg",
+      imageLabel: "KasirPro Grosiran dashboard preview",
     },
     {
       id: "kasirpro",
       title: "KasirPro F&B",
       category: "Web Application",
-      description: "Sistem Point of Sale (POS) modern berbasis cloud yang dirancang khusus untuk akselerasi operasional bisnis kuliner dan UMKM. Integrasi menu digital dan cetak struk instan.",
-      badge: "SaaS F&B & Retail",
+      description: "Sistem Point of Sale (POS) modern berbasis cloud untuk akselerasi operasional bisnis kuliner dan UMKM. Integrasi menu digital dan cetak struk instan.",
+      badge: "SaaS F&B",
       status: "Production-ready",
       techStack: ["React", "Express", "PostgreSQL", "Recharts Analytics", "Offline-first"],
       features: [
         "Pencatatan kasir instan dengan performa tinggi",
         "Laporan analitik penjualan harian & bulanan",
         "Manajemen inventori bahan baku real-time",
-        "Struktur cetak struk pembelanjaan digital ramah mobile"
+        "Cetak struk digital ramah mobile",
       ],
       link: "https://kasirpro-fnb-app.vercel.app/",
-      image: "/portfolio/kasirpro.jpg"
+      image: "/portfolio/kasirpro.jpg",
+      imageLabel: "KasirPro F&B dashboard preview",
     },
     {
       id: "onyx",
       title: "Onyx Terminal",
       category: "AI & Automation",
-      description: "Platform intelijen pasar kripto berbasis kecerdasan buatan (AI) untuk membantu trader menganalisis sentimen pasar, pergerakan on-chain, dan sinyal trading presisi.",
+      description: "Platform intelijen pasar kripto berbasis AI untuk membantu trader menganalisis sentimen pasar, pergerakan on-chain, dan sinyal trading presisi.",
       badge: "Crypto Intelligence",
       status: "Production-ready",
       techStack: ["React", "Gemini AI", "Tailwind CSS", "Market WebSockets", "D3 Charts"],
@@ -128,237 +133,214 @@ export default function Portfolio() {
         "Deteksi pola grafik & tren harga bertenaga AI",
         "Analisis sentimen sosial media real-time",
         "Dashboard modular yang dapat disesuaikan",
-        "Sistem alarm anomali volume perdagangan pasar"
+        "Sistem alarm anomali volume perdagangan pasar",
       ],
       link: "https://onyx-terminal-v1.vercel.app/",
-      image: "/portfolio/onyx.jpg"
+      image: "/portfolio/onyx.jpg",
+      imageLabel: "Onyx Terminal dashboard preview",
     },
     {
       id: "coordination",
       title: "CoordinationApp",
       category: "Web Application",
-      description: "Sistem koordinasi tugas berstruktur hierarki untuk mengorganisir tim berskala besar, relawan kampanye, atau organizations kepemudaan dengan pelaporan berbasis bukti foto.",
+      description: "Sistem koordinasi tugas berstruktur hierarki untuk organisasi, relawan kampanye, atau tim besar dengan pelaporan berbasis bukti foto.",
       badge: "Manajemen Tim",
       status: "Featured",
-      techStack: ["React", "Supabase Backend", "Hierarchical Auth", "Interactive Flowchart"],
+      techStack: ["React", "Supabase", "Hierarchical Auth", "Flowchart"],
       features: [
-        "Struktur pembagian tugas bertingkat sesuai jabatan organisasi",
-        "Pelaporan progres tugas terlampir foto koordinasi lapangan",
-        "Sistem validasi laporan otomatis oleh pengawas di atasnya",
-        "Log aktivitas terenkripsi untuk keamanan informasi internal"
+        "Pembagian tugas bertingkat sesuai jabatan organisasi",
+        "Pelaporan progres dengan foto koordinasi lapangan",
+        "Validasi laporan otomatis oleh pengawas",
+        "Log aktivitas terenkripsi untuk keamanan informasi",
       ],
-      image: "/portfolio/coordination.jpg"
+      image: "/portfolio/coordination.jpg",
+      imageLabel: "CoordinationApp screenshot",
     },
     {
       id: "sanajan-qr-order",
-      title: "Sanajan QR Order & Loyalty",
+      title: "Sanajan QR Order",
       category: "Web Application",
-      description: "Platform pesan mandiri QR Table-Order & loyalty untuk warkop dan café. Pelanggan scan QR meja, pesan & kustomisasi lewat HP, bayar QRIS instan. Barista terima order di dashboard real-time. Zero-cost server — semua jalan di Supabase free tier.",
+      description: "Platform QR Table-Order & loyalty untuk warkop dan café. Scan QR meja, pesan via HP, bayar QRIS. Barista lihat order real-time tanpa biaya server.",
       badge: "F&B Digitalisasi",
       status: "Production-ready",
-      techStack: ["React 19", "Vite 6", "Framer Motion", "Supabase", "QRIS Payment", "WhatsApp wa.me"],
+      techStack: ["React 19", "Vite 6", "Supabase", "QRIS Payment", "Offline"],
       features: [
-        "Scan QR meja → langsung buka menu digital tanpa install app",
-        "Kustomisasi kopi interaktif (size, milk, extra shot, request)",
-        "Pembayaran QRIS instan — otomatis kurir pesanan ke dapur",
-        "Loyalty stamp digital — gratis 7 stamp untuk setiap pelanggan baru",
-        "Admin dashboard: manajemen menu real-time + antrean order",
-        "Notifikasi WhatsApp click-to-chat tanpa biaya API gateway"
+        "Scan QR meja → menu digital tanpa install app",
+        "Kustomisasi kopi interaktif (size, milk, extra shot)",
+        "Pembayaran QRIS instan — order ke dapur otomatis",
+        "Loyalty stamp digital — gratis untuk pelanggan baru",
+        "Admin dashboard real-time + antrean order",
+        "Notifikasi WhatsApp tanpa biaya API gateway",
       ],
       link: "/portfolio/sanajan-qr-order.html",
-      image: "/portfolio/sanajan-qr-order.png"
+      image: "/portfolio/sanajan-qr-order.png",
+      imageLabel: "Sanajan QR dashboard preview",
     },
   ] : [
     {
       id: "sekolah-rapi",
       title: "SekolahRapi",
       category: "Web Application",
-      description: "The most practical school administration & financial platform in Indonesia. Online student registration with zero queuing, automated SPP tracking, and real-time financial reports — all from your phone, even offline. Offline-ready, multi-school, and free forever. The digital transformation solution that makes school foundations and treasurers breathe easy.",
+      description: "The most practical school admin & finance platform in Indonesia. Online enrollment, automated SPP tracking, and real-time reports — all from your phone, even offline.",
       badge: "EduTech Fintech",
       status: "Production-ready",
-      techStack: ["Next.js", "PWA", "PostgreSQL", "Offline-first", "Multi-tenant"],
+      techStack: ["Next.js", "PWA", "PostgreSQL", "Offline-first"],
       features: [
-        "Online student registration with digital forms + automated payment tracking",
-        "Automated SPP management — overdue detection, monthly reports ready to print",
-        "Real-time financial dashboard for owners/foundations from anywhere",
-        "Offline-ready — input transactions without internet, auto-sync when online"
+        "Online registration + automated payment tracking",
+        "Automated SPP with overdue detection & monthly reports",
+        "Real-time financial dashboard for foundations",
+        "Offline-ready — input transactions without internet",
       ],
       link: "https://sekolah-rapi.vercel.app/",
-      image: "/portfolio/sekolah-rapi.jpg"
+      image: "/portfolio/sekolah-rapi.jpg",
+      imageLabel: "SekolahRapi dashboard preview",
     },
     {
       id: "sekolah-pro",
       title: "SekolahPro",
       category: "Web Application",
-      description: "Integrated school information and academic portal streamlining workflows for administration, teachers, students, and parents.",
-      badge: "EduTech SaaS",
+      description: "Modern online student admission platform (PPDB). From registration to document verification — no more manual administrative hassle.",
+      badge: "EduTech",
       status: "Production-ready",
-      techStack: ["React", "Node.js", "PostgreSQL", "Role-based Auth", "Student Ledger"],
+      techStack: ["Next.js", "Supabase", "PostgreSQL", "RLS"],
       features: [
-        "Interactive unified portals for teachers, students, and parents",
-        "Integrated school tuition and student balance ledgers",
-        "Automated report card compiling & digital class attendance trackers",
-        "Bulk announcement channel with pre-built WhatsApp/SMS gate integrations"
+        "Online PPDB form with digital document upload",
+        "Automated selection & verification pipeline",
+        "Registration monitoring dashboard for committee",
+        "PostgreSQL Row Level Security for student data",
       ],
-      link: "https://sekolah-pro.vercel.app/",
-      image: "/portfolio/sekolah-pro.jpg"
+      link: "#",
+      image: "/portfolio/sekolah-pro.jpg",
+      imageLabel: "SekolahPro dashboard preview",
     },
     {
       id: "solana-warung",
       title: "Solana Warung",
       category: "Web3 & Blockchain",
-      description: "Web3 retail e-commerce platform integrating traditional brick-and-mortar stores with blockchain micro-payments. Borderless, friction-free checkout.",
-      badge: "Top 100 Global - Google Comp.",
-      status: "Production-ready",
-      techStack: ["React", "Solana Web3.js", "Anchor Protocol", "Tailwind", "Durable Storage"],
+      description: "Web3 rewards platform for small businesses. Buyers convert digital coins into discounts or merchandise at local warungs — with near-zero gas fees.",
+      badge: "Web3 UMKM",
+      status: "Top 100 Global",
+      techStack: ["Solana", "React", "Anchor", "Web3.js"],
       features: [
-        "Awarded Top 100 Global in Google's worldwide developer competition (Google Developer Groups)",
-        "Instant Web3 micro-transactions with near-zero gas fees",
-        "Digital discount coupon ownership verified on-chain via tokens",
-        "Encrypted, fully decentralized merchant inventory registers"
+        "Web3 micro-transactions with near-zero gas fees",
+        "On-chain digital discount coupons via tokens",
+        "Encrypted, decentralized merchant inventory",
       ],
+      link: "#",
       image: "/portfolio/solana-warung.jpg",
+      imageLabel: "Solana Warung product preview",
       certificateUrl: "https://goo.gle/jvc-cert-verifier",
-      credentialId: "JVC2605-N74Z-Y7DN"
+      credentialId: "JVC2605-N74Z-Y7DN",
     },
     {
       id: "e-warga",
       title: "E-Warga",
       category: "Web Application",
-      description: "Village-level automatic certificate processing platform from RT, RW, District, to Civil Registry. Resilient modular architecture prepared for national scale governance.",
-      badge: "GovTech Innovation",
+      description: "Digital village bureaucracy management. Citizen data management, RT/RW letter applications, and WhatsApp notifications at zero API cost. Offline-ready for limited connectivity areas.",
+      badge: "GovTech",
       status: "Production-ready",
-      techStack: ["React PWA", "NPM Workspaces", "Supabase", "Workflow Pipeline", "RLS Security"],
+      techStack: ["React", "Supabase", "PWA", "Offline-first"],
       features: [
-        "Scalable monorepo separating core business logic from client UI",
-        "Centralized state-machine/pipeline for RT/RW approval handshakes",
-        "Automatic front-end file compression for KTP/KK (<150KB)",
-        "Free, automated WhatsApp click-to-chat triggers (no API fees)"
+        "Centralized citizen data with per-RW/RT RLS",
+        "Online letter applications with approval pipeline",
+        "Free WhatsApp notifications — no API gateway",
+        "Real-time demographic statistics dashboard",
       ],
-      link: "https://ewarga-tau.vercel.app/",
-      image: "/portfolio/e-warga.jpg"
+      link: "#",
+      image: "/portfolio/e-warga.jpg",
+      imageLabel: "E-Warga admin panel preview",
     },
     {
       id: "kasirpro-grosir",
       title: "KasirPro Wholesale",
       category: "Web Application",
-      description: "Wholesale POS & inventory management engine optimized for supply chains and high-volume transactions. Enterprise solution for massive stock distribution.",
-      badge: "Wholesale & Supply Chain SaaS",
+      description: "Wholesale POS & inventory management engine for supply chains and high-volume transactions. Enterprise solution for massive stock distribution.",
+      badge: "Wholesale SaaS",
       status: "Production-ready",
-      techStack: ["React", "Express", "PostgreSQL", "Real-time Sync", "Analytics Dashboard"],
+      techStack: ["React", "Express", "PostgreSQL", "Real-time Sync", "Analytics"],
       features: [
-        "Ultra-fast wholesale/retail register built for heavy ledger loads",
-        "Multi-warehouse management & real-time automated stock synchronization",
-        "Tiered pricing system adjusting automatically by wholesale volume",
-        "Instant profit/loss statements & automated sales performance charts"
+        "Ultra-fast wholesale register built for heavy loads",
+        "Multi-warehouse management & real-time stock sync",
+        "Tiered pricing by wholesale volume",
+        "Instant profit/loss statements & sales charts",
       ],
       link: "https://kasirproid-app-grosiran.vercel.app/",
-      image: "/portfolio/kasirpro-grosir.jpg"
+      image: "/portfolio/kasirpro-grosir.jpg",
+      imageLabel: "KasirPro Wholesale dashboard",
     },
     {
       id: "kasirpro",
       title: "KasirPro F&B",
       category: "Web Application",
-      description: "Modern cloud-native F&B point of sale system designed to accelerate restaurant and retail workflows. Built-in digital menus and mobile thermal receipt layouts.",
-      badge: "F&B & Retail SaaS",
+      description: "Modern cloud-native F&B point of sale system for restaurants and retail. Built-in digital menus and mobile-ready receipt layouts.",
+      badge: "F&B SaaS",
       status: "Production-ready",
-      techStack: ["React", "Express", "PostgreSQL", "Recharts Analytics", "Offline-first"],
+      techStack: ["React", "Express", "PostgreSQL", "Analytics", "Offline-first"],
       features: [
-        "High-performance instant cash registering with native speed",
-        "Intuitive daily/monthly sales metrics and analytical dashboards",
-        "Real-time raw ingredient and stock level controls",
-        "Fully responsive mobile-friendly layout with offline PWA modes"
+        "High-performance instant cash registering",
+        "Daily/monthly sales metrics & analytics dashboard",
+        "Real-time ingredient & stock level controls",
+        "Mobile-responsive with offline PWA modes",
       ],
       link: "https://kasirpro-fnb-app.vercel.app/",
-      image: "/portfolio/kasirpro.jpg"
+      image: "/portfolio/kasirpro.jpg",
+      imageLabel: "KasirPro F&B dashboard",
     },
     {
       id: "onyx",
       title: "Onyx Terminal",
       category: "AI & Automation",
-      description: "AI-driven crypto market terminal helping traders capture market sentiment, track on-chain movements, and process precision trading signals.",
+      description: "AI-driven crypto market terminal for market sentiment, on-chain movements, and precision trading signals.",
       badge: "Crypto Intelligence",
       status: "Production-ready",
-      techStack: ["React", "Gemini AI", "Tailwind CSS", "Market WebSockets", "D3 Charts"],
+      techStack: ["React", "Gemini AI", "Tailwind CSS", "WebSockets", "D3 Charts"],
       features: [
-        "AI pattern detection identifying trading charts and price trends",
+        "AI pattern detection for charts & price trends",
         "Real-time social media sentiment parsing",
-        "Fully modular layout allowing customizable trading blocks",
-        "Anomalous market volume alerts and whale wallet tracker"
+        "Fully modular customizable dashboard",
+        "Anomalous volume alerts & whale tracker",
       ],
       link: "https://onyx-terminal-v1.vercel.app/",
-      image: "/portfolio/onyx.jpg"
-    },
-    {
-      id: "solana-warung",
-      title: "Solana Warung",
-      category: "Web3 & Blockchain",
-      description: "Web3 retail e-commerce platform integrating traditional brick-and-mortar stores with blockchain micro-payments. Borderless, friction-free checkout.",
-      badge: "Top 100 Global - Google Comp.",
-      status: "Production-ready",
-      techStack: ["React", "Solana Web3.js", "Anchor Protocol", "Tailwind", "Durable Storage"],
-      features: [
-        "Awarded Top 100 Global in Google's worldwide developer competition (Google Developer Groups)",
-        "Instant Web3 micro-transactions with near-zero gas fees",
-        "Digital discount coupon ownership verified on-chain via tokens",
-        "Encrypted, fully decentralized merchant inventory registers"
-      ],
-      image: "/portfolio/solana-warung.jpg",
-      certificateUrl: "https://goo.gle/jvc-cert-verifier",
-      credentialId: "JVC2605-N74Z-Y7DN"
+      image: "/portfolio/onyx.jpg",
+      imageLabel: "Onyx Terminal dashboard",
     },
     {
       id: "coordination",
       title: "CoordinationApp",
       category: "Web Application",
-      description: "Hierarchical task coordination tool designed for large field organizations, campaign volunteers, or youth communities with proof-of-work photo uploads.",
+      description: "Hierarchical task coordination tool for large field organizations, campaign volunteers, or youth communities with photo-based work proofs.",
       badge: "Team Management",
       status: "Featured",
-      techStack: ["React", "Supabase Backend", "Hierarchical Auth", "Interactive Flowchart"],
+      techStack: ["React", "Supabase", "Hierarchical Auth", "Flowchart"],
       features: [
-        "Bespoke task division matched to structural ranks",
-        "Progress validation using location-tracked photo attachments",
-        "Hierarchical review dashboard for high-level managers",
-        "Encrypted security logs protecting internal campaign briefs"
+        "Bespoke task division by structural rank",
+        "Progress validation with location-tracked photos",
+        "Hierarchical review dashboard for managers",
+        "Encrypted security logs for internal briefs",
       ],
-      image: "/portfolio/coordination.jpg"
+      image: "/portfolio/coordination.jpg",
+      imageLabel: "CoordinationApp screenshot",
     },
     {
       id: "sanajan-qr-order",
-      title: "Sanajan QR Order & Loyalty",
+      title: "Sanajan QR Order",
       category: "Web Application",
-      description: "Self-service QR Table-Order & loyalty platform for modern cafes. Customers scan table QR, order & customize via their phone, pay QRIS instantly. Barista receives orders on a real-time dashboard. Zero-cost server — fully powered by Supabase free tier.",
+      description: "Self-service QR Table-Order & loyalty for cafes. Scan table QR, order via phone, pay QRIS instantly. Barista gets real-time orders — zero server cost.",
       badge: "F&B Digitalization",
       status: "Production-ready",
-      techStack: ["React 19", "Vite 6", "Framer Motion", "Supabase", "QRIS Payment", "WhatsApp wa.me"],
+      techStack: ["React 19", "Vite 6", "Supabase", "QRIS Payment", "Offline"],
       features: [
-        "Scan table QR → digital menu instantly, no app install required",
-        "Interactive coffee customization (size, milk, extra shot, special requests)",
-        "Instant QRIS payment — order auto-routes to kitchen dashboard",
-        "Digital loyalty stamps — 7 free stamps for every new customer",
-        "Admin dashboard: real-time menu management + order queue",
-        "WhatsApp click-to-chat notifications with zero API gateway costs"
+        "Scan table QR → digital menu, no app install",
+        "Interactive coffee customization (size, milk, extras)",
+        "Instant QRIS payment → auto-routes to kitchen",
+        "Digital loyalty stamps for new customers",
+        "Admin dashboard: real-time menu + order queue",
+        "WhatsApp notifications with zero API costs",
       ],
       link: "/portfolio/sanajan-qr-order.html",
-      image: "/portfolio/sanajan-qr-order.png"
+      image: "/portfolio/sanajan-qr-order.png",
+      imageLabel: "Sanajan QR dashboard",
     },
-    {
-      id: "sekolah-rapi",
-      title: "SekolahRapi",
-      category: "Web Application",
-      description: "The most practical school administration & financial platform in Indonesia. Online student registration with zero queuing, automated SPP tracking, and real-time financial reports — all from your phone, even offline. Offline-ready, multi-school, and free forever. The digital transformation solution that makes school foundations and treasurers breathe easy.",
-      badge: "EduTech Fintech",
-      status: "Production-ready",
-      techStack: ["Next.js", "PWA", "PostgreSQL", "Offline-first", "Multi-tenant"],
-      features: [
-        "Online student registration with digital forms + automated payment tracking",
-        "Automated SPP management — overdue detection, monthly reports ready to print",
-        "Real-time financial dashboard for owners/foundations from anywhere",
-        "Offline-ready — input transactions without internet, auto-sync when online"
-      ],
-      link: "https://sekolah-rapi.vercel.app/",
-      image: "/portfolio/sekolah-rapi.jpg"
-    }
   ];
 
   const filters = language === "id"
@@ -370,35 +352,32 @@ export default function Portfolio() {
     : portfolioItems.filter(item => item.category === activeFilter);
 
   return (
-    <section id="portfolio" className="py-24 bg-slate-900 text-white border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
-          <div className="space-y-4 max-w-2xl">
-            <span className="font-mono text-xs text-cyan-400 tracking-widest uppercase font-semibold">
-              {language === "id" ? "Karya Kami" : "Our Work"}
-            </span>
-            <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight">
-              {language === "id" ? "Portofolio Produk Pilihan" : "Featured Products Portfolio"}
-            </h2>
-            <p className="font-sans text-slate-400 text-sm sm:text-base">
-              {language === "id"
-                ? "Menampilkan platform digital mandiri dan sistem bertenaga kecerdasan buatan (AI) yang kami kembangkan dengan ketelitian tinggi untuk memecahkan tantangan nyata."
-                : "Showcasing bespoke digital platforms and AI-driven systems engineered with meticulous precision to solve real-world problems."}
-            </p>
-          </div>
+    <section id="portfolio" className="py-20 sm:py-28 bg-paper border-t border-rule">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+        {/* Section head */}
+        <div className="max-w-2xl mb-16">
+          <span className="font-mono text-xs text-ink-2 uppercase tracking-[0.15em]">
+            {language === "id" ? "Karya Kami" : "Our Work"}
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-ink leading-[1.1] mt-3 tracking-tight">
+            {language === "id" ? "Portofolio Produk" : "Featured Products"}
+          </h2>
+          <p className="font-body text-base text-ink-2 mt-4 leading-relaxed">
+            {language === "id"
+              ? "Platform dan sistem yang kami kembangkan untuk memecahkan masalah nyata."
+              : "Platforms and systems we've built to solve real-world problems."}
+          </p>
 
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap gap-2">
+          {/* Filters */}
+          <div className="flex flex-wrap gap-2 mt-6">
             {filters.map((filter) => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer border bg-transparent ${
+                className={`font-body text-xs px-3 py-1.5 rounded transition-colors cursor-pointer border ${
                   activeFilter === filter
-                    ? "bg-cyan-500 text-slate-950 border-cyan-500 font-bold shadow-md shadow-cyan-500/20"
-                    : "bg-slate-950 text-slate-400 hover:text-white border-slate-800/80"
+                    ? "bg-accent text-accent-ink border-accent"
+                    : "bg-transparent text-ink-2 border-rule hover:border-ink-2"
                 }`}
               >
                 {filter}
@@ -407,145 +386,102 @@ export default function Portfolio() {
           </div>
         </div>
 
-        {/* Portfolio Bento/Card Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Portfolio grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
           {filteredItems.map((item) => (
-            <div
-              key={item.id}
-              className="group relative rounded-2xl bg-slate-950 p-6 sm:p-8 border border-slate-800 hover:border-slate-700/80 transition-all duration-300 flex flex-col justify-between"
-            >
-              <div className="space-y-6">
-                
-                {/* Image Preview Mockup */}
-                {item.image && (
-                  <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-900 border border-slate-800/80 group-hover:border-cyan-500/30 transition-all duration-300 shadow-inner">
-                    <img
-                      src={item.image}
-                      alt={`${item.title} Screenshot Mockup`}
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent opacity-60 pointer-events-none" />
-                  </div>
-                )}
+            <div key={item.id} className="border border-rule rounded-sm overflow-hidden bg-paper">
+              {/* Image */}
+              {item.image && (
+                <div className="aspect-video w-full overflow-hidden bg-paper-2 border-b border-rule">
+                  <img
+                    src={item.image}
+                    alt={item.imageLabel || `${item.title} preview`}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                  />
+                </div>
+              )}
 
-                {/* Header info */}
-                <div className="flex justify-between items-start">
-                  <span className="font-mono text-[10px] sm:text-xs text-cyan-400 font-bold tracking-widest uppercase border border-cyan-400/20 bg-cyan-400/5 px-2.5 py-1 rounded">
+              <div className="p-6 sm:p-8">
+                {/* Badge + Status */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-mono text-[10px] text-accent uppercase tracking-[0.1em]">
                     {item.badge}
                   </span>
-                  
-                  <div className="flex items-center gap-1.5 font-mono text-[10px] text-slate-400">
-                    <CheckCircle className={`w-3.5 h-3.5 ${item.status === "Production-ready" ? "text-emerald-400" : "text-amber-400"}`} />
-                    <span>{item.status}</span>
-                  </div>
+                  <span className="font-mono text-[10px] text-ink-2 uppercase tracking-[0.05em]">
+                    {item.status}
+                  </span>
                 </div>
 
-                {/* Title & Description */}
-                <div className="space-y-2">
-                  <h3 className="font-display font-extrabold text-xl sm:text-2xl text-white flex items-center gap-2">
-                    {item.title}
-                    {item.id === "solana-warung" && (
-                      <span className="inline-flex items-center gap-1 text-[10px] bg-amber-500/10 border border-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full font-sans font-medium">
-                        <Flame className="w-3 h-3 text-amber-500" /> Top 100 Global
-                      </span>
-                    )}
-                  </h3>
-                  <p className="font-sans text-slate-300 text-xs sm:text-sm leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
+                {/* Title */}
+                <h3 className="font-display text-xl text-ink mb-3">{item.title}</h3>
+                <p className="font-body text-sm text-ink-2 leading-relaxed mb-4">
+                  {item.description}
+                </p>
 
-                {/* Key Features Bullet points */}
-                <div className="space-y-2">
-                  <h4 className="font-display font-semibold text-xs text-slate-400 uppercase tracking-wider">
-                    {language === "id" ? "Fitur & Keunggulan Utama:" : "Key Features & Advantages:"}
-                  </h4>
-                  <ul className="space-y-2">
-                    {item.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
-                        <span className="mt-1.5 w-1.5 h-1.5 bg-indigo-500 rounded-full shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {/* Features */}
+                <ul className="space-y-1.5 mb-5">
+                  {item.features.map((feat, i) => (
+                    <li key={i} className="font-body text-sm text-ink-2 flex items-start gap-2">
+                      <span className="mt-[5px] w-1 h-1 rounded-full bg-accent shrink-0" />
+                      {feat}
+                    </li>
+                  ))}
+                </ul>
 
-                {/* Google Developer Groups Certificate Verification Block */}
+                {/* Certificate block — only for Solana Warung */}
                 {item.certificateUrl && item.credentialId && (
-                  <div className="mt-4 p-4 rounded-xl bg-slate-900 border border-slate-800/80 flex flex-col gap-3">
-                    <div className="flex items-center gap-2.5">
-                      <Award className="w-5 h-5 text-amber-400 shrink-0 animate-pulse" />
-                      <div>
-                        <p className="font-display font-bold text-xs text-white">
-                          {language === "id" ? "Sertifikat Google Developer Groups" : "Google Developer Groups Certificate"}
-                        </p>
-                        <p className="font-sans text-[10px] text-slate-400">
-                          {language === "id" ? "Peringkat TOP 100 #JuaraVibeCoding" : "TOP 100 #JuaraVibeCoding Rank"}
-                        </p>
-                      </div>
+                  <div className="mb-5 p-3 border border-rule rounded-sm bg-paper-2">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Award className="w-4 h-4 text-accent shrink-0" />
+                      <span className="font-body text-xs text-ink font-medium">
+                        {language === "id" ? "Sertifikat" : "Certificate"}
+                      </span>
                     </div>
-                    <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-800/60 pt-2.5">
-                      <div className="font-mono text-[10px] text-slate-500">
-                        ID: <span className="text-slate-400">{item.credentialId}</span>
-                      </div>
-                      <a
-                        href={item.certificateUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="font-mono text-[10px] font-bold text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1 cursor-pointer transition-colors"
-                      >
-                        {language === "id" ? "Verifikasi Sertifikat" : "Verify Certificate"}
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
+                    <div className="font-mono text-[10px] text-ink-2">
+                      ID: {item.credentialId}
                     </div>
+                    <a
+                      href={item.certificateUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-body text-xs text-accent hover:underline inline-flex items-center gap-1 mt-1"
+                    >
+                      {language === "id" ? "Verifikasi" : "Verify"}
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
                   </div>
                 )}
 
-              </div>
-
-              {/* Tech Stack Badge List */}
-              <div className="mt-8 pt-6 border-t border-slate-900 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-                <div className="flex flex-wrap gap-1.5 max-w-full sm:max-w-[65%]">
-                  {item.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="font-mono text-[10px] bg-slate-900 text-slate-400 px-2 py-1 rounded border border-slate-800/80"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Actions */}
-                <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
-                  {item.link && (
+                {/* Tech stack + Actions */}
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-rule">
+                  <div className="flex flex-wrap gap-1.5">
+                    {item.techStack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="font-mono text-[10px] text-ink-2 bg-paper-2 px-2 py-0.5 rounded-sm border border-rule"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  {item.link && item.link !== "#" && (
                     <a
                       href={item.link}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-3 py-1.5 bg-cyan-500/10 hover:bg-cyan-500 text-cyan-400 hover:text-slate-950 rounded-lg text-xs font-semibold tracking-wider uppercase transition-all duration-200 inline-flex items-center gap-1 cursor-pointer border border-cyan-500/20 hover:border-cyan-500"
+                      className="font-body text-xs text-ink-2 hover:text-accent transition-colors inline-flex items-center gap-1"
                     >
-                      <span>{language === "id" ? "Kunjungi" : "Visit"}</span>
+                      {language === "id" ? "Kunjungi" : "Visit"}
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   )}
-                  <a
-                    href={`https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20tertarik%20dengan%20proyek%20${encodeURIComponent(item.title)}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-1.5 bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 rounded-lg text-slate-400 transition-colors inline-flex items-center justify-center cursor-pointer border border-slate-800"
-                    title={language === "id" ? "Konsultasikan produk sejenis" : "Discuss a similar product"}
-                  >
-                    <ArrowUpRight className="w-4 h-4" />
-                  </a>
                 </div>
               </div>
-
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
