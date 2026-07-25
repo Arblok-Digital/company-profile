@@ -1,15 +1,12 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-// Helper untuk memanggil OpenRouter API
-async function callOpenRouter(messages: any[], systemInstruction: string) {
+// ─── OpenRouter streaming ──────────────────────────────────────
+async function streamOpenRouter(messages: any[], systemInstruction: string, res: VercelResponse) {
   const apiKey = process.env.OPENROUTER_API_KEY || process.env.NVIDIA_API_KEY;
-  if (!apiKey) {
-    throw new Error("API Key untuk OpenRouter belum dikonfigurasi di server.");
-  }
+  if (!apiKey) throw new Error("API Key untuk OpenRouter belum dikonfigurasi.");
 
   const models = [
     "nvidia/nemotron-3-ultra-550b-a55b:free",
@@ -21,70 +18,76 @@ async function callOpenRouter(messages: any[], systemInstruction: string) {
     "openrouter/auto"
   ];
 
-  let lastError = null;
   for (const model of models) {
     try {
-      console.log(`[Arblok AI Vercel] Mencoba OpenRouter menggunakan model: ${model}`);
+      console.log(`[Vercel/OR] Streaming ${model}...`);
       const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${apiKey}`,
-          "HTTP-Referer": "https://ai.studio/build",
-          "X-Title": "E-Warga AI"
+          "HTTP-Referer": "https://arblok-digital.vercel.app",
+          "X-Title": "Arblok AI Consultant"
         },
         body: JSON.stringify({
-          model: model,
+          model,
+          stream: true,
           messages: [
             { role: "system", content: systemInstruction },
-            ...messages.map((msg: any) => ({
-              role: msg.role === "assistant" ? "assistant" : "user",
-              content: msg.content
-            }))
+            ...messages.map((m: any) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }))
           ],
           temperature: 0.7,
-          max_tokens: 1024
+          max_tokens: 2048
         })
       });
 
-      if (!response.ok) {
-        const errText = await response.text();
-        throw new Error(`OpenRouter HTTP error! status: ${response.status}, rincian: ${errText}`);
-      }
+      if (!response.ok) continue;
 
-      const data = await response.json();
-      if (data.choices && data.choices[0] && data.choices[0].message) {
-        console.log(`[Arblok AI Vercel] Berhasil menggunakan model OpenRouter: ${model}`);
-        return {
-          text: data.choices[0].message.content,
-          modelUsed: model,
-          provider: "openrouter"
-        };
+      const reader = response.body!.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed || !trimmed.startsWith("data: ")) continue;
+          const payload = trimmed.slice(6);
+          if (payload === "[DONE]") continue;
+          try {
+            const json = JSON.parse(payload);
+            const token = json.choices?.[0]?.delta?.content;
+            if (token) {
+              res.write(`data: ${JSON.stringify({ token })}\n\n`);
+            }
+          } catch { /* skip */ }
+        }
       }
-      throw new Error("Format respons dari OpenRouter tidak valid.");
+      console.log(`[Vercel/OR] ${model} selesai`);
+      return;
     } catch (err: any) {
-      console.warn(`[Arblok AI Vercel] Gagal menggunakan OpenRouter model ${model}: ${err.message || err}`);
-      lastError = err;
+      console.warn(`[Vercel/OR] ${model} error: ${err.message}`);
     }
   }
-
-  throw lastError || new Error("Gagal memanggil model OpenRouter.");
+  throw new Error("Semua model OpenRouter gagal.");
 }
 
-// Helper untuk memanggil NVIDIA NIM API
-async function callNvidiaNim(messages: any[], systemInstruction: string) {
+// ─── NVIDIA NIM streaming ─────────────────────────────────────
+async function streamNvidia(messages: any[], systemInstruction: string, res: VercelResponse) {
   const apiKey = process.env.NVIDIA_API_KEY;
-  if (!apiKey) {
-    throw new Error("NVIDIA_API_KEY belum dikonfigurasi di server.");
-  }
+  if (!apiKey) throw new Error("NVIDIA_API_KEY belum dikonfigurasi.");
 
-  // Auto-route ke OpenRouter jika API Key berformat OpenRouter
   if (apiKey.startsWith("sk-or-") || process.env.OPENROUTER_API_KEY) {
-    console.log("[Arblok AI Vercel] Mendeteksi API Key OpenRouter, mengalihkan panggilan ke OpenRouter...");
-    return callOpenRouter(messages, systemInstruction);
+    console.log("[Vercel/NVIDIA] Deteksi OpenRouter key, redirect...");
+    return streamOpenRouter(messages, systemInstruction, res);
   }
 
-  // Model resmi terdaftar di NVIDIA NIM (mendukung free tier/versi spesifik sesuai input user)
   const models = [
     "nvidia/nemotron-3-ultra-550b-a55b",
     "nvidia/nemotron-3-super-120b-a12b",
@@ -93,133 +96,142 @@ async function callNvidiaNim(messages: any[], systemInstruction: string) {
     "meta/llama-3.1-70b-instruct"
   ];
 
-  let lastError = null;
   for (const model of models) {
     try {
-      console.log(`[Arblok AI Vercel] Mencoba NVIDIA NIM menggunakan model: ${model}`);
+      console.log(`[Vercel/NVIDIA] Streaming ${model}...`);
       const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${apiKey}`
-        },
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}` },
         body: JSON.stringify({
-          model: model,
+          model,
+          stream: true,
           messages: [
             { role: "system", content: systemInstruction },
-            ...messages.map((msg: any) => ({
-              role: msg.role === "assistant" ? "assistant" : "user",
-              content: msg.content
-            }))
+            ...messages.map((m: any) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }))
           ],
           temperature: 0.7,
-          max_tokens: 1024,
+          max_tokens: 2048,
           top_p: 1
         })
       });
 
-      if (!response.ok) {
-        const errText = await response.text();
-        throw new Error(`NVIDIA NIM HTTP error! status: ${response.status}, rincian: ${errText}`);
-      }
+      if (!response.ok) continue;
 
-      const data = await response.json();
-      if (data.choices && data.choices[0] && data.choices[0].message) {
-        console.log(`[Arblok AI Vercel] Berhasil menggunakan model NVIDIA NIM: ${model}`);
-        return {
-          text: data.choices[0].message.content,
-          modelUsed: model,
-          provider: "nvidia"
-        };
-      }
-      throw new Error("Format respons dari NVIDIA NIM tidak valid.");
-    } catch (err: any) {
-      console.warn(`[Arblok AI Vercel] Gagal menggunakan NVIDIA model ${model}: ${err.message || err}`);
-      lastError = err;
-    }
-  }
+      const reader = response.body!.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
 
-  // Jika gagal memanggil NVIDIA NIM direct, lakukan fallback ke OpenRouter
-  console.log("[Arblok AI Vercel] Panggilan langsung NVIDIA NIM gagal semua. Mencoba OpenRouter sebagai fallback...");
-  try {
-    return await callOpenRouter(messages, systemInstruction);
-  } catch (orErr: any) {
-    console.warn(`[Arblok AI Vercel] Fallback ke OpenRouter juga gagal: ${orErr.message || orErr}`);
-    throw new Error(`NVIDIA NIM gagal (${lastError?.message || "Semua model gagal"}) dan Fallback OpenRouter juga gagal (${orErr.message || "Gagal"})`);
-  }
-}
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
 
-// Helper untuk memanggil Google Gemini API
-async function callGemini(messages: any[], systemInstruction: string) {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error("GEMINI_API_KEY belum dikonfigurasi di server.");
-  }
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
 
-  const ai = new GoogleGenAI({
-    apiKey: apiKey,
-    httpOptions: {
-      headers: {
-        "User-Agent": "aistudio-build",
-      }
-    }
-  });
-
-  const contents = messages.map((msg: any) => ({
-    role: msg.role === "assistant" ? "model" : "user",
-    parts: [{ text: msg.content }]
-  }));
-
-  const modelsToTry = [
-    "gemini-2.5-flash",
-    "gemini-2.0-flash",
-    "gemini-1.5-flash",
-    "gemini-1.5-pro"
-  ];
-
-  let lastError = null;
-  for (const modelName of modelsToTry) {
-    try {
-      console.log(`[Arblok AI Vercel] Mencoba Gemini menggunakan model: ${modelName}`);
-      const response = await ai.models.generateContent({
-        model: modelName,
-        contents: contents,
-        config: {
-          systemInstruction: systemInstruction,
-          temperature: 0.7,
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed || !trimmed.startsWith("data: ")) continue;
+          const payload = trimmed.slice(6);
+          if (payload === "[DONE]") continue;
+          try {
+            const json = JSON.parse(payload);
+            const token = json.choices?.[0]?.delta?.content;
+            if (token) {
+              res.write(`data: ${JSON.stringify({ token })}\n\n`);
+            }
+          } catch { /* skip */ }
         }
-      });
-
-      if (response && response.text) {
-        console.log(`[Arblok AI Vercel] Berhasil menggunakan model Gemini: ${modelName}`);
-        return {
-          text: response.text,
-          modelUsed: modelName,
-          provider: "gemini"
-        };
       }
+      console.log(`[Vercel/NVIDIA] ${model} selesai`);
+      return;
     } catch (err: any) {
-      lastError = err;
-      console.warn(`[Arblok AI Vercel] Gagal menggunakan model Gemini ${modelName}. Error: ${err.message || err}`);
+      console.warn(`[Vercel/NVIDIA] ${model} error: ${err.message}`);
     }
   }
 
-  throw lastError || new Error("Gagal memanggil model Gemini.");
+  console.log("[Vercel/NVIDIA] Semua gagal, fallback ke OpenRouter...");
+  return streamOpenRouter(messages, systemInstruction, res);
 }
 
+// ─── Gemini streaming ─────────────────────────────────────────
+async function streamGemini(messages: any[], systemInstruction: string, res: VercelResponse) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error("GEMINI_API_KEY belum dikonfigurasi.");
+
+  const models = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"];
+
+  for (const modelName of models) {
+    try {
+      console.log(`[Vercel/Gemini] Streaming ${modelName}...`);
+
+      const contents = messages.map((m: any) => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.content }]
+      }));
+
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:streamGenerateContent?alt=sse&key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents,
+            systemInstruction: { parts: [{ text: systemInstruction }] },
+            generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
+          })
+        }
+      );
+
+      if (!response.ok) continue;
+
+      const reader = response.body!.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed || !trimmed.startsWith("data: ")) continue;
+          const payload = trimmed.slice(6);
+          if (payload === "[DONE]") continue;
+          try {
+            const json = JSON.parse(payload);
+            const token = json.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (token) {
+              res.write(`data: ${JSON.stringify({ token })}\n\n`);
+            }
+          } catch { /* skip */ }
+        }
+      }
+      console.log(`[Vercel/Gemini] ${modelName} selesai`);
+      return;
+    } catch (err: any) {
+      console.warn(`[Vercel/Gemini] ${modelName} error: ${err.message}`);
+    }
+  }
+  throw new Error("Semua model Gemini gagal.");
+}
+
+// ─── Handler ───────────────────────────────────────────────────
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Hanya izinkan POST request
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed. Gunakan POST." });
   }
 
-  try {
-    const { messages, provider = "auto" } = req.body;
-    if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: "Format pesan tidak valid." });
-    }
+  const { messages, provider = "auto" } = req.body;
+  if (!messages || !Array.isArray(messages)) {
+    return res.status(400).json({ error: "Format pesan tidak valid." });
+  }
 
-    const systemInstruction = `Anda adalah Arblok AI Consultant, asisten kecerdasan buatan sekaligus partner diskusi sales & marketing yang sangat ramah, suportif, dan solutif dari Arblok Digital (studio teknologi inovatif asal Tasikmalaya, Jawa Barat, besutan Ardi).
+  const systemInstruction = `Anda adalah Arblok AI Consultant, asisten kecerdasan buatan sekaligus partner diskusi sales & marketing yang sangat ramah, suportif, dan solutif dari Arblok Digital (studio teknologi inovatif asal Tasikmalaya, Jawa Barat, besutan Ardi).
 
 Tugas utama Anda adalah merepresentasikan Arblok Digital sebagai partner teknologi impian bagi UMKM, bisnis retail, maupun instansi kelurahan/pemerintahan.
 
@@ -248,83 +260,55 @@ PANDUAN UTAMA SALES & MARKETING (DIADAPTASI DARI MANIFEST & PLAYBOOK):
 
 Setiap kali calon klien bertanya atau ingin berkonsultasi, berikan opsi terbaik dan selalu cantumkan link WhatsApp kami untuk diskusi atau nego harga langsung: https://wa.me/6289508053795.`;
 
-    let result = null;
-    let errorDetails = "";
+  // SSE headers
+  res.writeHead(200, {
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+    Connection: "keep-alive",
+  });
 
+  try {
     if (provider === "nvidia") {
       try {
-        result = await callNvidiaNim(messages, systemInstruction);
+        await streamNvidia(messages, systemInstruction, res);
       } catch (err: any) {
-        console.error("NVIDIA NIM Error:", err);
-        errorDetails = err.message || "";
-        // Jika provider eksplisit minta nvidia tapi gagal, coba fallback ke gemini jika api key tersedia
+        console.warn("[Vercel/NVIDIA] gagal, fallback Gemini:", err.message);
         if (process.env.GEMINI_API_KEY) {
-          console.log("[Arblok AI Vercel] NVIDIA NIM gagal, melakukan auto-fallback ke Gemini...");
-          try {
-            result = await callGemini(messages, systemInstruction);
-          } catch (geminiErr: any) {
-            throw new Error(`NVIDIA NIM gagal (${errorDetails}) dan Fallback Gemini juga gagal: ${geminiErr.message}`);
-          }
+          await streamGemini(messages, systemInstruction, res);
         } else {
           throw err;
         }
       }
     } else if (provider === "gemini") {
       try {
-        result = await callGemini(messages, systemInstruction);
+        await streamGemini(messages, systemInstruction, res);
       } catch (err: any) {
-        console.error("Gemini Error:", err);
-        errorDetails = err.message || "";
-        // Jika provider eksplisit minta gemini tapi gagal, coba fallback ke nvidia jika api key tersedia
+        console.warn("[Vercel/Gemini] gagal, fallback NVIDIA:", err.message);
         if (process.env.NVIDIA_API_KEY) {
-          console.log("[Arblok AI Vercel] Gemini gagal, melakukan auto-fallback ke NVIDIA NIM...");
-          try {
-            result = await callNvidiaNim(messages, systemInstruction);
-          } catch (nvidiaErr: any) {
-            throw new Error(`Gemini gagal (${errorDetails}) dan Fallback NVIDIA NIM juga gagal: ${nvidiaErr.message}`);
-          }
+          await streamNvidia(messages, systemInstruction, res);
         } else {
           throw err;
         }
       }
     } else {
-      // provider === "auto"
-      // Coba Gemini dulu (default), jika gagal / kena rate limit, langsung fallback ke NVIDIA NIM jika ada API Key
+      // auto: Gemini → NVIDIA → OpenRouter
       try {
-        result = await callGemini(messages, systemInstruction);
-      } catch (geminiErr: any) {
-        console.warn("[Arblok AI Vercel] Gemini gagal/rate-limited, mencoba auto-fallback ke NVIDIA NIM...");
-        if (process.env.NVIDIA_API_KEY) {
-          try {
-            result = await callNvidiaNim(messages, systemInstruction);
-          } catch (nvidiaErr: any) {
-            throw new Error(`Gemini gagal (${geminiErr.message}) dan Fallback NVIDIA NIM juga gagal: ${nvidiaErr.message}`);
-          }
-        } else {
-          throw geminiErr;
+        await streamGemini(messages, systemInstruction, res);
+      } catch (err: any) {
+        console.warn("[Vercel/Auto] Gemini gagal:", err.message);
+        try {
+          await streamNvidia(messages, systemInstruction, res);
+        } catch (err2: any) {
+          console.warn("[Vercel/Auto] NVIDIA juga gagal:", err2.message);
+          await streamOpenRouter(messages, systemInstruction, res);
         }
       }
     }
-
-    return res.status(200).json({
-      text: result.text,
-      modelUsed: result.modelUsed,
-      provider: result.provider
-    });
-  } catch (error: any) {
-    console.error("API Error in Vercel handler:", error);
-    
-    // Berikan respons error detail yang informatif untuk mempermudah debugging
-    let displayError = error.message || "Terjadi kesalahan pada server.";
-    if (displayError.includes("API_KEY_INVALID") || displayError.includes("API key not valid")) {
-      displayError = "API Key Gemini Anda tidak valid. Periksa kembali GEMINI_API_KEY di environment variables Anda.";
-    } else if (displayError.includes("QUOTA_EXCEEDED") || displayError.includes("429")) {
-      displayError = "Batas kuota harian/per menit API Key Gemini Free Tier terlampaui. Silakan tunggu beberapa saat atau pilih provider NVIDIA NIM.";
-    } else if (displayError.includes("NVIDIA_API_KEY belum dikonfigurasi")) {
-      displayError = "Provider NVIDIA NIM dipilih, namun NVIDIA_API_KEY belum dikonfigurasi di environment variables server Anda.";
-    }
-
-    return res.status(500).json({ error: displayError });
+  } catch (err: any) {
+    console.error("[Vercel/Stream] Semua provider gagal:", err.message);
+    res.write(`data: ${JSON.stringify({ error: err.message || "Maaf, layanan AI sedang sibuk. Silakan coba lagi nanti." })}\n\n`);
   }
-}
 
+  res.write("data: [DONE]\n\n");
+  res.end();
+}
