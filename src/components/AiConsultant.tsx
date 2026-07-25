@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { MessageSquare, Send, Sparkles, User, Cpu, AlertTriangle, ArrowRight } from "lucide-react";
 import { ChatMessage } from "../types";
 
@@ -18,10 +18,28 @@ export default function AiConsultant() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const accumRef = useRef("");             // token accumulator
+  const rafRef = useRef<number | null>(null); // pending animation frame
+  const loadingRef = useRef(false);        // sync ref for isLoading
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  // Flush accumulated tokens to React state (called via rAF)
+  const flushAccum = useCallback(() => {
+    rafRef.current = null;
+    if (accumRef.current) {
+      setMessages((prev) => {
+        const updated = [...prev];
+        const last = { ...updated[updated.length - 1] };
+        last.content += accumRef.current;
+        updated[updated.length - 1] = last;
+        return updated;
+      });
+      accumRef.current = "";
+    }
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
@@ -35,14 +53,16 @@ export default function AiConsultant() {
     setInput("");
     setIsLoading(true);
     setErrorMsg(null);
+    loadingRef.current = true;
 
     // Add empty assistant message that will be streamed into
     const assistantMsg: ChatMessage = { role: "assistant", content: "", timestamp: new Date() };
     setMessages((prev) => [...prev, assistantMsg]);
-    const msgIndex = messages.length + 1; // index of the new assistant message
 
     const controller = new AbortController();
     abortRef.current = controller;
+
+    accumRef.current = ""; // reset accumulator
 
     try {
       const res = await fetch("/api/chat", {
@@ -63,6 +83,7 @@ export default function AiConsultant() {
       const reader = res.body!.getReader();
       const decoder = new TextDecoder();
       let buffer = "";
+      let hasContent = false;
 
       while (true) {
         const { done, value } = await reader.read();
@@ -76,24 +97,20 @@ export default function AiConsultant() {
           const trimmed = line.trim();
           if (!trimmed || !trimmed.startsWith("data: ")) continue;
           const payload = trimmed.slice(6);
-          if (payload === "[DONE]") {
-            // set loading false here
-            setIsLoading(false);
-            continue;
-          }
+          if (payload === "[DONE]") continue;
           try {
             const json = JSON.parse(payload);
             if (json.token) {
-              setMessages((prev) => {
-                const updated = [...prev];
-                const last = { ...updated[updated.length - 1] };
-                last.content += json.token;
-                updated[updated.length - 1] = last;
-                return updated;
-              });
+              hasContent = true;
+              accumRef.current += json.token;
+              // Schedule a flush via rAF (throttled ~16ms)
+              if (!rafRef.current) {
+                rafRef.current = requestAnimationFrame(flushAccum);
+              }
             }
             if (json.error) {
               setErrorMsg(json.error);
+              loadingRef.current = false;
               setIsLoading(false);
             }
             if (json.model) {
@@ -102,11 +119,37 @@ export default function AiConsultant() {
           } catch { /* skip malformed */ }
         }
       }
+
+      // Final flush — render any remaining tokens
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+      if (accumRef.current) {
+        setMessages((prev) => {
+          const updated = [...prev];
+          const last = { ...updated[updated.length - 1] };
+          last.content += accumRef.current;
+          updated[updated.length - 1] = last;
+          return updated;
+        });
+        accumRef.current = "";
+      }
+
+      // If no content at all, show fallback
+      if (!hasContent) {
+        setMessages((prev) => {
+          const updated = [...prev];
+          const last = { ...updated[updated.length - 1] };
+          last.content = "Maaf, saya tidak dapat memproses permintaan saat ini. Silakan coba lagi.";
+          updated[updated.length - 1] = last;
+          return updated;
+        });
+      }
     } catch (err: any) {
       if (err.name !== "AbortError") {
         setErrorMsg(err instanceof Error ? err.message : "Terjadi kesalahan");
       }
     } finally {
+      loadingRef.current = false;
       setIsLoading(false);
       abortRef.current = null;
     }
