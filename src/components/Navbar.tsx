@@ -5,7 +5,7 @@ import { useLanguage } from "../LanguageContext";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -18,11 +18,19 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navLabels = {
+    vision: language === "id" ? "Visi & Misi" : "Vision & Mission",
+    services: language === "id" ? "Layanan" : "Services",
+    portfolio: language === "id" ? "Portofolio" : "Portfolio",
+    articles: language === "id" ? "Artikel & Riset" : "Articles & Research",
+    cta: language === "id" ? "Hubungi Kami" : "Contact Us",
+  };
+
   const navLinks = [
-    { to: "/#about", label: t("nav.vision") },
-    { to: "/#services", label: t("nav.services") },
-    { to: "/#portfolio", label: t("nav.portfolio") },
-    { to: "/articles", label: t("nav.articles"), exact: true },
+    { to: "/#about", label: navLabels.vision },
+    { to: "/#services", label: navLabels.services },
+    { to: "/#portfolio", label: navLabels.portfolio },
+    { to: "/articles", label: navLabels.articles, exact: true },
     { to: "/consultant", label: "AI Consultant", exact: true },
   ];
 
@@ -96,7 +104,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="font-body text-sm px-4 py-2 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-colors"
             >
-              {t("nav.cta")}
+              {navLabels.cta}
             </a>
           </div>
 
@@ -139,7 +147,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="font-body text-sm px-4 py-2 rounded border border-accent text-accent"
             >
-              {t("nav.cta")}
+              {navLabels.cta}
             </a>
           </div>
         </div>

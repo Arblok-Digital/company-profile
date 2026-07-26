@@ -181,7 +181,7 @@ export default function Articles() {
             {language === "id" ? "Edukasi & Wawasan" : "Education & Insights"}
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-ink leading-[1.1] mt-3 tracking-tight">
-            {language === "id" ? "Artikel Inovasi Teknologi" : "Tech Innovation Articles"}
+            {language === "id" ? "Artikel & Wawasan Teknologi" : "Tech Articles & Insights"}
           </h2>
           <p className="font-body text-base text-ink-2 mt-4 leading-relaxed">
             {language === "id"

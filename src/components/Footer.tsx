@@ -28,8 +28,8 @@ export default function Footer() {
             </Link>
             <p className="font-body text-xs sm:text-sm text-ink-2 leading-relaxed max-w-xs">
               {language === "id"
-                ? "Studio rekayasa perangkat lunak dari Tasikmalaya. Modern, manusiawi, dan dibangun untuk bertumbuh."
-                : "A software engineering studio from Tasikmalaya. Modern, human, built to grow."}
+                ? "Studio rekayasa perangkat lunak dari Tasikmalaya. Satu fondasi kode untuk semua produk."
+                : "A software engineering studio from Tasikmalaya. One codebase for every product."}
             </p>
           </div>
 

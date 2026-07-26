@@ -3,8 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../LanguageContext";
 
 export default function Hero() {
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
   const navigate = useNavigate();
+
+  const heroLabels = {
+    eyebrow: language === "id"
+      ? "Kami bikin kasir, portal sekolah, & sistem kelurahan"
+      : "We build POS, school portals, & village systems",
+    ctaConsultant: language === "id" ? "Coba Konsultasi AI" : "Try AI Consultation",
+    ctaPortfolio: language === "id" ? "Lihat Portofolio" : "View Portfolio",
+  };
 
   const subtitle =
     language === "id"
@@ -35,9 +43,7 @@ export default function Hero() {
           <div className="inline-flex items-center gap-2 mb-6">
             <span className="w-2 h-2 rounded-full bg-accent" />
             <span className="font-mono text-xs text-ink-2 uppercase tracking-[0.15em]">
-              {language === "id"
-                ? "Studio Inovasi Web & AI"
-                : "Web & AI Innovation Studio"}
+              {heroLabels.eyebrow}
             </span>
           </div>
 
@@ -69,13 +75,13 @@ export default function Hero() {
               onClick={() => navigate("/consultant")}
               className="font-body font-medium text-sm px-6 py-3 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-colors cursor-pointer bg-transparent"
             >
-              {t("hero.cta_consultant")}
+              {heroLabels.ctaConsultant}
             </button>
             <button
               onClick={() => navigate("/#portfolio")}
               className="font-body text-sm px-6 py-3 rounded border border-rule text-ink-2 hover:border-ink-2 hover:text-ink transition-colors cursor-pointer bg-transparent"
             >
-              {t("hero.cta_portfolio")}
+              {heroLabels.ctaPortfolio}
             </button>
           </div>
         </div>
