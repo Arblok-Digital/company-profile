@@ -10,7 +10,7 @@ Our mission: empower local businesses, SMBs (UMKM), and public institutions with
 
 ## Services
 
-- Web & PWA Development: Premium landing pages, interactive company profiles, installable Progressive Web Apps
+- Web & PWA Development: Landing pages, interactive company profiles, installable Progressive Web Apps
 - E-Commerce & Marketplaces: Custom platforms, multi-vendor portals, integrated payment gateways
 - Point of Sale (POS) Systems: KasirPro F&B and KasirPro Grosiran variants
 - Bureaucracy Digitalization: E-Warga platform for RT/RW/District/Civil Registry document flow

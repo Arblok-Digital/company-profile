@@ -8,49 +8,49 @@ export default function About() {
     id: {
       badge: "Filosofi",
       heading: "Visi & Misi",
-      subheading:
-        "Menyatukan keandalan arsitektur monorepo dengan kepintaran AI untuk menghadirkan platform digital yang tangguh, efisien, dan siap bersaing.",
+      subtitle:
+        "Arsitektur monorepo di setiap proyek. Satu fondasi kode untuk semua produk — dari aplikasi kasir hingga portal sekolah.",
       vision: {
         title: "Visi",
-        desc: "Menjadi motor penggerak digitalisasi nasional yang memberdayakan bisnis, UMKM, dan institusi melalui AI dan teknologi web modern — berawal dari Tasikmalaya.",
+        desc: "Digitalisasi nasional dimulai dari daerah. Kami bangun sistem yang bikin UMKM dan instansi publik bisa naik kelas — tanpa perlu modal besar atau tim IT khusus.",
       },
       missions: [
-        { label: "Perangkat Lunak Kokoh", desc: "Solusi industrial-grade dengan arsitektur monorepo yang scalable." },
-        { label: "Efisiensi Birokrasi", desc: "Sederhanakan operasional dan administrasi lewat sistem digital yang ramah." },
-        { label: "Integrasi AI Terapan", desc: "AI bukan gimmick — otomasi nyata yang menghemat waktu & biaya." },
+        { label: "Produk Nyata", desc: "Bukan PowerPoint. Setiap baris kode yang kami tulis sudah dipakai di sekolah, kelurahan, dan warung sungguhan." },
+        { label: "Efisiensi Operasional", desc: "Sederhanakan administrasi lewat sistem digital yang memang dirancang untuk pengguna non-teknis." },
+        { label: "AI Itu Alat, Bukan Gimik", desc: "Integrasi AI hanya kalau benar-benar ngurangin pekerjaan manual, bukan sekadar tempel fitur biar keren." },
       ],
       banner: {
         label: "Arsitektur",
         title: "Monorepo (NPM Workspaces)",
         desc: "Setiap proyek dibangun di atas fondasi bersama. Semua logika transisi, validasi, dan model database diisolasi dalam modul khusus — siap diimpor oleh aplikasi baru tanpa duplikasi.",
-        stat1: "100%",
-        stat1Label: "Kode Reusable",
-        stat2: "Zero",
-        stat2Label: "Duplikasi",
+        stat1: "8+",
+        stat1Label: "Produk Live",
+        stat2: "1",
+        stat2Label: "Fondasi Kode",
       },
     },
     en: {
       badge: "Philosophy",
       heading: "Vision & Mission",
-      subheading:
-        "Combining monorepo reliability with applied AI to build robust, efficient, future-ready digital platforms.",
+      subtitle:
+        "Monorepo architecture in every project. One shared foundation for all products — from POS systems to school portals.",
       vision: {
         title: "Vision",
-        desc: "To be the engine of digital transformation empowering businesses, SMBs, and local governments through AI and modern web technology — engineered from Tasikmalaya.",
+        desc: "National digital transformation starts from the grassroots. We build systems that help small businesses and public institutions level up — without needing big budgets or dedicated IT teams.",
       },
       missions: [
-        { label: "Robust Engineering", desc: "Enterprise-grade software using clean monorepo architecture for seamless scaling." },
-        { label: "Operational Simplicity", desc: "Streamline complex workflows via intuitive digital systems." },
-        { label: "Applied AI", desc: "Not a gimmick — real AI automation that saves time and cuts costs." },
+        { label: "Real Products", desc: "Not a slide deck. Every line we write is deployed in actual schools, village offices, and local shops." },
+        { label: "Operational Simplicity", desc: "Streamline administration through digital systems designed for non-technical users." },
+        { label: "AI Is a Tool, Not a Gimmick", desc: "We integrate AI only when it genuinely reduces manual work — not just to tack on a buzzword." },
       ],
       banner: {
         label: "Architecture",
         title: "Monorepo (NPM Workspaces)",
         desc: "Every project builds on a shared foundation. Pipeline transitions, validation, and database models are isolated in dedicated packages — ready for new apps to import without duplication.",
-        stat1: "100%",
-        stat1Label: "Reusable Code",
-        stat2: "Zero",
-        stat2Label: "Duplication",
+        stat1: "8+",
+        stat1Label: "Live Products",
+        stat2: "1",
+        stat2Label: "Code Foundation",
       },
     },
   };
@@ -69,7 +69,7 @@ export default function About() {
             {cur.heading}
           </h2>
           <p className="font-body text-base text-ink-2 mt-4 leading-relaxed max-w-xl">
-            {cur.subheading}
+            {cur.subtitle}
           </p>
         </div>
 

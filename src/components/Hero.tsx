@@ -8,8 +8,8 @@ export default function Hero() {
 
   const subtitle =
     language === "id"
-      ? "Studio rekayasa perangkat lunak dari Tasikmalaya. Kami merancang sistem digital yang kokoh, manusiawi, dan tumbuh bersama bisnis Anda."
-      : "A software engineering studio from Tasikmalaya. We craft honest digital systems that grow with your business.";
+      ? "Studio rekayasa perangkat lunak dari Tasikmalaya. Kami bikin sistem digital yang beneran dipakai — dari kasir warung sampai portal sekolah."
+      : "A software engineering studio from Tasikmalaya. We build digital systems that people actually use — from warung POS to school portals.";
 
   const stats = [
     { label: language === "id" ? "Tahun Berdiri" : "Years", value: "Since 2024" },
@@ -67,7 +67,7 @@ export default function Hero() {
           <div className="flex flex-wrap gap-4 mt-8">
             <button
               onClick={() => navigate("/consultant")}
-              className="font-body font-medium text-sm px-6 py-3 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-colors cursor-pointer border-none bg-accent text-accent-ink"
+              className="font-body font-medium text-sm px-6 py-3 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-colors cursor-pointer bg-transparent"
             >
               {t("hero.cta_consultant")}
             </button>

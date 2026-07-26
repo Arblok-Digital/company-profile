@@ -7,12 +7,12 @@ export default function Services() {
   const services = (language === "id" ? [
     {
       title: "Website & PWA",
-      desc: "Landing page premium, company profile interaktif, atau PWA modern yang bisa diinstal langsung ke layar utama tanpa App Store.",
-      items: ["Konversi tinggi & SEO-friendly", "PWA siap instalasi mobile", "Desain eksklusif, bukan template"],
+      desc: "Landing page, company profile interaktif, atau PWA yang bisa diinstal langsung ke layar utama tanpa App Store.",
+      items: ["Konversi tinggi & SEO-friendly", "PWA siap instalasi mobile", "Desain custom, bukan template"],
     },
     {
       title: "Marketplace & Bisnis",
-      desc: "E-commerce custom, sistem kasir (POS), atau portal multi-vendor dengan alur transaksi mulus.",
+      desc: "E-commerce custom, sistem kasir (POS), atau portal multi-vendor dengan alur transaksi terstruktur.",
       items: ["Multi-vendor marketplace", "Manajemen transaksi & POS", "Payment gateway terintegrasi"],
     },
     {
@@ -28,12 +28,12 @@ export default function Services() {
   ] : [
     {
       title: "Web & PWA",
-      desc: "Premium landing pages, interactive company profiles, or modern PWAs installable on users' home screens.",
+      desc: "Landing pages, interactive company profiles, or PWAs installable on users' home screens.",
       items: ["High-conversion, SEO-optimized", "Mobile-ready PWA", "Bespoke UI/UX, zero templates"],
     },
     {
       title: "Marketplace & E-Commerce",
-      desc: "Custom e-commerce, POS systems, or multi-vendor portals with seamless cart-to-checkout flow.",
+      desc: "Custom e-commerce, POS systems, or multi-vendor portals with structured cart-to-checkout flow.",
       items: ["Multi-vendor marketplace", "POS & digital ledger", "Secure payment gateway"],
     },
     {
