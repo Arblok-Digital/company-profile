@@ -61,26 +61,27 @@ export default function Hero() {
               {headline}
             </h1>
 
-            {/* CTAs — lifted above subtitle so flow is: eyebrow → headline → CTA → subtitle */}
+            {/* Subtitle — immediately after headline, before CTAs (standard flow) */}
+            <p className="font-body text-sm sm:text-base text-ink-2 mt-5 leading-relaxed max-w-xl">
+              {subtitle}
+            </p>
+
+            {/* CTAs — Konsultasi AI gets border-2 + font-medium for visual hierarchy;
+                 Lihat Portofolio drops to border-rule text-ink-2, same as secondary buttons elsewhere */}
             <div className="flex flex-wrap gap-4 mt-8">
               <button
                 onClick={() => navigate("/consultant")}
-                className="font-body text-sm px-6 py-3 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-all"
+                className="font-body text-sm px-6 py-[11px] rounded border-2 border-accent text-accent font-medium hover:bg-accent hover:text-accent-ink transition-all"
               >
                 {language === "id" ? "Konsultasi AI" : "Try AI Consultant"}
               </button>
               <button
                 onClick={() => navigate("/#portfolio")}
-                className="font-body text-sm px-6 py-3 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-all"
+                className="font-body text-sm px-6 py-3 rounded border border-rule text-ink-2 hover:text-accent hover:border-accent transition-all"
               >
                 {language === "id" ? "Lihat Portofolio" : "View Portfolio"}
               </button>
             </div>
-
-            {/* Subtitle — now below CTAs */}
-            <p className="font-body text-sm sm:text-base text-ink-2 mt-8 leading-relaxed max-w-xl">
-              {subtitle}
-            </p>
           </div>
 
           {/* Monorepo tree panel — right side on desktop, below text on mobile */}
