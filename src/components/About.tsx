@@ -9,7 +9,7 @@ export default function About() {
       badge: "Filosofi",
       heading: "Visi & Misi",
       subtitle:
-        "Arsitektur monorepo di setiap proyek. Satu fondasi kode untuk semua produk — dari aplikasi kasir hingga portal sekolah.",
+        "Arsitektur monorepo di setiap proyek. Setiap produk baru cukup tambah satu modul — tanpa ngulang kode dari nol.",
       vision: {
         title: "Visi",
         desc: "Digitalisasi nasional dimulai dari daerah. Kami bangun sistem yang bikin UMKM dan instansi publik bisa naik kelas — tanpa perlu modal besar atau tim IT khusus.",
@@ -33,7 +33,7 @@ export default function About() {
       badge: "Philosophy",
       heading: "Vision & Mission",
       subtitle:
-        "Monorepo architecture in every project. One shared foundation for all products — from POS systems to school portals.",
+        "Monorepo architecture in every project. Each new product just adds a module — no rewriting from scratch.",
       vision: {
         title: "Vision",
         desc: "National digital transformation starts from the grassroots. We build systems that help small businesses and public institutions level up — without needing big budgets or dedicated IT teams.",
@@ -83,8 +83,10 @@ export default function About() {
             </p>
           </div>
 
-          {/* Missions */}
-          <div className="space-y-6">
+          {/* Missions with label */}
+          <div>
+            <h3 className="font-display text-xl text-ink mb-3">{language === "id" ? "Misi" : "Missions"}</h3>
+            <div className="space-y-6">
             {cur.missions.map((m) => (
               <div key={m.label} className="border-l-2 border-rule pl-4">
                 <div className="font-body font-medium text-sm text-ink">{m.label}</div>
@@ -93,6 +95,7 @@ export default function About() {
             ))}
           </div>
         </div>
+      </div>
 
         {/* Banner — full width, understated */}
         <div className="mt-16 sm:mt-20 pt-12 border-t border-rule">
@@ -108,7 +111,7 @@ export default function About() {
                 {cur.banner.desc}
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-4">
               <div className="border border-rule rounded p-4 text-center">
                 <div className="font-display text-2xl text-accent">{cur.banner.stat1}</div>
                 <div className="font-mono text-[10px] text-ink-2 uppercase tracking-[0.1em] mt-1">
@@ -116,9 +119,8 @@ export default function About() {
                 </div>
               </div>
               <div className="border border-rule rounded p-4 text-center">
-                <div className="font-display text-2xl text-ink">{cur.banner.stat2}</div>
-                <div className="font-mono text-[10px] text-ink-2 uppercase tracking-[0.1em] mt-1">
-                  {cur.banner.stat2Label}
+                <div className="font-mono text-[10px] text-ink-2 uppercase tracking-[0.1em]">
+                  {language === "id" ? "Semua produk dalam satu fondasi kode" : "Every product on one shared codebase"}
                 </div>
               </div>
             </div>

@@ -6,25 +6,28 @@ export default function Hero() {
   const { language } = useLanguage();
   const navigate = useNavigate();
 
-  const heroLabels = {
-    eyebrow: language === "id"
+  const eyebrow =
+    language === "id"
       ? "Kami bikin kasir, portal sekolah, & sistem kelurahan"
-      : "We build POS, school portals, & village systems",
-    ctaConsultant: language === "id" ? "Coba Konsultasi AI" : "Try AI Consultation",
-    ctaPortfolio: language === "id" ? "Lihat Portofolio" : "View Portfolio",
-  };
+      : "We build POS, school portals, & village systems";
+
+  const headline =
+    language === "id"
+      ? "Dari kasir warung sampai portal sekolah — semua dari satu fondasi kode"
+      : "From warung POS to school portals — all on one shared codebase";
 
   const subtitle =
     language === "id"
-      ? "Studio rekayasa perangkat lunak dari Tasikmalaya. Kami bikin sistem digital yang beneran dipakai — dari kasir warung sampai portal sekolah."
-      : "A software engineering studio from Tasikmalaya. We build digital systems that people actually use — from warung POS to school portals.";
+      ? "Kami bikin software yang dipakai beneran. Sistem yang sederhana, stabil, dan tumbuh bareng bisnis Anda."
+      : "We build software people actually use. Simple, stable systems that grow with your business.";
 
   const stats = [
     { label: language === "id" ? "Tahun Berdiri" : "Years", value: "Since 2024" },
-    { label: language === "id" ? "Produk Rilis" : "Products", value: "8+" },
-    { label: language === "id" ? "Teknologi" : "Stack", value: "Monorepo" },
-    { label: language === "id" ? "Pendekatan" : "Approach", value: "Offline-first" },
+    { label: language === "id" ? "Produk Rilis" : "Live Products", value: "8+" },
   ];
+
+  const ctaConsultant = language === "id" ? "Konsultasi AI" : "Try AI Consultant";
+  const ctaPortfolio = language === "id" ? "Lihat Portofolio" : "View Portfolio";
 
   return (
     <section
@@ -40,32 +43,17 @@ export default function Hero() {
       <div className="max-w-6xl mx-auto px-6 sm:px-8 relative z-10">
         <div className="max-w-3xl">
           {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="w-2 h-2 rounded-full bg-accent" />
-            <span className="font-mono text-xs text-ink-2 uppercase tracking-[0.15em]">
-              {heroLabels.eyebrow}
-            </span>
-          </div>
+          <span className="font-mono text-xs text-ink-2 uppercase tracking-[0.15em]">
+            {eyebrow}
+          </span>
 
-          {/* Headline — serif, no gradient, solid ink */}
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-ink leading-[1.08] tracking-tight text-balance">
-            {language === "id" ? (
-              <>
-                Akselerasi bisnis Anda
-                <br />
-                dengan kekuatan AI & sistem digital
-              </>
-            ) : (
-              <>
-                Accelerate your business
-                <br />
-                with the power of AI & digital systems
-              </>
-            )}
+          {/* Headline */}
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-ink leading-[1.05] tracking-tight mt-4">
+            {headline}
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-6 font-body text-base sm:text-lg text-ink-2 max-w-xl leading-relaxed">
+          <p className="font-body text-base sm:text-lg text-ink-2 mt-5 leading-relaxed max-w-xl">
             {subtitle}
           </p>
 
@@ -73,25 +61,25 @@ export default function Hero() {
           <div className="flex flex-wrap gap-4 mt-8">
             <button
               onClick={() => navigate("/consultant")}
-              className="font-body font-medium text-sm px-6 py-3 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-colors cursor-pointer bg-transparent"
+              className="font-body text-sm px-6 py-3 rounded bg-accent text-accent-ink hover:opacity-85 transition-opacity"
             >
-              {heroLabels.ctaConsultant}
+              {ctaConsultant}
             </button>
             <button
               onClick={() => navigate("/#portfolio")}
-              className="font-body text-sm px-6 py-3 rounded border border-rule text-ink-2 hover:border-ink-2 hover:text-ink transition-colors cursor-pointer bg-transparent"
+              className="font-body text-sm px-6 py-3 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-all"
             >
-              {heroLabels.ctaPortfolio}
+              {ctaPortfolio}
             </button>
           </div>
         </div>
 
-        {/* Stats row — simple, no icons */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 mt-16 sm:mt-20 pt-10 sm:pt-12 border-t border-rule">
+        {/* Stats row */}
+        <div className="flex gap-12 sm:gap-16 mt-16 sm:mt-20 pt-10 sm:pt-12 border-t border-rule">
           {stats.map((stat) => (
             <div key={stat.label}>
               <div className="font-display text-xl sm:text-2xl text-ink">{stat.value}</div>
-              <div className="font-mono text-[11px] text-ink-2 uppercase tracking-[0.1em] mt-1">
+              <div className="font-mono text-[10px] text-ink-2 uppercase tracking-[0.1em] mt-1">
                 {stat.label}
               </div>
             </div>
