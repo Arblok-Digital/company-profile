@@ -2,6 +2,21 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../LanguageContext";
 
+const treeLines = [
+  { depth: 0, icon: "📦", label: "arblok/" },
+  { depth: 1, icon: "├──", label: "packages/" },
+  { depth: 2, icon: "│   ├──", label: "auth/" },
+  { depth: 2, icon: "│   ├──", label: "database/" },
+  { depth: 2, icon: "│   └──", label: "ui/" },
+  { depth: 1, icon: "├──", label: "apps/" },
+  { depth: 2, icon: "│   ├──", label: "kasirpro/" },
+  { depth: 2, icon: "│   ├──", label: "e-warga/" },
+  { depth: 2, icon: "│   ├──", label: "sekolahrapi/" },
+  { depth: 2, icon: "│   └──", label: "sanajan-qr/" },
+  { depth: 1, icon: "└──", label: "tooling/" },
+  { depth: 2, icon: "    └──", label: "deploy/" },
+];
+
 export default function Hero() {
   const { language } = useLanguage();
   const navigate = useNavigate();
@@ -18,16 +33,8 @@ export default function Hero() {
 
   const subtitle =
     language === "id"
-      ? "Kami bikin software yang dipakai beneran. Sistem yang sederhana, stabil, dan tumbuh bareng bisnis Anda."
-      : "We build software people actually use. Simple, stable systems that grow with your business.";
-
-  const stats = [
-    { label: language === "id" ? "Tahun Berdiri" : "Years", value: "Since 2024" },
-    { label: language === "id" ? "Produk Rilis" : "Live Products", value: "8+" },
-  ];
-
-  const ctaConsultant = language === "id" ? "Konsultasi AI" : "Try AI Consultant";
-  const ctaPortfolio = language === "id" ? "Lihat Portofolio" : "View Portfolio";
+      ? "Setiap fitur lahir dari obrolan dengan pemilik usaha, bukan dari meja meeting. Itulah kenapa barangnya dipakai."
+      : "Every feature starts with a conversation with business owners — not a meeting-room whiteboard. That's why our stuff actually gets used.";
 
   return (
     <section
@@ -41,49 +48,64 @@ export default function Hero() {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 sm:px-8 relative z-10">
-        <div className="max-w-3xl">
-          {/* Eyebrow */}
-          <span className="font-mono text-xs text-ink-2 uppercase tracking-[0.15em]">
-            {eyebrow}
-          </span>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          {/* Text side */}
+          <div className="lg:col-span-7">
+            {/* Eyebrow */}
+            <span className="font-mono text-xs text-ink-2 uppercase tracking-[0.15em]">
+              {eyebrow}
+            </span>
 
-          {/* Headline */}
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-ink leading-[1.05] tracking-tight mt-4">
-            {headline}
-          </h1>
+            {/* Headline */}
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-ink leading-[1.05] tracking-tight mt-4">
+              {headline}
+            </h1>
 
-          {/* Subtitle */}
-          <p className="font-body text-base sm:text-lg text-ink-2 mt-5 leading-relaxed max-w-xl">
-            {subtitle}
-          </p>
+            {/* CTAs — lifted above subtitle so flow is: eyebrow → headline → CTA → subtitle */}
+            <div className="flex flex-wrap gap-4 mt-8">
+              <button
+                onClick={() => navigate("/consultant")}
+                className="font-body text-sm px-6 py-3 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-all"
+              >
+                {language === "id" ? "Konsultasi AI" : "Try AI Consultant"}
+              </button>
+              <button
+                onClick={() => navigate("/#portfolio")}
+                className="font-body text-sm px-6 py-3 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-all"
+              >
+                {language === "id" ? "Lihat Portofolio" : "View Portfolio"}
+              </button>
+            </div>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-4 mt-8">
-            <button
-              onClick={() => navigate("/consultant")}
-              className="font-body text-sm px-6 py-3 rounded bg-accent text-accent-ink hover:opacity-85 transition-opacity"
-            >
-              {ctaConsultant}
-            </button>
-            <button
-              onClick={() => navigate("/#portfolio")}
-              className="font-body text-sm px-6 py-3 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-all"
-            >
-              {ctaPortfolio}
-            </button>
+            {/* Subtitle — now below CTAs */}
+            <p className="font-body text-sm sm:text-base text-ink-2 mt-8 leading-relaxed max-w-xl">
+              {subtitle}
+            </p>
           </div>
-        </div>
 
-        {/* Stats row */}
-        <div className="flex gap-12 sm:gap-16 mt-16 sm:mt-20 pt-10 sm:pt-12 border-t border-rule">
-          {stats.map((stat) => (
-            <div key={stat.label}>
-              <div className="font-display text-xl sm:text-2xl text-ink">{stat.value}</div>
-              <div className="font-mono text-[10px] text-ink-2 uppercase tracking-[0.1em] mt-1">
-                {stat.label}
+          {/* Monorepo tree panel — right side on desktop, below text on mobile */}
+          <div className="lg:col-span-5 w-full">
+            <div className="bg-paper-2 border border-rule rounded p-5 sm:p-6 overflow-x-auto">
+              <div className="font-mono text-xs leading-6 text-ink whitespace-nowrap">
+                {treeLines.map((line, i) => (
+                  <div key={i} className="flex">
+                    <span className="text-ink-2 w-16 sm:w-20 shrink-0">
+                      {line.icon}
+                    </span>
+                    <span className={line.depth === 0 ? "text-ink font-medium" : "text-ink-2"}>
+                      {line.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-3 pt-3 border-t border-rule flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-accent" />
+                <span className="font-mono text-[10px] text-ink-2 uppercase tracking-[0.1em]">
+                  {language === "id" ? "Satu fondasi — semua produk" : "One codebase — every product"}
+                </span>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
