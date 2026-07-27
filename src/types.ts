@@ -11,7 +11,7 @@ export interface PortfolioItem {
   description: string;
   features: string[];
   badge: string;
-  status: "Production-ready" | "Active Development" | "Featured" | "Top 100 Global";
+  status: "Production-ready" | "Active Development" | "Featured" | "Top 100 Global" | "Top 100 — Google Solution Challenge";
   techStack: string[];
   link?: string;
   image?: string;
