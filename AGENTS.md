@@ -57,12 +57,12 @@ Detail lengkap ada di `PROJECT_CONTEXT.md` (baca juga).
 
 | ❌ Jangan | ✅ Harusnya |
 |----------|-----------|
-|| Refactor Portfolio.tsx tanpa diminta | Biarin 443 baris, data BAKED IN masih OK |
-|| Hapus server.ts (DRY) | Tinggalin, Express masih dipake untuk local dev |
-|| Migrate balik ke hash routing | React Router path routing sudah live & tested, backward compat via OldHashRedirect |
-|| Pakai `t("key")` di component baru | Hardcode inline `language === "id" ? ... : ...` |
-|| Tolak client karena budget | Selalu tawarkan starter/MVP (sesuai system prompt) |
-|| Edit `metadata.json` | AI Studio config, jangan disentuh |
+| Refactor Portfolio.tsx tanpa diminta | Biarin 443 baris, data BAKED IN masih OK |
+| Hapus server.ts (DRY) | Tinggalin, Express masih dipake untuk local dev |
+| Migrate balik ke hash routing | React Router path routing sudah live & tested, backward compat via OldHashRedirect |
+| Pakai `t("key")` di component baru | Hardcode inline `language === "id" ? ... : ...` |
+| Tolak client karena budget | Selalu tawarkan starter/MVP (sesuai system prompt) |
+| Edit `metadata.json` | AI Studio config, jangan disentuh |
 
 ---
 
@@ -99,4 +99,4 @@ Detail lengkap ada di `PROJECT_CONTEXT.md` (baca juga).
 
 ---
 
-**Last updated**: 23 Juli 2026
+**Last updated**: 27 Juli 2026
