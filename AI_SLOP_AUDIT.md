@@ -48,3 +48,36 @@
 **Commit lokal:** `a7ecf79` — round2: hapus LanguageContext t(), fix Footer triple-adj, Hero eyebrow, Articles Inovasi
 
 ⚠️ **Belum push ke origin/main** — menunggu konfirmasi user.
+
+---
+
+# ⚠️ GUARDRAILS — Copy & Design Rules (Permanent)
+
+> Berlaku untuk semua perubahan copy/design ke depannya.
+
+### Pola kalimat yang DILARANG
+- ❌ Triplet-adjective: "X, Y, dan Z" untuk 3 kata sifat berturutan
+- ❌ Negation-opener template: "Bukan sekadar X. Kami Y" — pola LLM umum
+- ❌ Invented/unverifiable metrics: angka too-perfect tanpa data pendukung
+- ❌ Kata buzzword generic: premium, eksklusif, seamless/mulus, cutting-edge, terintegrasi (kecuali describing fitur teknis konkret), revolutionary, next-level, holistic
+- ❌ Verbatim copy-paste kalimat/frasa yang sama persis di 2+ komponen berbeda
+
+### Layout/struktur
+- Hero/section TIDAK BOLEH cuma jadi: badge → headline → subtitle → 2 CTA → stats bar. Itu skeleton default AI page-builder.
+- Tombol CTA primary = outlined + border-2/font-medium, BUKAN filled/solid (bg-accent). Cross-check ke design.md tiap ubah button.
+- Urutan standar: eyebrow → headline → subtitle → CTA (context before action).
+
+### WAJIB dicek sebelum lapor selesai
+1. `grep -rniE "premium|eksklusif|seamless|mulus|tangguh|scalable" src/components/*.tsx` → 0 hasil
+2. **Cek `scripts/prerender-site.mjs` dan `public/prerendered/*.html`** — file ini SUMBER TERPISAH yang mudah kelupaan. Kalau ubah copy di Hero/About/Services, WAJIB sync manual ke sini.
+3. `tsc --noEmit && vite build`, 0 error
+4. Commit lokal dulu, JANGAN auto-push — tunggu approve
+
+---
+
+# Known Risks & Technical Debt
+
+### Prerender drift (high risk)
+`scripts/prerender-site.mjs` berisi **hardcoded copy duplikat** dari Hero.tsx, Services.tsx, About.tsx, dan Portfolio.tsx. Setiap perubahan copy di komponen React WAJIB di-sync manual ke file ini, lalu `node scripts/prerender-site.mjs` dijalankan untuk regenerate `public/prerendered/*.html`. AI crawler membaca file ini via `llms.txt`, bukan komponen React.
+
+**Ideal fix:** refactor prerender-site.mjs untuk import string dari shared constants file, bukan duplikasi manual. Scope besar — skip untuk sekarang.

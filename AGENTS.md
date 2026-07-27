@@ -3,6 +3,8 @@
 > File ini dibaca OTOMATIS sama AI assistant (Claude Code, Codex, Cursor, AI Studio agent, dll) di awal sesi project ini. **BACA DULU** sebelum nanya atau ngerjain apa-apa.
 >
 > **SEO/IEO Status**: Baca `SEO_CRAWLABILITY_STATUS.md` untuk status tervalidasi (canonical, llms.txt, sitemap, nav crawlability). Jangan klaim "sudah fix" tanpa validasi ke live URL production.
+>
+> **AI-Slop Audit Status**: Baca `AI_SLOP_AUDIT.md` untuk riwayat pembersihan copy (guardrails, buzzword inventory, known risks). Cek dulu sebelum ubah copy di komponen mana pun.
 
 ---
 
@@ -55,13 +57,12 @@ Detail lengkap ada di `PROJECT_CONTEXT.md` (baca juga).
 
 | ❌ Jangan | ✅ Harusnya |
 |----------|-----------|
-| Refactor Portfolio.tsx tanpa diminta | Biarin 443 baris, data BAKED IN masih OK |
-| Refactor LanguageContext (biarin dead code) | Biarin, components hardcode bilingual |
-| Hapus server.ts (DRY) | Tinggalin, Express masih dipake untuk local dev |
-| Migrate balik ke hash routing | React Router path routing sudah live & tested, backward compat via OldHashRedirect |
-| Pakai `t("key")` di component baru | Hardcode inline `language === "id" ? ... : ...` |
-| Tolak client karena budget | Selalu tawarkan starter/MVP (sesuai system prompt) |
-| Edit `metadata.json` | AI Studio config, jangan disentuh |
+|| Refactor Portfolio.tsx tanpa diminta | Biarin 443 baris, data BAKED IN masih OK |
+|| Hapus server.ts (DRY) | Tinggalin, Express masih dipake untuk local dev |
+|| Migrate balik ke hash routing | React Router path routing sudah live & tested, backward compat via OldHashRedirect |
+|| Pakai `t("key")` di component baru | Hardcode inline `language === "id" ? ... : ...` |
+|| Tolak client karena budget | Selalu tawarkan starter/MVP (sesuai system prompt) |
+|| Edit `metadata.json` | AI Studio config, jangan disentuh |
 
 ---
 
@@ -83,7 +84,7 @@ Detail lengkap ada di `PROJECT_CONTEXT.md` (baca juga).
 **AI SDK**: @google/genai v2.4
 **Live URL**: https://arblok-digital.vercel.app/
 **Owner**: Ardi (Tasikmalaya) — WhatsApp +6289508053795
-**Branding**: dark theme, cyan/indigo accent
+**Branding**: cream/terracotta editorial theme, warm paper (oklch 0.97 0.01 85)
 **Languages**: ID + EN bilingual
 
 ---

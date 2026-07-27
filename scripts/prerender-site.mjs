@@ -13,20 +13,42 @@ if (!existsSync(OUT_DIR)) {
 
 const BASE_URL = "https://arblok-digital.vercel.app";
 
+const homeHeadline =
+  "Dari kasir warung sampai portal sekolah — semua dari satu fondasi kode";
+
+const homeSubtitle =
+  "Setiap fitur lahir dari obrolan dengan pemilik usaha, bukan dari meja meeting. Itulah kenapa barangnya dipakai.";
+
 const servicesID = [
-  { title: "Pembuatan Website & PWA", desc: "Landing page premium, Company Profile interaktif, atau PWA modern yang bisa diinstal langsung di perangkat pengguna.", details: ["Landing page konversi tinggi & SEO-Friendly", "PWA siap instalasi mobile", "Desain UI/UX eksklusif", "Integrasi domain kustom & analytics"] },
-  { title: "Marketplace & Platform Bisnis", desc: "Platform e-commerce kustom, sistem kasir (POS), atau portal multi-vendor dengan manajemen produk dan transaksi.", details: ["Sistem e-commerce & katalog produk", "Multi-vendor marketplace", "Manajemen transaksi & kasir digital", "Keamanan payment gateway"] },
-  { title: "Custom Software & Pipeline Logika", desc: "Menerjemahkan alur kerja operasional menjadi kode terstruktur dengan pipeline otorisasi otomatis.", details: ["Pipeline persetujuan dinamis", "Tracking dokumen real-time", "PostgreSQL Row Level Security", "Manajemen hak akses kustom"] },
-  { title: "Otomatisasi Sistem & AI", desc: "AI terapan di server-side untuk klasifikasi dokumen, ekstraksi data, dan automasi workflow.", details: ["Klasifikasi dokumen otonom", "Server-Side AI Proxy aman", "Pipeline automasi cerdas", "Notifikasi mandiri tanpa biaya API"] },
+  {
+    title: "Website & PWA",
+    desc: "Landing page, company profile interaktif, atau PWA yang bisa diinstal langsung ke layar utama tanpa App Store.",
+    details: ["Konversi tinggi & SEO-friendly", "PWA siap instalasi mobile", "Desain custom, bukan template"],
+  },
+  {
+    title: "Marketplace & Bisnis",
+    desc: "E-commerce custom, sistem kasir (POS), atau portal multi-vendor dengan alur transaksi terstruktur.",
+    details: ["Multi-vendor marketplace", "Manajemen transaksi & POS", "Payment gateway terintegrasi"],
+  },
+  {
+    title: "Custom Software & Pipeline",
+    desc: "Spesialisasi kami: menerjemahkan alur kerja operasional jadi kode terstruktur dengan pipeline otorisasi otomatis.",
+    details: ["Pipeline persetujuan dinamis", "Tracking real-time", "PostgreSQL Row Level Security"],
+  },
+  {
+    title: "AI & Otomatisasi",
+    desc: "AI terapan langsung di server-side — klasifikasi dokumen, ekstraksi OCR, dan otomasi logika tanpa sewa server mahal.",
+    details: ["Klasifikasi dokumen otonom", "Server-side AI proxy", "Notifikasi hemat biaya"],
+  },
 ];
 
 const portfolioItems = [
   { title: "SekolahRapi", badge: "Fintech Edukasi", desc: "Platform administrasi & keuangan sekolah — pendaftaran online, SPP otomatis, laporan real-time.", link: "https://sekolah-rapi.vercel.app/" },
-  { title: "SekolahPro", badge: "SaaS EduTech", desc: "Sistem Informasi Akademik & Manajemen Sekolah terpadu.", link: "https://sekolah-pro.vercel.app/" },
-  { title: "Solana Warung", badge: "Top 100 Global Google", desc: "Platform e-commerce Web3 dengan mikro-pembayaran blockchain. Top 100 Global Google Developer Groups.", cert: "JVC2605-N74Z-Y7DN" },
-  { title: "KasirPro F&B", badge: "SaaS F&B & Retail", desc: "Point of Sale modern untuk bisnis kuliner.", link: "https://kasirpro-fnb-app.vercel.app/" },
-  { title: "KasirPro Grosiran", badge: "SaaS Grosir", desc: "Manajemen kasir & inventori skala grosir.", link: "https://kasirproid-app-grosiran.vercel.app/" },
-  { title: "E-Warga", badge: "Inovasi Birokrasi", desc: "Digitalisasi pengurusan surat desa/kelurahan dari RT hingga Disdukcapil.", link: "https://ewarga-tau.vercel.app/" },
+  { title: "SekolahPro", badge: "EduTech ERP", desc: "Sistem Informasi Manajemen Sekolah (ERP) all-in-one.", link: "https://sekolah-pro.vercel.app/" },
+  { title: "Solana Warung", badge: "Google Top 100 Global", desc: "Platform rewards Web3 untuk UMKM. Top 100 Global dalam Google Solution Challenge.", cert: "JVC2605-N74Z-Y7DN" },
+  { title: "KasirPro F&B", badge: "SaaS F&B", desc: "Sistem Point of Sale (POS) modern berbasis cloud untuk bisnis kuliner dan UMKM.", link: "https://kasirpro-fnb-app.vercel.app/" },
+  { title: "KasirPro Grosiran", badge: "SaaS Grosir", desc: "Manajemen kasir & inventori skala grosir/gudang.", link: "https://kasirproid-app-grosiran.vercel.app/" },
+  { title: "E-Warga", badge: "GovTech", desc: "Digitalisasi birokrasi kelurahan — data penduduk, pengajuan surat, notifikasi WhatsApp gratis.", link: "#" },
   { title: "Onyx Terminal", badge: "Crypto Intelligence", desc: "Platform intelijen pasar kripto berbasis AI.", link: "https://onyx-terminal-v1.vercel.app/" },
   { title: "Sanajan QR Order", badge: "F&B Digitalisasi", desc: "QR Table-Order & loyalty platform untuk warkop dan cafe." },
   { title: "CoordinationApp", badge: "Manajemen Tim", desc: "Koordinasi tugas hierarki untuk organisasi besar." },
@@ -90,25 +112,26 @@ function serveHtml(content, extraSchema) {
 
 // ── HOME PAGE ──
 const homeContent = {
-  title: "ARBLOK Digital | Premium Software House & Digital Agency - Tasikmalaya",
-  desc: "ARBLOK Digital adalah software house & digital agency dari Tasikmalaya. Spesialis Web Development, PWA, AI Automation, Blockchain, dan Sistem Manajemen Bisnis.",
+  title: "ARBLOK Digital | Software House & Digital Agency - Tasikmalaya",
+  desc: "ARBLOK Digital adalah software house & digital agency dari Tasikmalaya. Spesialisasi: sistem kasir, portal sekolah, aplikasi kelurahan, AI automation, dan Web3.",
   canonical: BASE_URL,
   body: `
 <h1>ARBLOK Digital — Software House & Digital Agency Tasikmalaya</h1>
-<p><strong>Akselerasi Bisnis Anda dengan Kekuatan AI & Sistem Digital Modern</strong></p>
-<p>Kami merancang dan mengembangkan perangkat lunak berstandar industri dengan arsitektur Monorepo yang tangguh, scalable, dan terintegrasi AI untuk UMKM hingga instansi pemerintahan.</p>
-<p>Keunggulan: <strong>Zero-Cost Serverless</strong> | Row Level Security (RLS) | Monorepo Workspace</p>
+<p><strong>${homeHeadline}</strong></p>
+<p>${homeSubtitle}</p>
+<p>Kami bikin sistem digital yang beneran dipakai — dari kasir warung sampai portal sekolah, semua dari satu fondasi kode.</p>
+<p>Keunggulan: <strong>Monorepo Workspace</strong> | Offline-first | Row Level Security</p>
 <p><a class="wa" href="https://wa.me/6289508053795?text=Halo%20Arblok%20Digital">Konsultasi Gratis</a></p>
 
 <h2>Visi & Misi</h2>
-<p><strong>Visi:</strong> Menjadi motor penggerak digitalisasi nasional yang memberdayakan bisnis, UMKM, dan institusi melalui AI dan teknologi web modern — berawal dari Tasikmalaya.</p>
+<p><strong>Visi:</strong> Digitalisasi nasional dimulai dari daerah. Kami bangun sistem yang bikin UMKM dan instansi publik bisa naik kelas — tanpa perlu modal besar atau tim IT khusus.</p>
 <p><strong>Misi:</strong></p>
 <ul>
-  <li><strong>Perangkat Lunak Kokoh:</strong> Solusi berstandar industri dengan arsitektur monorepo untuk skalabilitas masa depan.</li>
-  <li><strong>Efisiensi Birokrasi:</strong> Menyederhanakan proses operasional dan administrasi melalui sistem digital.</li>
-  <li><strong>Integrasi AI Terapan:</strong> Otomatisasi pekerjaan repetitif dengan AI untuk hemat waktu dan biaya.</li>
+  <li><strong>Produk Nyata:</strong> Bukan PowerPoint. Setiap baris kode yang kami tulis sudah dipakai di sekolah, kelurahan, dan warung sungguhan.</li>
+  <li><strong>Efisiensi Operasional:</strong> Sederhanakan administrasi lewat sistem digital yang memang dirancang untuk pengguna non-teknis.</li>
+  <li><strong>AI Itu Alat, Bukan Gimik:</strong> Integrasi AI hanya kalau benar-benar ngurangin pekerjaan manual, bukan sekadar tempel fitur biar keren.</li>
 </ul>
-<p><strong>Arsitektur Monorepo (NPM Workspaces):</strong> Kami menghindari duplikasi kode. Seluruh logika transisi status, validasi akses, dan model database diisolasi dalam modul khusus yang bisa digunakan kembali lintas aplikasi.</p>
+<p><strong>Arsitektur Monorepo:</strong> Setiap proyek dibangun di atas fondasi bersama. Semua logika transisi, validasi, dan model database diisolasi dalam modul khusus — siap diimpor oleh aplikasi baru tanpa duplikasi.</p>
 
 <h2>Layanan</h2>
 ${servicesID.map(s => `
@@ -139,10 +162,10 @@ const homeSchema = `<script type="application/ld+json">${JSON.stringify({
   "name": "ARBLOK Digital", "url": BASE_URL,
   "description": homeContent.desc,
   "address": { "@type": "PostalAddress", "addressLocality": "Tasikmalaya", "addressRegion": "Jawa Barat", "addressCountry": "Indonesia" },
-  "telephone": "+6289508053795", "email": "ardiblokchine@gmail.com",
-  "knowsAbout": ["Web Development", "PWA", "AI", "Blockchain", "POS", "Workflow Automation", "Monorepo", "Serverless"],
+  "telephone": "+628****3795", "email": "ardiblokchine@gmail.com",
+  "knowsAbout": ["Web Development", "PWA", "AI", "Blockchain", "POS", "Workflow Automation", "Monorepo", "Offline-first"],
   "founder": { "@type": "Person", "name": "Ardi" },
-  "contactPoint": { "@type": "ContactPoint", "telephone": "+6289508053795", "contactType": "customer service", "availableLanguage": ["Indonesian", "English"] }
+  "contactPoint": { "@type": "ContactPoint", "telephone": "+628****3795", "contactType": "customer service", "availableLanguage": ["Indonesian", "English"] }
 })}</script>`;
 
 writeFileSync(join(OUT_DIR, "home.html"), serveHtml(homeContent, homeSchema), "utf-8");
@@ -164,13 +187,13 @@ const consultantContent = {
   <li>Teknologi Web3, blockchain & mikro-pembayaran</li>
   <li>Efisiensi kerja UMKM atau Instansi</li>
   <li>Integrasi AI untuk otomatisasi bisnis</li>
-  <li>Arsitektur Monorepo & Zero-Cost Serverless</li>
+  <li>Arsitektur Monorepo & Offline-first</li>
 </ul>
 
 <h2>Rekomendasi Pertanyaan</h2>
 <ul>
   <li><strong>Digitalisasi RT/RW:</strong> Bagaimana cara digitalisasi birokrasi pengurusan surat warga di tingkat RT/RW agar gratis dan aman?</li>
-  <li><strong>Zero-Cost Hosting:</strong> Bagaimana konsep Zero-Cost Hosting di Supabase menggunakan PostgreSQL Row Level Security (RLS)?</li>
+  <li><strong>Offline-first Architecture:</strong> Bagaimana cara bikin aplikasi yang tetap jalan walau tanpa internet?</li>
   <li><strong>Integrasi AI Chat:</strong> Bagaimana cara mengintegrasikan Chatbot AI ke website operasional internal perusahaan?</li>
   <li><strong>Teknologi Kasir F&B:</strong> Ingin membuat aplikasi kasir F&B berbasis web modern, arsitektur monorepo seperti apa yang cocok?</li>
 </ul>
