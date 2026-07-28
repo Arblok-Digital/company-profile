@@ -9,10 +9,10 @@ export default function About() {
       badge: "Filosofi",
       heading: "Visi & Misi",
       subtitle:
-        "Arsitektur monorepo di setiap proyek. Setiap produk baru cukup tambah satu modul — tanpa ngulang kode dari nol.",
+        "Kami membangun produk digital berdasarkan masalah nyata yang kami temukan dari UMKM, sekolah, dan instansi publik — bukan dari tren teknologi terbaru.",
       vision: {
         title: "Visi",
-        desc: "Digitalisasi nasional dimulai dari daerah. Kami bangun sistem yang bikin UMKM dan instansi publik bisa naik kelas — tanpa perlu modal besar atau tim IT khusus.",
+        desc: "Digitalisasi nasional dimulai dari daerah. Kami bangun sistem sederhana yang bikin UMKM dan instansi naik kelas — tanpa modal besar.",
       },
       missions: [
         { label: "Produk Nyata", desc: "Bukan PowerPoint. Setiap baris kode yang kami tulis sudah dipakai di sekolah, kelurahan, dan warung sungguhan." },
@@ -33,10 +33,10 @@ export default function About() {
       badge: "Philosophy",
       heading: "Vision & Mission",
       subtitle:
-        "Monorepo architecture in every project. Each new product just adds a module — no rewriting from scratch.",
+        "We build digital products based on real problems we find from small businesses, schools, and village offices — not from the latest tech trends.",
       vision: {
         title: "Vision",
-        desc: "National digital transformation starts from the grassroots. We build systems that help small businesses and public institutions level up — without needing big budgets or dedicated IT teams.",
+        desc: "National digital transformation starts from the grassroots. We build simple systems that help small businesses and institutions level up — without big budgets.",
       },
       missions: [
         { label: "Real Products", desc: "Not a slide deck. Every line we write is deployed in actual schools, village offices, and local shops." },

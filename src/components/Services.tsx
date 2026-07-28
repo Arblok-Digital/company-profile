@@ -63,8 +63,8 @@ export default function Services() {
           </h2>
           <p className="font-body text-base text-ink-2 mt-4 leading-relaxed">
             {language === "id"
-              ? "Kami merancang logika bisnis dan pipeline workflow yang sepenuhnya disesuaikan dengan kebutuhan Anda — bukan template instan."
-              : "We engineer business logic and workflow pipelines fully tailored to your needs — not from templates."}
+              ? "Dari sistem kasir sampai portal sekolah — setiap produk dibangun khusus untuk kebutuhan Anda, bukan template instan."
+              : "From POS systems to school portals — every product is purpose-built for your needs, not a template."}
           </p>
         </div>
 
