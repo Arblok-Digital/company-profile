@@ -307,7 +307,7 @@ for (const article of articles) {
         "url": `${BASE_URL}/arblok_logo.webp`
       }
     },
-    "image": `${BASE_URL}/og-image.png`,
+    "image": `${BASE_URL}/og-image.png?v=2`,
     "keywords": article.tags.join(", ")
   });
 
@@ -339,7 +339,7 @@ for (const article of articles) {
   <meta property="og:title" content="${article.title}">
   <meta property="og:description" content="${article.excerpt}">
   <meta property="og:url" content="${articleUrl}">
-  <meta property="og:image" content="${BASE_URL}/og-image.png">
+  <meta property="og:image" content="${BASE_URL}/og-image.png?v=2">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="id_ID">
@@ -347,7 +347,7 @@ for (const article of articles) {
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${article.title}">
   <meta name="twitter:description" content="${article.excerpt}">
-  <meta name="twitter:image" content="${BASE_URL}/og-image.png">
+  <meta name="twitter:image" content="${BASE_URL}/og-image.png?v=2">
   <script type="application/ld+json">${blogSchema}</script>
   ${faqSchema ? `<script type="application/ld+json">${faqSchema}</script>` : ""}
   <script type="application/ld+json">${breadcrumbSchema}</script>

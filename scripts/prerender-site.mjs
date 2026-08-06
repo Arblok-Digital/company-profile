@@ -84,7 +84,7 @@ function serveHtml(content, extraSchema) {
   <meta property="og:title" content="${content.title}">
   <meta property="og:description" content="${content.desc}">
   <meta property="og:url" content="${content.canonical}">
-  <meta property="og:image" content="${BASE_URL}/og-image.png">
+  <meta property="og:image" content="${BASE_URL}/og-image.png?v=2">
   <meta name="twitter:card" content="summary_large_image">
   ${extraSchema || ""}
   <style>
