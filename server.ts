@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import { existsSync } from "fs";
 import dotenv from "dotenv";
 
 dotenv.config();
