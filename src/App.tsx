@@ -12,6 +12,7 @@ import Articles from "./components/Articles";
 import AiConsultant from "./components/AiConsultant";
 import Footer from "./components/Footer";
 import { LanguageProvider } from "./LanguageContext";
+import { Analytics } from "@vercel/analytics/react";
 
 function ProfilePage() {
   return (
@@ -124,6 +125,7 @@ export default function App() {
       <LanguageProvider>
         <AppContent />
       </LanguageProvider>
+      <Analytics />
     </BrowserRouter>
   );
 }
