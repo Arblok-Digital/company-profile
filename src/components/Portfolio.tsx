@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Award, ExternalLink } from "lucide-react";
 import { PortfolioItem } from "../types";
 import { useLanguage } from "../LanguageContext";
+import { useInView } from "../hooks/useInView";
 
 export default function Portfolio() {
   const { language } = useLanguage();
   const [activeFilter, setActiveFilter] = useState<string>("Semua");
+  const gridRef = useRef<HTMLDivElement>(null);
+  const gridVisible = useInView(gridRef, { threshold: 0.05 });
 
   useEffect(() => {
     setActiveFilter(language === "id" ? "Semua" : "All");
@@ -16,7 +19,7 @@ export default function Portfolio() {
       id: "sekolah-rapi",
       title: "SekolahRapi",
       category: "Web Application",
-      description: "Platform administrasi & keuangan sekolah paling praktis se-Indonesia. Pendaftaran siswa online tanpa antri, manajemen SPP otomatis, dan laporan keuangan real-time — semua dari HP, bahkan tanpa internet.",
+      description: "Dibangun untuk sekolah yang pendaftaran dan SPP-nya masih dicatat manual. Pendaftaran siswa jadi online tanpa antre, tunggakan terdeteksi otomatis, dan laporan keuangan bisa diperiksa dari HP — bahkan saat internet tidak stabil.",
       badge: "Fintech Edukasi",
       status: "Production-ready",
       techStack: ["Next.js", "PWA", "PostgreSQL", "Offline-first"],
@@ -34,7 +37,7 @@ export default function Portfolio() {
       id: "sekolah-pro",
       title: "SekolahPro",
       category: "Web Application",
-      description: "Sistem Informasi Manajemen Sekolah (ERP) all-in-one — dari CRM siswa, SPP & infak otomatis, payroll guru, manajemen dana BOS, jadwal & kalender akademik, inventaris aset, komunikasi orang tua, hingga radar kesehatan dan kelulusan alumni. Offline-first, siap dipakai tanpa internet.",
+      description: "Dibangun untuk yayasan atau sekolah yang ingin semua data dalam satu tempat: CRM siswa, SPP & infak, payroll guru, dana BOS, jadwal akademik, aset, dan komunikasi orang tua — tetap berjalan tanpa internet untuk daerah dengan koneksi terbatas.",
       badge: "EduTech ERP",
       status: "Production-ready",
       techStack: ["Next.js", "Supabase", "PostgreSQL", "RLS"],
@@ -54,7 +57,7 @@ export default function Portfolio() {
       id: "sanajan-qr-order",
       title: "Sanajan QR Order",
       category: "Web Application",
-      description: "Platform QR Table-Order & loyalty untuk warkop dan café. Scan QR meja, pesan via HP, bayar QRIS. Barista lihat order real-time tanpa biaya server.",
+      description: "Dibangun untuk warkop dan café yang ingin memangkas antrean kasir. Pelanggan scan QR meja, memesan dan membayar dari HP, order langsung terlihat di dapur — tanpa biaya server bulanan.",
       badge: "F&B Digitalisasi",
       status: "Production-ready",
       techStack: ["React 19", "Vite 6", "Supabase", "QRIS Payment", "Offline"],
@@ -74,7 +77,7 @@ export default function Portfolio() {
       id: "onyx",
       title: "Onyx Terminal",
       category: "AI & Automation",
-      description: "Platform intelijen pasar kripto berbasis AI untuk membantu trader menganalisis sentimen pasar, pergerakan on-chain, dan sinyal trading presisi.",
+      description: "Dibangun untuk trader yang ingin memantau sentimen pasar, pergerakan on-chain, dan sinyal trading dalam satu dashboard yang bisa disusun sendiri.",
       badge: "Crypto Intelligence",
       status: "Production-ready",
       techStack: ["React", "Gemini AI", "Tailwind CSS", "Market WebSockets", "D3 Charts"],
@@ -92,7 +95,7 @@ export default function Portfolio() {
       id: "solana-warung",
       title: "Solana Warung",
       category: "Web3 & Blockchain",
-      description: "Platform rewards Web3 untuk UMKM. Pembeli dapat mengonversi koin digital menjadi diskon atau merchandise di warung kelontong favorit mereka — dengan transaksi near-zero gas fee. Proyek ini terpilih sebagai Top 100 Global dalam Google Solution Challenge — kompetisi coding Google untuk solusi sosial berbasis teknologi.",
+      description: "Dibangun untuk warung kelontong yang ingin memberi rewards kepada pelanggan setia: koin digital ditukar menjadi diskon atau merchandise, dengan transaksi mikro near-zero gas fee. Karya ini terpilih Top 100 Global dalam Google Solution Challenge.",
       badge: "Google Top 100 Global",
       status: "Top 100 — Google Solution Challenge",
       techStack: ["Solana", "React", "Anchor", "Web3.js"],
@@ -111,7 +114,7 @@ export default function Portfolio() {
       id: "e-warga",
       title: "E-Warga",
       category: "Web Application",
-      description: "Sistem digitalisasi birokrasi kelurahan. Manajemen data penduduk, pengajuan surat RT/RW, dan notifikasi WhatsApp tanpa biaya API. Offline-ready untuk daerah dengan koneksi terbatas.",
+      description: "Dibangun untuk kelurahan yang pelayanan suratnya masih mengharuskan warga datang bolak-balik: data penduduk terpusat, pengajuan surat online dengan tahap persetujuan, notifikasi WhatsApp gratis, dan tetap berjalan di area dengan sinyal lemah.",
       badge: "GovTech",
       status: "Production-ready",
       techStack: ["React", "Supabase", "PWA", "Offline-first"],
@@ -129,7 +132,7 @@ export default function Portfolio() {
       id: "kasirpro-grosir",
       title: "KasirPro Grosiran",
       category: "Web Application",
-      description: "Sistem Manajemen Kasir & Inventori skala grosir/gudang untuk optimasi transaksi rantai pasok dan volume tinggi. Solusi enterprise untuk efisiensi distribusi barang.",
+      description: "Dibangun untuk toko grosir dan gudang yang melayani banyak transaksi dalam waktu singkat: kasir yang cepat, stok multi-gudang, tingkat harga berdasarkan kuantitas pembelian, dan laporan laba rugi instan.",
       badge: "SaaS Grosir",
       status: "Production-ready",
       techStack: ["React", "Express", "PostgreSQL", "Real-time Sync", "Analytics"],
@@ -147,7 +150,7 @@ export default function Portfolio() {
       id: "kasirpro",
       title: "KasirPro F&B",
       category: "Web Application",
-      description: "Sistem Point of Sale (POS) modern berbasis cloud untuk akselerasi operasional bisnis kuliner dan UMKM. Integrasi menu digital dan cetak struk instan.",
+      description: "Dibangun untuk UMKM kuliner yang ingin mengganti catatan manual dengan kasir yang rapi: pencatatan instan, inventori bahan yang terpantau, struk ramah HP, dan analitik penjualan harian atau bulanan.",
       badge: "SaaS F&B",
       status: "Production-ready",
       techStack: ["React", "Express", "PostgreSQL", "Recharts Analytics", "Offline-first"],
@@ -165,7 +168,7 @@ export default function Portfolio() {
       id: "coordination",
       title: "CoordinationApp",
       category: "Web Application",
-      description: "Sistem koordinasi tugas berstruktur hierarki untuk organisasi, relawan kampanye, atau tim besar dengan pelaporan berbasis bukti foto.",
+      description: "Dibangun untuk organisasi lapangan dan tim yang berstruktur: tugas dibagi sesuai jabatan, progres dilaporkan dengan bukti foto, lalu diverifikasi pengawas — semua aktivitas terekam log.",
       badge: "Manajemen Tim",
       status: "Featured",
       techStack: ["React", "Supabase", "Hierarchical Auth", "Flowchart"],
@@ -183,7 +186,7 @@ export default function Portfolio() {
       id: "sekolah-rapi",
       title: "SekolahRapi",
       category: "Web Application",
-      description: "The most practical school admin & finance platform in Indonesia. Online enrollment, automated SPP tracking, and real-time reports — all from your phone, even offline.",
+      description: "Built for schools whose enrollment and fees are still tracked by hand. Registration moves online with no queue, overdue payments are flagged automatically, and financial reports are checked from a phone — even when the internet is unstable.",
       badge: "EduTech Fintech",
       status: "Production-ready",
       techStack: ["Next.js", "PWA", "PostgreSQL", "Offline-first"],
@@ -201,7 +204,7 @@ export default function Portfolio() {
       id: "sekolah-pro",
       title: "SekolahPro",
       category: "Web Application",
-      description: "All-in-one School Management Information System (ERP) — student CRM, automated tuition & donation tracking, teacher payroll, BOS fund management, academic schedules & calendar, asset inventory, parent communication portal, health radar, and alumni graduation management. Offline-first, works without internet.",
+      description: "Built for foundations or schools that want every workflow in one place: student CRM, tuition & donations, teacher payroll, BOS funds, schedules, assets, and parent communication — still functional offline where internet is limited.",
       badge: "EduTech ERP",
       status: "Production-ready",
       techStack: ["Next.js", "Supabase", "PostgreSQL", "RLS"],
@@ -221,7 +224,7 @@ export default function Portfolio() {
       id: "sanajan-qr-order",
       title: "Sanajan QR Order",
       category: "Web Application",
-      description: "Self-service QR Table-Order & loyalty for cafes. Scan table QR, order via phone, pay QRIS instantly. Barista gets real-time orders — zero server cost.",
+      description: "Built for cafés and warungs that want to cut the counter queue. Customers scan a table QR, order and pay from their phone, and orders appear instantly in the kitchen — with zero monthly server costs.",
       badge: "F&B Digitalization",
       status: "Production-ready",
       techStack: ["React 19", "Vite 6", "Supabase", "QRIS Payment", "Offline"],
@@ -241,7 +244,7 @@ export default function Portfolio() {
       id: "onyx",
       title: "Onyx Terminal",
       category: "AI & Automation",
-      description: "AI-driven crypto market terminal for market sentiment, on-chain movements, and precision trading signals.",
+      description: "Built for traders who want market sentiment, on-chain moves, and trading signals in one dashboard they can rearrange themselves — including optional intelligence features.",
       badge: "Crypto Intelligence",
       status: "Production-ready",
       techStack: ["React", "Gemini AI", "Tailwind CSS", "WebSockets", "D3 Charts"],
@@ -259,7 +262,7 @@ export default function Portfolio() {
       id: "solana-warung",
       title: "Solana Warung",
       category: "Web3 & Blockchain",
-      description: "Web3 rewards platform for small businesses. Buyers convert digital coins into discounts or merchandise at local warungs — with near-zero gas fees. Selected as Top 100 Global in Google Solution Challenge — Google's coding competition for tech-driven social impact.",
+      description: "Built for small convenience shops that want to reward loyal customers: digital coins are exchanged for discounts or merchandise at the counter, with near-zero gas fee micro-transactions. Selected as Top 100 Global in Google Solution Challenge.",
       badge: "Google Top 100 Global",
       status: "Top 100 — Google Solution Challenge",
       techStack: ["Solana", "React", "Anchor", "Web3.js"],
@@ -278,7 +281,7 @@ export default function Portfolio() {
       id: "e-warga",
       title: "E-Warga",
       category: "Web Application",
-      description: "Digital village bureaucracy management. Citizen data management, RT/RW letter applications, and WhatsApp notifications at zero API cost. Offline-ready for limited connectivity areas.",
+      description: "Built for district offices whose services still require citizens to come back and forth: centralized citizen data, online letter requests with approval stages, free WhatsApp notifications, and usable in areas with weak signals.",
       badge: "GovTech",
       status: "Production-ready",
       techStack: ["React", "Supabase", "PWA", "Offline-first"],
@@ -296,7 +299,7 @@ export default function Portfolio() {
       id: "kasirpro-grosir",
       title: "KasirPro Wholesale",
       category: "Web Application",
-      description: "Wholesale POS & inventory management engine for supply chains and high-volume transactions. Enterprise solution for massive stock distribution.",
+      description: "Built for wholesale stores and warehouses that handle bursts of high-volume transactions: a register that stays fast, multi-warehouse stock, tiered pricing by purchase quantity, and instant profit-and-loss reports.",
       badge: "Wholesale SaaS",
       status: "Production-ready",
       techStack: ["React", "Express", "PostgreSQL", "Real-time Sync", "Analytics"],
@@ -314,7 +317,7 @@ export default function Portfolio() {
       id: "kasirpro",
       title: "KasirPro F&B",
       category: "Web Application",
-      description: "Modern cloud-native F&B point of sale system for restaurants and retail. Built-in digital menus and mobile-ready receipt layouts.",
+      description: "Built for food & beverage SMEs that want to replace manual ledgers with a clean register: instant checkout, tracked ingredient stock, mobile-friendly receipts, and daily or monthly sales analytics.",
       badge: "F&B SaaS",
       status: "Production-ready",
       techStack: ["React", "Express", "PostgreSQL", "Analytics", "Offline-first"],
@@ -332,7 +335,7 @@ export default function Portfolio() {
       id: "coordination",
       title: "CoordinationApp",
       category: "Web Application",
-      description: "Hierarchical task coordination tool for large field organizations, campaign volunteers, or youth communities with photo-based work proofs.",
+      description: "Built for field organisations and ranked teams: tasks are split by role, progress is reported with photo evidence, reviewed by supervisors, with every activity logged.",
       badge: "Team Management",
       status: "Featured",
       techStack: ["React", "Supabase", "Hierarchical Auth", "Flowchart"],
@@ -357,19 +360,19 @@ export default function Portfolio() {
 
   return (
     <section id="portfolio" className="py-20 sm:py-28 bg-paper border-t border-rule">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+      <div className="mx-auto w-full px-6 sm:px-8 lg:max-w-none lg:px-14 xl:px-20">
         {/* Section head */}
-        <div className="max-w-2xl mb-16">
-          <span className="font-mono text-xs text-ink-2 uppercase tracking-[0.15em]">
-            {language === "id" ? "Karya Kami" : "Our Work"}
+        <div className="max-w-3xl mb-14">
+          <span className="font-mono text-xs text-accent uppercase tracking-[0.14em]">
+            {language === "id" ? "Bukti kerja" : "Work examples"}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-ink leading-[1.1] mt-3 tracking-tight">
-            {language === "id" ? "Portofolio Produk" : "Featured Products"}
+          <h2 className="font-body text-3xl sm:text-4xl text-ink leading-tight mt-4 tracking-[-0.025em] font-semibold text-balance">
+            {language === "id" ? "Sistem yang dapat dilihat dan dicoba." : "Systems you can review and try."}
           </h2>
-          <p className="font-body text-base text-ink-2 mt-4 leading-relaxed">
+          <p className="font-body text-sm sm:text-base text-ink-2 mt-5 leading-6 sm:leading-7 max-w-2xl">
             {language === "id"
-              ? "Platform dan sistem yang kami kembangkan untuk memecahkan masalah nyata."
-              : "Platforms and systems we've built to solve real-world problems."}
+              ? "Setiap contoh berangkat dari pekerjaan tertentu—mulai dari pencatatan transaksi sampai persetujuan dokumen. Tautan demo tersedia pada produk yang dapat diakses publik."
+              : "Each example starts with a specific task—from recording transactions to reviewing documents. Publicly accessible products include a demo link."}
           </p>
 
           {/* Filters */}
@@ -391,9 +394,8 @@ export default function Portfolio() {
         </div>
 
         {/* Portfolio grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {filteredItems.map((item) => (
-            <div key={item.id} className="border border-rule rounded-sm overflow-hidden bg-paper">
+        <div ref={gridRef} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">          {filteredItems.map((item) => (
+            <article key={item.id} className={`card card-hover overflow-hidden rounded-xl ${gridVisible ? "visible" : ""}`}>
               {/* Image */}
               {item.image && (
                 <div className="aspect-video w-full overflow-hidden bg-paper-2 border-b border-rule">
@@ -401,25 +403,33 @@ export default function Portfolio() {
                     src={item.image}
                     alt={item.imageLabel || `${item.title} preview`}
                     referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-cover object-top hover:scale-[1.02] transition-transform duration-500"
                     loading="lazy"
                   />
                 </div>
               )}
 
-              <div className="p-6 sm:p-8">
+              <div className="p-5 sm:p-6">
                 {/* Badge + Status */}
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-mono text-[10px] text-accent uppercase tracking-[0.1em]">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <span className={`font-mono text-[10px] uppercase tracking-[0.1em] ${
+                    item.badge.includes("Top 100") ? "text-amber font-medium" : "text-accent"
+                  }`}>
                     {item.badge}
                   </span>
-                  <span className="font-mono text-[10px] text-ink-2 uppercase tracking-[0.05em]">
+                  <span className={`font-mono text-[10px] uppercase tracking-[0.05em] ${
+                    item.status.includes("Top 100")
+                      ? "text-amber font-medium"
+                      : item.status === "Production-ready"
+                        ? "text-accent-2"
+                        : "text-ink-2"
+                  }`}>
                     {item.status}
                   </span>
                 </div>
 
                 {/* Title */}
-                <h3 className="font-display text-xl text-ink mb-3">{item.title}</h3>
+                <h3 className="font-body text-xl font-semibold text-ink mb-3">{item.title}</h3>
                 <p className="font-body text-sm text-ink-2 leading-relaxed mb-4">
                   {item.description}
                 </p>
@@ -428,7 +438,7 @@ export default function Portfolio() {
                 <ul className="space-y-1.5 mb-5">
                   {item.features.map((feat, i) => (
                     <li key={i} className="font-body text-sm text-ink-2 flex items-start gap-2">
-                      <span className="mt-[5px] w-1 h-1 rounded-full bg-accent shrink-0" />
+                      <span className="text-accent shrink-0">—</span>
                       {feat}
                     </li>
                   ))}
@@ -483,7 +493,7 @@ export default function Portfolio() {
                   )}
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

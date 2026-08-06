@@ -1,110 +1,80 @@
-import React from "react";
+﻿import React, { useRef } from "react";
 import { useLanguage } from "../LanguageContext";
+import { useInView } from "../hooks/useInView";
+import { ShoppingCart, GraduationCap, FileCheck2, Globe, Workflow } from "lucide-react";
+
+const WHATSAPP_URL =
+  "https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20mendiskusikan%20sistem%20untuk%20kebutuhan%20organisasi%20saya.";
+
+const serviceIcons = [ShoppingCart, GraduationCap, FileCheck2, Globe, Workflow];
 
 export default function Services() {
   const { language } = useLanguage();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionVisible = useInView(sectionRef, { threshold: 0.1 });
 
-  const services = (language === "id" ? [
-    {
-      title: "Website & PWA",
-      desc: "Landing page, company profile interaktif, atau PWA yang bisa diinstal langsung ke layar utama tanpa App Store.",
-      items: ["Konversi tinggi & SEO-friendly", "PWA siap instalasi mobile", "Desain custom, bukan template"],
-    },
-    {
-      title: "Marketplace & Bisnis",
-      desc: "E-commerce custom, sistem kasir (POS), atau portal multi-vendor dengan alur transaksi terstruktur.",
-      items: ["Multi-vendor marketplace", "Manajemen transaksi & POS", "Payment gateway terintegrasi"],
-    },
-    {
-      title: "Custom Software & Pipeline",
-      desc: "Spesialisasi kami: menerjemahkan alur kerja operasional jadi kode terstruktur dengan pipeline otorisasi otomatis.",
-      items: ["Pipeline persetujuan dinamis", "Tracking real-time", "PostgreSQL Row Level Security"],
-    },
-    {
-      title: "AI & Otomatisasi",
-      desc: "AI terapan langsung di server-side — klasifikasi dokumen, ekstraksi OCR, dan otomasi logika tanpa sewa server mahal.",
-      items: ["Klasifikasi dokumen otonom", "Server-side AI proxy", "Notifikasi hemat biaya"],
-    },
-  ] : [
-    {
-      title: "Web & PWA",
-      desc: "Landing pages, interactive company profiles, or PWAs installable on users' home screens.",
-      items: ["High-conversion, SEO-optimized", "Mobile-ready PWA", "Bespoke UI/UX, zero templates"],
-    },
-    {
-      title: "Marketplace & E-Commerce",
-      desc: "Custom e-commerce, POS systems, or multi-vendor portals with structured cart-to-checkout flow.",
-      items: ["Multi-vendor marketplace", "POS & digital ledger", "Secure payment gateway"],
-    },
-    {
-      title: "Custom Software",
-      desc: "Our specialty: translating operational workflows into structured code with automated authorization pipelines.",
-      items: ["Dynamic approval pipelines", "Real-time document tracing", "PostgreSQL RLS"],
-    },
-    {
-      title: "AI & Automation",
-      desc: "Applied AI on the server side — document classification, OCR extraction, and logic automation without expensive virtual servers.",
-      items: ["Autonomous classification", "Server-side AI proxy", "Zero-cost notifications"],
-    },
-  ]);
+  const services = language === "id"
+    ? [
+{ title: "Penjualan dan persediaan", desc: "Toko online dan kasir sendiri untuk usaha — jualan tanpa fee marketplace yang terus naik.", items: ["Toko online & kasir tanpa biaya platform", "Pencatatan transaksi dan stok", "Laporan yang dapat diperiksa"] },
+        { title: "Administrasi sekolah", desc: "Untuk pembayaran, data siswa, dan pekerjaan administrasi yang perlu dipantau oleh petugas terkait.", items: ["Pencatatan pembayaran", "Data siswa dan kelas", "Status administrasi"] },
+        { title: "Pelayanan dan persetujuan", desc: "Untuk pengajuan surat, pemeriksaan dokumen, dan keputusan yang melewati beberapa petugas.", items: ["Formulir pengajuan", "Tahap pemeriksaan", "Riwayat keputusan"] },
+        { title: "Website dan portal informasi", desc: "Untuk memperjelas layanan, menerima permintaan, atau menyediakan area informasi bagi pelanggan dan anggota.", items: ["Company profile", "Formulir dan katalog", "Portal yang dapat dipasang di ponsel"] },
+        { title: "Pekerjaan berulang", desc: "Untuk tugas yang bisa dibantu aturan otomatis atau teknologi pintar setelah alurnya jelas.", items: ["Pengingat dan notifikasi", "Pembacaan data dokumen", "Pengelompokan permintaan"] },
+      ]
+    : [
+{ title: "Sales and inventory", desc: "Your own online store and POS — sell without marketplace fees that keep rising.", items: ["Online store & POS with no platform fee", "Transaction and stock records", "Reviewable reports"] },
+        { title: "School administration", desc: "For payments, student data, and administrative work that relevant staff need to monitor.", items: ["Payment records", "Student and class data", "Administration status"] },
+        { title: "Services and approvals", desc: "For requests, document reviews, and decisions that move through several staff members.", items: ["Request forms", "Review stages", "Decision history"] },
+        { title: "Websites and information portals", desc: "For explaining services, receiving requests, or providing an information area for customers and members.", items: ["Company profile", "Forms and catalogues", "Installable mobile portal"] },
+        { title: "Repeated work", desc: "For tasks that can use automatic rules or intelligent technology once the workflow is clear.", items: ["Reminders and notifications", "Document data extraction", "Request classification"] },
+      ];
 
   return (
-    <section id="services" className="py-20 sm:py-28 bg-paper border-t border-rule">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8">
-        {/* Section head */}
-        <div className="max-w-2xl mb-16">
-          <span className="font-mono text-xs text-ink-2 uppercase tracking-[0.15em]">
-            {language === "id" ? "Layanan" : "Services"}
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-ink leading-[1.1] mt-3 tracking-tight">
-            {language === "id"
-              ? "Rekayasa Perangkat Lunak & Sistem Kustom"
-              : "Software Engineering & Custom Systems"}
+<section id="services" className="border-b border-rule bg-paper py-20 sm:py-28">
+      <div className="mx-auto w-full px-6 sm:px-8 lg:max-w-none lg:px-14 xl:px-20">
+        <div className="max-w-3xl">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">{language === "id" ? "Solusi" : "Solutions"}</p>
+          <h2 className="mt-4 text-balance font-body text-3xl font-semibold leading-tight tracking-[-0.025em] text-ink sm:text-4xl">
+            {language === "id" ? "Sistem disusun mengikuti pekerjaan penggunanya." : "Systems shaped around the work people do."}
           </h2>
-          <p className="font-body text-base text-ink-2 mt-4 leading-relaxed">
-            {language === "id"
-              ? "Dari sistem kasir sampai portal sekolah — setiap produk dibangun khusus untuk kebutuhan Anda, bukan template instan."
-              : "From POS systems to school portals — every product is purpose-built for your needs, not a template."}
+          <p className="mt-5 max-w-2xl font-body text-sm leading-6 text-ink-2 sm:text-base sm:leading-7">
+            {language === "id" ? "Berikut contoh kebutuhan yang dapat dibahas. Fitur akhirnya ditentukan dari alur dan prioritas setiap organisasi." : "These are examples of needs we can discuss. Final features are determined by each organization’s workflow and priorities."}
           </p>
         </div>
 
-        {/* Services — 2x2 grid, no card-in-card */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-          {services.map((svc) => (
-            <div key={svc.title} className="border-t border-rule pt-6">
-              <h3 className="font-display text-xl text-ink">{svc.title}</h3>
-              <p className="font-body text-sm text-ink-2 mt-2 leading-relaxed">{svc.desc}</p>
-              <ul className="mt-4 space-y-1.5">
-                {svc.items.map((item) => (
-                  <li key={item} className="font-body text-sm text-ink-2 flex items-start gap-2">
-                    <span className="mt-[5px] w-1 h-1 rounded-full bg-accent shrink-0" />
+        <div ref={sectionRef} className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {services.map((service, index) => (
+            <article key={service.title} className={`card card-hover animate-fade-up p-6 ${sectionVisible ? "visible" : ""} ${index === services.length - 1 ? "md:col-span-2 lg:col-span-2" : ""}`} style={{ "--stagger-index": index } as React.CSSProperties}>
+              <div className="flex items-center justify-between">
+                <span className="stat-number font-mono text-sm font-semibold text-accent">0{index + 1}</span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-paper-2 text-accent">
+                  {(() => {
+                    const Icon = serviceIcons[index];
+                    return <Icon className="h-4.5 w-4.5" aria-hidden="true" strokeWidth={1.75} />;
+                  })()}
+                </span>
+              </div>
+              <h3 className="mt-5 font-body text-lg font-semibold text-ink">{service.title}</h3>
+              <p className="mt-3 font-body text-sm leading-6 text-ink-2">{service.desc}</p>
+              <ul className="mt-5 space-y-2 border-t border-rule pt-4">
+                {service.items.map((item) => (
+                  <li key={item} className="flex items-start gap-2 font-body text-sm leading-5 text-ink-2">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
                     {item}
                   </li>
                 ))}
               </ul>
-            </div>
+            </article>
           ))}
         </div>
 
-        {/* Bottom CTA — simple, no gradient */}
-        <div className="mt-14 pt-10 border-t border-rule text-center">
-          <p className="font-display text-lg text-ink">
-            {language === "id"
-              ? "Punya alur kerja spesifik?"
-              : "Have a specific workflow in mind?"}
-          </p>
-          <p className="font-body text-sm text-ink-2 mt-2 max-w-md mx-auto">
-            {language === "id"
-              ? "Setiap bisnis unik. Kami bantu Anda merancang pipeline yang pas — dari logika transisi, validasi, hingga notifikasi otomatis."
-              : "Every business is unique. Let us design the right pipeline — from transition logic to validation to automated notifications."}
-          </p>
-          <a
-            href="https://wa.me/6289508053795"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-6 font-body text-sm px-5 py-2.5 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-colors"
-          >
-            {language === "id" ? "Diskusikan Pipeline Anda" : "Discuss Your Pipeline"}
+        <div className="card mt-14 flex flex-col gap-5 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div>
+            <h3 className="font-body text-lg font-semibold text-ink">{language === "id" ? "Kebutuhan Anda belum ada di daftar?" : "Your need is not listed here?"}</h3>
+            <p className="mt-2 max-w-xl font-body text-sm leading-6 text-ink-2">{language === "id" ? "Ceritakan pekerjaan yang ingin dirapikan. Kami akan membantu menilai apakah perangkat lunak memang menjadi jawaban yang tepat." : "Describe the work you want to improve. We will help assess whether software is the right answer."}</p>
+          </div>
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-gradient inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg px-5 py-3 font-body text-sm font-semibold">
+            {language === "id" ? "Diskusikan kebutuhan" : "Discuss your needs"}
           </a>
         </div>
       </div>

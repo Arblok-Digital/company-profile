@@ -343,7 +343,12 @@ async function setupApp() {
       app.use(vite.middlewares);
     } else {
       const distPath = path.join(process.cwd(), "dist");
-      app.use(express.static(distPath));
+      app.use(express.static(distPath, { extensions: ["html"] }));
+      app.get("/articles/:slug", (req, res) => {
+        const file = path.join(distPath, "articles", `${req.params.slug}.html`);
+        if (existsSync(file)) return res.sendFile(file);
+        res.sendFile(path.join(distPath, "index.html"));
+      });
       app.get("*", (req, res) => {
         res.sendFile(path.join(distPath, "index.html"));
       });

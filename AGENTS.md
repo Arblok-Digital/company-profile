@@ -5,6 +5,8 @@
 > **SEO/IEO Status**: Baca `SEO_CRAWLABILITY_STATUS.md` untuk status tervalidasi (canonical, llms.txt, sitemap, nav crawlability). Jangan klaim "sudah fix" tanpa validasi ke live URL production.
 >
 > **AI-Slop Audit Status**: Baca `AI_SLOP_AUDIT.md` untuk riwayat pembersihan copy (guardrails, buzzword inventory, known risks). Cek dulu sebelum ubah copy di komponen mana pun.
+>
+> **🔒 MANDATORY FORMAT**: Baca `MANDATORY_FORMAT.md` — ini aturan tunggal untuk SEMUA copy, struktur halaman, SEO, IEO/AI crawler, AEO, dan GEO. JANGAN ubah isi dokumen itu tanpa konfirmasi Ardi. JANGAN commit/push sebelum dicek di localhost.
 
 ---
 

@@ -1,64 +1,72 @@
 # Design — Arblok Digital
 
-A locked design system for the Arblok Digital company profile. Every page reads this file before emitting code.
+Sistem desain ini menjadi acuan untuk seluruh halaman Arblok Digital. Tujuannya adalah membuat teknologi terasa terstruktur dan dapat dipercaya tanpa menjauhkan pembaca non-teknis.
 
 ## Genre
-Editorial-craft — warm, hand-crafted, typography-led. A software studio that values artisan quality over template speed.
+**Modern Software Studio (Dark)** — bersih, terang, dan presisi dengan tema **dark warm graphite** (bergaya dashboard produk seperti Linear/Supabase). Kesannya "software yang bekerja", bukan majalah editorial. Nuansa teknis hadir melalui mockup dashboard, kartu data, status, dan diagram alur; bukan melalui neon, efek terminal palsu, gradient ungu, atau jargon.
 
-## Macrostructure family
-- Marketing pages: **Long Document** — narrative-first, sections flow like chapters
-- Content pages: **Letter** — intimate, personal
+## Prinsip pengalaman
+- Dalam lima detik, pembaca memahami siapa Arblok, siapa yang dibantu, dan masalah apa yang diselesaikan.
+- Isi dimulai dari pekerjaan atau kendala klien, lalu menjelaskan sistem yang membantu.
+- Bukti memakai produk, tangkapan layar, tautan, dan hasil yang dapat diperiksa. Hindari angka yang tidak memiliki sumber.
+- Bahasa rendah hati dan langsung. Hindari klaim superlatif, pola defensif, dan tiga kata sifat beruntun.
+- Halaman terasa hidup: mockup dashboard/statistik, kartu dengan shadow lembut, CTA solid gradient — bukan dokumen statis.
+
+## Macrostructure
+- Marketing: **Problem → Process → Solution → Proof → Answer → Contact**.
+- Content: **Readable Document** dengan navigasi, hierarki heading, dan lebar baca yang konsisten.
+- Mobile adalah baseline; desktop menambah ruang dan struktur, bukan menambah dekorasi.
 
 ## Theme
 | Token | Value |
 |-------|-------|
-| `--color-paper` | oklch(0.97 0.01 85) — warm cream |
-| `--color-paper-2` | oklch(0.93 0.015 80) — darker cream |
-| `--color-ink` | oklch(0.18 0.02 285) — almost-black with warm tint |
-| `--color-ink-2` | oklch(0.45 0.03 270) — muted ink |
-| `--color-rule` | oklch(0.85 0.01 85) — hairline rule |
-| `--color-accent` | oklch(0.55 0.14 43) — terracotta |
-| `--color-accent-ink` | oklch(0.97 0.01 85) — cream on accent |
-| `--color-focus` | oklch(0.55 0.14 43) — same as accent |
+| `--color-paper` | oklch(0.16 0.012 70) — warm dark graphite (bukan hitam murni) |
+| `--color-paper-2` | oklch(0.20 0.012 70) — panel graphite terang |
+| `--color-ink` | oklch(0.93 0.008 265) — off-white teks utama |
+| `--color-ink-2` | oklch(0.66 0.015 265) — muted off-white |
+| `--color-rule` | oklch(0.85 0.02 265 / 0.14) — border putih transparan tipis |
+| `--color-accent` | oklch(0.64 0.16 262) — indigo terang (kontras di dark) |
+| `--color-accent-ink` | oklch(0.16 0.012 70) — graphite (teks di atas accent) |
+| `--color-accent-2` | oklch(0.75 0.13 165) — emerald terang (status/sukses) |
+| `--color-focus` | indigo terang (visible keyboard focus) |
+| `--radius-card` | 1rem |
+| `--shadow-card` | ring 1px + drop shadow gelap (border > shadow di dark) |
+
+Aksen indigo terang untuk CTA dan highlight; emerald hanya untuk status atau hasil. Pada tema gelap, kontras teks accent (`text-accent` di atas `bg-paper`) WAJIB dicek — jangan pakai accent gelap di atas bg gelap.
 
 ## Typography
-- **Display:** "Instrument Serif", Georgia, serif — weight 400, italic 400, style roman for headings
-- **Body:** "Geist", Inter, sans-serif — weight 350 / 400
-- **Mono:** "Geist Mono", JetBrains Mono, monospace — weight 400
-- **Type scale anchor:** 1.25 (major third)
-- **Heading tracking:** -0.02em display, 0.08em uppercase labels
-- **Measure:** 65ch body
+- **Semua heading & body:** Inter, system sans-serif — 600/700. Heading harus lugas dan mudah dipindai. **TIDAK pakai serif editorial (Newsreader).**
+- **Body:** Inter, 400/500, line-height minimal 1.6 untuk paragraf.
+- **Mono:** JetBrains Mono — label, koordinat, status, dan metadata saja.
+- Measure paragraf: 60–68ch. Label uppercase memakai tracking 0.08–0.12em.
 
 ## Spacing
-4-point named scale. Pages must use `var(--space-*)`, never raw values.
-- `--space-3xs: 0.25rem`
-- `--space-2xs: 0.5rem`
-- `--space-xs: 0.75rem`
-- `--space-sm: 1rem`
-- `--space-md: 1.5rem`
-- `--space-lg: 2rem`
-- `--space-xl: 3rem`
-- `--space-2xl: 4.5rem`
-- `--space-3xl: 6rem`
+Gunakan skala empat poin yang tersedia sebagai `var(--space-*)` atau padanan utility Tailwind yang konsisten.
+- `--space-3xs: 0.25rem` sampai `--space-3xl: 6rem`
+
+## Surfaces & technical detail
+- **Kartu** (`.card` / `.card-hover`): radius 1rem, border 1px rule, shadow lembut, hover naik 3px + border accent. Ini elemen utama — pakai kartu untuk masalah, solusi, langkah, portofolio, FAQ.
+- Panel sekunder: `bg-paper-2`. Border tipis untuk struktur.
+- **CTA**: `.btn-gradient` (indigo gradient, shadow lembut, hover brightness) untuk primary; outline/secondary untuk teks.
+- **Badge chip** (`.badge-chip`): pill kecil mono uppercase untuk eyebrow & trust points.
+- Grid tipis (`bg-grid`) + radial blur accent di hero sebagai latar.
+- Hindari glow berlebihan, glassmorphism berat, partikel, dan gradient besar yang mengganggu.
 
 ## Motion
-- Easings: `--ease-out: cubic-bezier(0.16, 1, 0.3, 1)`
-- Reveal: none (just there at load)
-- Reduced-motion: no motion at all
+- Reveal diperbolehkan hanya untuk memperjelas urutan baca: 8–16px, 300–500ms, sekali jalan.
+- Live dot pulse hanya untuk status (hero badge).
+- Tidak ada count-up untuk klaim bisnis, pulse tanpa makna, atau hover yang menggeser layout.
+- `prefers-reduced-motion: reduce` mematikan animation, transition, dan smooth scrolling.
 
 ## CTA voice
-- Primary: outlined button, no fill, thin border
-- Secondary: unstyled link with underline on hover
-- Never: gradient buttons, pill shapes, shadow glow
+- Primary: **solid gradient indigo** (`.btn-gradient`), rounded-lg, aksi konkret.
+- Secondary: outline/teks dengan arrow.
+- CTA menyebut tindakan konkret, misalnya "Ceritakan masalah Anda".
+- Kontak WhatsApp memakai nomor resmi dan pesan awal yang sesuai konteks.
 
-## What pages MUST share
-- Logotype (ARBLOK DIGITAL stacked)
-- Accent colour at ≤ 5 % per viewport
-- Display + body fonts
-- CTA voice (outlined, never pill/gradient)
-- Section rhythm: heading → body → (optional) list, same padding rhythm
-
-## What pages MAY differ on
-- Macrostructure within editorial-craft family
-- Image treatment (inline vs margin-aligned vs none)
-- Hero archetype (split vs full-width vs letter)
+## Shared requirements
+- Logotype ARBLOK DIGITAL dan navigasi internal yang crawlable.
+- Kontras WCAG AA, focus ring yang terlihat, semantic heading, dan target sentuh minimum 44px.
+- Pola bilingual inline mengikuti `language === "id" ? ... : ...`.
+- Copy terlihat, metadata, schema, prerender, dan llms harus menyampaikan fakta inti yang sama.
+- Komponen interaktif tetap dapat digunakan dengan keyboard dan tanpa motion.

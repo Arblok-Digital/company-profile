@@ -55,6 +55,14 @@ const articles = [
     slug: "biaya-bulanan-yang-tidak-perlu-perusahaan-hemat-teknologi",
     lastmod: "2026-07-22",
   },
+  {
+    slug: "fee-marketplace-makin-besar-2026-potongan-shopee-tokopedia-tiktok-shop",
+    lastmod: "2026-08-06",
+  },
+  {
+    slug: "pendaftaran-sekolah-online-semrawut-spmb-ppdb-2026",
+    lastmod: "2026-08-06",
+  },
 ];
 
 // ── Build XML ──

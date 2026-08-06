@@ -14,32 +14,48 @@ if (!existsSync(OUT_DIR)) {
 const BASE_URL = "https://arblok-digital.vercel.app";
 
 const homeHeadline =
-  "Dari kasir warung sampai portal sekolah — semua dari satu fondasi kode";
+  "Jualan tanpa fee marketplace di setiap transaksi.";
 
 const homeSubtitle =
-  "Setiap fitur lahir dari obrolan dengan pemilik usaha, bukan dari meja meeting. Itulah kenapa barangnya dipakai.";
+  "Arblok Digital membangun toko online dan kasir sendiri — omzet dan stok terpantau dari HP, dan pekerjaannya tetap berjalan walau Anda sedang tidak melihat.";
 
 const servicesID = [
   {
-    title: "Website & PWA",
-    desc: "Landing page, company profile interaktif, atau PWA yang bisa diinstal langsung ke layar utama tanpa App Store.",
-    details: ["Konversi tinggi & SEO-friendly", "PWA siap instalasi mobile", "Desain custom, bukan template"],
+    title: "Penjualan dan persediaan",
+    desc: "Untuk usaha yang perlu mencatat transaksi, stok, dan laporan tanpa berpindah-pindah catatan.",
+    details: ["Kasir dan pencatatan transaksi", "Perubahan stok", "Ringkasan yang dapat diperiksa"],
   },
   {
-    title: "Marketplace & Bisnis",
-    desc: "E-commerce custom, sistem kasir (POS), atau portal multi-vendor dengan alur transaksi terstruktur.",
-    details: ["Multi-vendor marketplace", "Manajemen transaksi & POS", "Payment gateway terintegrasi"],
+    title: "Administrasi sekolah",
+    desc: "Untuk pembayaran, data siswa, dan pekerjaan administrasi yang perlu dipantau oleh petugas terkait.",
+    details: ["Pencatatan pembayaran", "Data siswa dan kelas", "Status administrasi"],
   },
   {
-    title: "Custom Software & Pipeline",
-    desc: "Spesialisasi kami: menerjemahkan alur kerja operasional jadi kode terstruktur dengan pipeline otorisasi otomatis.",
-    details: ["Pipeline persetujuan dinamis", "Tracking real-time", "PostgreSQL Row Level Security"],
+    title: "Pelayanan dan persetujuan",
+    desc: "Untuk pengajuan surat, pemeriksaan dokumen, dan keputusan yang melewati beberapa petugas.",
+    details: ["Formulir pengajuan", "Tahap pemeriksaan", "Riwayat keputusan"],
   },
   {
-    title: "AI & Otomatisasi",
-    desc: "AI terapan langsung di server-side — klasifikasi dokumen, ekstraksi OCR, dan otomasi logika tanpa sewa server mahal.",
-    details: ["Klasifikasi dokumen otonom", "Server-side AI proxy", "Notifikasi hemat biaya"],
+    title: "Website dan portal informasi",
+    desc: "Untuk memperjelas layanan, menerima permintaan, atau menyediakan area informasi bagi pelanggan dan anggota.",
+    details: ["Company profile", "Formulir dan katalog", "Portal yang dapat dipasang di ponsel"],
   },
+  {
+    title: "Pekerjaan berulang",
+    desc: "Untuk tugas yang bisa dibantu aturan otomatis atau teknologi pintar setelah alurnya jelas.",
+    details: ["Pengingat dan notifikasi", "Pembacaan data dokumen", "Pengelompokan permintaan"],
+  },
+];
+
+const faqID = [
+  { question: "Berapa biaya pembuatan website atau aplikasi?", answer: "Sangat fleksibel. Kami menawarkan paket Starter/MVP mulai dari harga terjangkau untuk UMKM, hingga sistem enterprise. Tidak ada budget yang terlalu kecil — kami selalu siap diskusi via WhatsApp untuk mencari solusi yang pas." },
+  { question: "Apa itu zero-cost hosting?", answer: "Kami menghubungkan aplikasi langsung ke database cloud dengan keamanan Row Level Security (RLS) — tanpa perlu server backend yang menyala 24/7. Hasilnya biaya hosting bulanan bisa Rp 0 untuk beban kerja UMKM normal." },
+  { question: "Berapa lama proses pembuatan website?", answer: "Tergantung kompleksitas. Landing page atau company profile sederhana 1-3 minggu. Sistem khusus seperti kasir, sekolah, atau kelurahan 1-3 bulan. Timeline jelas diberikan saat konsultasi." },
+  { question: "Apakah bisa custom fitur setelah aplikasi selesai?", answer: "Tentu. Kami menggunakan arsitektur Monorepo (NPM Workspaces) yang membuat modifikasi masa depan cepat dan murah. Cukup import shared business logic — tanpa duplikasi kode." },
+  { question: "Apakah ada garansi setelah peluncuran?", answer: "Ya. Kami menyediakan paket maintenance fleksibel dan bisa melatih tim Anda untuk mengelola sistem secara mandiri. Konsultasikan kebutuhan Anda via WhatsApp untuk detailnya." },
+  { question: "Apa itu Arblok Digital?", answer: "Arblok Digital adalah studio perangkat lunak dari Tasikmalaya. Kami membantu usaha, sekolah, dan instansi membuat sistem untuk pencatatan, pelayanan, serta alur persetujuan." },
+  { question: "Masalah seperti apa yang dapat dibahas?", answer: "Contohnya pencatatan penjualan dan stok yang terpisah, administrasi sekolah yang sulit dipantau, pengajuan dokumen yang lambat, atau pekerjaan berulang yang rawan terlewat." },
+  { question: "Bagaimana memulai pembicaraan?", answer: "Kirim gambaran singkat tentang pekerjaan yang masih merepotkan melalui WhatsApp. Pembicaraan awal digunakan untuk memahami masalah, pengguna, dan prioritasnya." },
 ];
 
 const portfolioItems = [
@@ -94,17 +110,17 @@ function serveHtml(content, extraSchema) {
     <a href="${BASE_URL}/#services">Layanan</a>
     <a href="${BASE_URL}/#portfolio">Portofolio</a>
     <a href="${BASE_URL}/articles">Artikel</a>
-    <a href="${BASE_URL}/consultant">AI Consultant</a>
+    <a href="${BASE_URL}/consultant">Konsultan Digital</a>
   </nav>
   ${content.body}
   <div class="cta">
-    <p>Tertarik dengan layanan Arblok Digital?</p>
-    <a class="wa" href="https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20tertarik%20dengan%20layanan%20Anda">Konsultasi Gratis via WhatsApp &rarr;</a>
+    <p>Ceritakan pekerjaan yang paling ingin dirapikan.</p>
+    <a class="wa" href="https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20menceritakan%20masalah%20pencatatan%20atau%20alur%20kerja%20di%20organisasi%20saya.">Ceritakan masalah Anda via WhatsApp &rarr;</a>
   </div>
   <div class="footer">
     <p>&copy; 2026 Arblok Digital — Tasikmalaya, Jawa Barat, Indonesia</p>
     <p>Kontak: <a href="https://wa.me/6289508053795">+62 895-0805-3795</a> | Email: ardiblokchine@gmail.com</p>
-    <p><a href="https://wa.me/6289508053795">WhatsApp Founder (Ardi)</a></p>
+    <p><a href="https://wa.me/6289508053795">WhatsApp Founder (Ardi)</a> · <a href="https://wa.me/6289508053795">Ceritakan masalah Anda</a></p>
   </div>
 </body>
 </html>`;
@@ -112,26 +128,44 @@ function serveHtml(content, extraSchema) {
 
 // ── HOME PAGE ──
 const homeContent = {
-  title: "ARBLOK Digital | Software House & Digital Agency - Tasikmalaya",
-  desc: "ARBLOK Digital adalah software house & digital agency dari Tasikmalaya. Spesialisasi: sistem kasir, portal sekolah, aplikasi kelurahan, AI automation, dan Web3.",
+  title: "Arblok Digital | Sistem Digital untuk Usaha, Sekolah & Instansi",
+  desc: "Arblok Digital membantu usaha, sekolah, dan instansi membuat sistem pencatatan, pelayanan, dan persetujuan. Mulai dari satu masalah prioritas — harga transparan, hosting mulai Rp 0/bulan.",
   canonical: BASE_URL,
   body: `
-<h1>ARBLOK Digital — Software House & Digital Agency Tasikmalaya</h1>
-<p><strong>${homeHeadline}</strong></p>
+<p>Studio perangkat lunak · Tasikmalaya</p>
+<h1>${homeHeadline}</h1>
 <p>${homeSubtitle}</p>
-<p>Kami bikin sistem digital yang beneran dipakai — dari kasir warung sampai portal sekolah, semua dari satu fondasi kode.</p>
-<p>Keunggulan: <strong>Monorepo Workspace</strong> | Offline-first | Row Level Security</p>
-<p><a class="wa" href="https://wa.me/6289508053795?text=Halo%20Arblok%20Digital">Konsultasi Gratis</a></p>
+<p><a class="wa" href="https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20menceritakan%20masalah%20pencatatan%20atau%20alur%20kerja%20di%20organisasi%20saya.">Konsultasi via WhatsApp</a></p>
 
-<h2>Visi & Misi</h2>
-<p><strong>Visi:</strong> Digitalisasi nasional dimulai dari daerah. Kami bangun sistem yang bikin UMKM dan instansi publik bisa naik kelas — tanpa perlu modal besar atau tim IT khusus.</p>
-<p><strong>Misi:</strong></p>
+<h2>Masalah yang dapat dibenahi</h2>
+<div class="case-study">
+  <p><strong>Studi kasus · UMKM</strong> — Pemilik toko tidak bisa memantau penjualan kasir secara langsung.</p>
+  <p><strong>Masalah:</strong> fee marketplace naik tiap transaksi dan kasir manual menyebarkan pencatatan.</p>
+  <p><strong>Alur solusi:</strong> kasir mencatat jualan di HP/komputer → sistem menyusun rekap dan mengurangi stok otomatis → pemilik melihat omzet, stok, dan kas realtime dari ponsel.</p>
+  <p><strong>Hasil:</strong> toko punya kasir sendiri tanpa fee per transaksi, omzet dan stok terpantau realtime.</p>
+</div>
+<div class="case-study">
+  <p><strong>Studi kasus · Sekolah</strong> — Pendaftaran offline dan SPP manual membuat cashflow sekolah sulit terpantau.</p>
+  <p><strong>Masalah:</strong> tiap tahun ajaran baru orang tua antre, data rawan hilang, dan SPP dicatat manual sehingga cashflow tidak dapat dipantau online.</p>
+  <p><strong>Alur solusi:</strong> orang tua mendaftar online (formulir dan berkas dari rumah) → berkas tersusun otomatis dan status tahap terlihat → pembayaran SPP tercatat otomatis, kas sekolah terpantau.</p>
+  <p><strong>Hasil:</strong> pendaftaran tanpa antre, data aman, cashflow sekolah dipantau kapan saja.</p>
+</div>
+
+<h2>Berjalan sendiri</h2>
 <ul>
-  <li><strong>Produk Nyata:</strong> Bukan PowerPoint. Setiap baris kode yang kami tulis sudah dipakai di sekolah, kelurahan, dan warung sungguhan.</li>
-  <li><strong>Efisiensi Operasional:</strong> Sederhanakan administrasi lewat sistem digital yang memang dirancang untuk pengguna non-teknis.</li>
-  <li><strong>AI Itu Alat, Bukan Gimik:</strong> Integrasi AI hanya kalau benar-benar ngurangin pekerjaan manual, bukan sekadar tempel fitur biar keren.</li>
+  <li><strong>Rekap tersusun sendiri.</strong> Tiap transaksi kasir atau pembayaran SPP langsung tercatat — tidak menunggu dihitung ulang.</li>
+  <li><strong>Tunggakan dan tugas diingatkan.</strong> Tunggakan SPP terdeteksi dan notifikasi WhatsApp jalan otomatis — seperti yang dipakai SekolahRapi dan E-Warga.</li>
+  <li><strong>Laporan siap saat diminta.</strong> Omzet, kas, dan stok menjadi ringkasan yang bisa diperiksa tanpa proses manual.</li>
 </ul>
-<p><strong>Arsitektur Monorepo:</strong> Setiap proyek dibangun di atas fondasi bersama. Semua logika transisi, validasi, dan model database diisolasi dalam modul khusus — siap diimpor oleh aplikasi baru tanpa duplikasi.</p>
+<p>Sistem bekerja walau pemilik sedang tidak melihat — karena data tidak boleh menunggu orang.</p>
+
+<h2>Cara kerja</h2>
+<ol>
+  <li><strong>Pahami pekerjaan sehari-hari.</strong> Dengarkan pengguna dan petakan alur yang sedang berjalan.</li>
+  <li><strong>Pilih satu prioritas.</strong> Jadikan masalah yang paling menghambat sebagai ruang lingkup awal.</li>
+  <li><strong>Uji versi pertama.</strong> Minta pengguna mencoba alur utama sebelum pekerjaan diperluas.</li>
+  <li><strong>Jalankan dan dampingi.</strong> Lakukan penyesuaian berdasarkan kebutuhan operasional.</li>
+</ol>
 
 <h2>Layanan</h2>
 ${servicesID.map(s => `
@@ -140,6 +174,9 @@ ${servicesID.map(s => `
   <p>${s.desc}</p>
   <ul>${s.details.map(d => `<li>${d}</li>`).join("")}</ul>
 </div>`).join("")}
+
+<h2>Pertanyaan umum</h2>
+${faqID.map(item => `<h3>${item.question}</h3><p>${item.answer}</p>`).join("")}
 
 <h2>Portofolio Produk</h2>
 ${portfolioItems.map(p => `
@@ -162,10 +199,13 @@ const homeSchema = `<script type="application/ld+json">${JSON.stringify({
   "name": "ARBLOK Digital", "url": BASE_URL,
   "description": homeContent.desc,
   "address": { "@type": "PostalAddress", "addressLocality": "Tasikmalaya", "addressRegion": "Jawa Barat", "addressCountry": "Indonesia" },
-  "telephone": "+628****3795", "email": "ardiblokchine@gmail.com",
-  "knowsAbout": ["Web Development", "PWA", "AI", "Blockchain", "POS", "Workflow Automation", "Monorepo", "Offline-first"],
+  "telephone": "+6289508053795", "email": "ardiblokchine@gmail.com",
+  "knowsAbout": ["Sistem penjualan dan persediaan", "Administrasi sekolah", "Pelayanan dokumen", "Alur persetujuan", "Website dan portal informasi", "Otomatisasi pekerjaan berulang"],
   "founder": { "@type": "Person", "name": "Ardi" },
-  "contactPoint": { "@type": "ContactPoint", "telephone": "+628****3795", "contactType": "customer service", "availableLanguage": ["Indonesian", "English"] }
+  "contactPoint": { "@type": "ContactPoint", "telephone": "+6289508053795", "contactType": "customer service", "availableLanguage": ["Indonesian", "English"] }
+})}</script><script type="application/ld+json">${JSON.stringify({
+  "@context": "https://schema.org", "@type": "FAQPage",
+  "mainEntity": faqID.map(item => ({ "@type": "Question", "name": item.question, "acceptedAnswer": { "@type": "Answer", "text": item.answer } }))
 })}</script>`;
 
 writeFileSync(join(OUT_DIR, "home.html"), serveHtml(homeContent, homeSchema), "utf-8");

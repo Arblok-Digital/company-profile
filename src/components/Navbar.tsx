@@ -19,19 +19,21 @@ export default function Navbar() {
   }, []);
 
   const navLabels = {
-    vision: language === "id" ? "Visi & Misi" : "Vision & Mission",
-    services: language === "id" ? "Layanan" : "Services",
+    home: language === "id" ? "Beranda" : "Home",
+    process: language === "id" ? "Cara Kerja" : "How We Work",
+    services: language === "id" ? "Solusi" : "Solutions",
     portfolio: language === "id" ? "Portofolio" : "Portfolio",
-    articles: language === "id" ? "Artikel & Riset" : "Articles & Research",
-    cta: language === "id" ? "Hubungi Kami" : "Contact Us",
+    articles: language === "id" ? "Artikel" : "Articles",
+    cta: language === "id" ? "Ceritakan Masalah" : "Tell Us Your Problem",
   };
 
   const navLinks = [
-    { to: "/#about", label: navLabels.vision },
+    { to: "/", label: navLabels.home, exact: true },
+    { to: "/#about", label: navLabels.process },
     { to: "/#services", label: navLabels.services },
     { to: "/#portfolio", label: navLabels.portfolio },
     { to: "/articles", label: navLabels.articles, exact: true },
-    { to: "/consultant", label: "AI Consultant", exact: true },
+    { to: "/consultant", label: language === "id" ? "Konsultan Digital" : "Digital Consultant", exact: true },
   ];
 
   return (
@@ -42,6 +44,7 @@ export default function Navbar() {
           : "bg-paper border-b border-transparent"
       }`}
     >
+      <div className="accent-line w-full" />
       <div className="max-w-6xl mx-auto px-6 sm:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
@@ -55,11 +58,11 @@ export default function Navbar() {
                 src="/arblok_logo.webp"
                 alt="Logo Arblok Digital"
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover logo-enter"
               />
             </div>
             <div className="flex flex-col leading-tight">
-              <span className="font-display text-lg leading-none text-ink tracking-tight">
+              <span className="font-body text-base font-semibold leading-none text-ink tracking-[-0.02em]">
                 ARBLOK
               </span>
               <span className="font-mono text-[9px] text-accent tracking-[0.2em] uppercase">
@@ -72,16 +75,16 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => {
               const isActive = link.exact
-                ? currentPath === link.to
-                : currentPath === "/" && link.to.startsWith("/#");
+                ? currentPath === link.to && location.hash === ""
+                : currentPath === "/" && location.hash === link.to.substring(1);
               return (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`font-body text-sm transition-colors ${
+                  className={`font-body text-sm transition-colors border-b-2 pb-0.5 ${
                     isActive
-                      ? "text-accent font-medium"
-                      : "text-ink-2 hover:text-ink"
+                      ? "text-accent font-medium border-accent"
+                      : "text-ink-2 hover:text-ink border-transparent"
                   }`}
                 >
                   {link.label}
@@ -94,15 +97,16 @@ export default function Navbar() {
             <button
               onClick={() => setLanguage(language === "id" ? "en" : "id")}
               className="font-mono text-xs text-ink-2 hover:text-accent transition-colors uppercase tracking-wider cursor-pointer border-none bg-transparent"
+              aria-label={language === "id" ? "Switch to English" : "Ganti ke Bahasa Indonesia"}
             >
               {language === "id" ? "ID" : "EN"}
             </button>
 
             <a
-              href="https://wa.me/6289508053795"
+              href="https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20menceritakan%20masalah%20kerja%20yang%20perlu%20dirapikan%20dengan%20sistem%20digital."
               target="_blank"
               rel="noopener noreferrer"
-              className="font-body text-sm px-4 py-2 rounded border border-accent text-accent hover:bg-accent hover:text-accent-ink transition-colors"
+              className="btn-gradient min-h-11 inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold"
             >
               {navLabels.cta}
             </a>
@@ -112,7 +116,9 @@ export default function Navbar() {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden cursor-pointer border-none bg-transparent p-2"
-            aria-label="Toggle menu"
+            aria-label={language === "id" ? "Buka atau tutup menu" : "Open or close menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
           >
             <div className={`w-5 h-px bg-ink mb-1.5 transition-all ${isOpen ? "rotate-45 translate-y-[3.5px]" : ""}`} />
             <div className={`w-5 h-px bg-ink mb-1.5 transition-all ${isOpen ? "opacity-0" : ""}`} />
@@ -123,7 +129,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-paper border-t border-rule px-6 py-6 space-y-4">
+        <div id="mobile-navigation" className="md:hidden bg-paper border-t border-rule px-6 py-6 space-y-4">
           {navLinks.map((link) => (
             <Link
               key={link.to}
@@ -138,14 +144,15 @@ export default function Navbar() {
             <button
               onClick={() => { setLanguage(language === "id" ? "en" : "id"); setIsOpen(false); }}
               className="font-mono text-xs text-ink-2 hover:text-accent transition-colors uppercase tracking-wider cursor-pointer border-none bg-transparent"
+              aria-label={language === "id" ? "Switch to English" : "Ganti ke Bahasa Indonesia"}
             >
               {language === "id" ? "ID" : "EN"}
             </button>
             <a
-              href="https://wa.me/6289508053795"
+              href="https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20menceritakan%20masalah%20kerja%20yang%20perlu%20dirapikan%20dengan%20sistem%20digital."
               target="_blank"
               rel="noopener noreferrer"
-              className="font-body text-sm px-4 py-2 rounded border border-accent text-accent"
+              className="btn-gradient inline-flex min-h-11 items-center rounded-lg px-4 py-2 text-sm font-semibold"
             >
               {navLabels.cta}
             </a>

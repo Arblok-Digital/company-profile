@@ -18,6 +18,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   useEffect(() => {
     localStorage.setItem("arblok_lang", language);
+    document.documentElement.lang = language;
   }, [language]);
 
   return (

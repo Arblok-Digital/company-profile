@@ -595,6 +595,185 @@ Kalau perusahaan Anda sedang mengevaluasi biaya operasional teknologi tahun ini,
 
 👉 **Chat WhatsApp (Ardi - Arblok Digital): https://wa.me/6289508053795**
 👉 **Lihat portofolio kami: https://arblok-digital.vercel.app/#portfolio**`
+  },
+  {
+    id: "fee-marketplace-makin-besar-2026",
+    slug: "fee-marketplace-makin-besar-2026-potongan-shopee-tokopedia-tiktok-shop",
+    title: "Fee Marketplace Makin Besar 2026: Rincian Potongan Shopee, Tokopedia & TikTok Shop + Cara Jualan Tanpa Tergerus",
+    excerpt: "Potongan total di Shopee, Tokopedia & TikTok Shop bisa lebih dari 20% dari nilai transaksi (Mei 2026): komisi naik, biaya logistik baru dari sisi penjual, batas komisi Tokopedia Rp650.000, plus PPh 22 0,5%. Rincian biaya, simulasi margin, dan 3 jurus jualan dengan potongan minimal.",
+    category: "UMKM & Marketplace",
+    publishedAt: "2026-08-06",
+    readTime: "9 Menit Bacaan",
+    tags: ["Fee Marketplace 2026", "Biaya Admin Shopee", "Komisi Tokopedia", "Potongan TikTok Shop", "Biaya Layanan Logistik", "PPh 22", "Toko Online Sendiri", "UMKM", "Arblok Digital"],
+    author: {
+      name: "Ardi",
+      role: "Founder & Lead Software Architect @ Arblok Digital"
+    },
+    faq: [
+      {
+        question: "Berapa potongan total Shopee atas satu transaksi di 2026?",
+        answer: "Di skenario tertinggi (mengikuti Gratis Ongkir XTRA, Promo XTRA, dan Shopee Live) potongan total bisa lebih dari 20% dari nilai transaksi. Biaya administrasi di kategori fashion sampai 10%, belum termasuk iklan dan biaya proses Rp1.250/pesanan."
+      },
+      {
+        question: "Apakah benar Tokopedia menaikkan batas komisi per item menjadi Rp650.000?",
+        answer: "Benar. Batas komisi per item naik dari Rp40.000 menjadi Rp650.000 sejak 18 Mei 2026 — hampir 16 kali lipat dan paling berdampak untuk produk bernilai jual tinggi."
+      },
+      {
+        question: "Berapa biaya layanan logistik Tokopedia dan TikTok Shop sejak 1 Mei 2026?",
+        answer: "Rp100 sampai Rp3.000 per pesanan, dengan batas maksimum Rp10.110 (Tokopedia) dan Rp5.055 (TikTok Shop) sebelum pajak. Biaya ditanggung penjual dan tidak terlihat pembeli saat checkout."
+      },
+      {
+        question: "Apakah PPh Pasal 22 0,5% mulai 1 Agustus 2026 merupakan fee marketplace baru?",
+        answer: "Bukan. Ini perubahan mekanisme pemungutan pajak oleh marketplace yang ditunjuk (Shopee, Tokopedia, Lazada, Blibli), bukan tambahan komisi platform. Tetap harus dihitung dalam margin."
+      },
+      {
+        question: "Bagaimana cara jualan agar tidak tergerus potongan marketplace?",
+        answer: "Empat jalur: (1) bangun toko online sendiri dengan payment gateway berbiaya 0,5–2,5% per transaksi, (2) WhatsApp Business + payment link, (3) social commerce yang diarahkan ke website sendiri, (4) audit ulang harga jual per produk. Toko sendiri memberi margin terbesar dan data pelanggan sepenuhnya milik Anda."
+      }
+    ],
+    content: `### Ringkasan Singkat (30 Detik)
+
+Paruh pertama 2026 dibuka dengan banyak penyesuaian biaya di marketplace Indonesia: Shopee menaikkan tarif Gratis Ongkir XTRA dan memperluas atribusi iklan GMV Max; Tokopedia & TikTok Shop memberlakukan biaya layanan logistik baru yang ditanggung penjual serta menaikkan batas komisi per item dari **Rp40.000 menjadi Rp650.000**; dan mulai 1 Agustus 2026, **PPh Pasal 22 sebesar 0,5%** mulai dipungut oleh marketplace yang ditunjuk — pajak, bukan fee platform baru. Bagi seller bermargin tipis, kombinasi komisi + biaya layanan + iklan bisa menggerus **15-20%+ dari harga jual**.
+
+### Rincian Biaya Marketplace per Platform (Mei 2026)
+
+**Shopee — potongan bisa tembus 20%+:**
+- Biaya administrasi per kategori: fashion/FMCG/lifestyle **10%**, elektronik tertentu 9–9,5%, susu/suplemen 6,5–6,75%, elektronik high-end 5,25%, logam mulia 4,25%
+- Gratis Ongkir XTRA (2 Mei 2026): fashion ukuran tambahan naik 5,5% → **7,5%**
+- Atribusi iklan GMV Max (7 Mei 2026): transaksi bisa diklaim sebagai hasil iklan meski pembeli hanya lihat tanpa klik lalu beli dalam sehari
+- Opsional: Promo XTRA 4,5–8%, Shopee Live XTRA 3%, pre-order 3%, biaya proses Rp1.250/pesanan
+
+**Tokopedia & TikTok Shop:**
+- Komisi platform 2,5%–12,2% tergantung kategori (Tokopedia umumnya 6,97% termasuk PPN)
+- Batas komisi per item: Rp40.000 → **Rp650.000** (18 Mei 2026)
+- Biaya layanan logistik baru (1 Mei 2026): Rp100–Rp3.000/pesanan, maksimal Rp10.110 (Tokopedia) / Rp5.055 (TikTok Shop) sebelum pajak, ditanggung penjual
+- TikTok Shop afiliasi 5–25% (Targeted hingga 50%); total dasar platform 5–15%, dengan afiliasi aktif 20–35%
+
+**Lazada:** non-elektronik 1,5–6% (maks. Rp20.000/produk), elektronik 4% (maks. Rp10.000/produk).
+
+**Catatan PPh Pasal 22 0,5% (1 Agustus 2026):** Shopee, Tokopedia, Lazada, Blibli ditunjuk memungut dari seller yang memenuhi kriteria. Bukan fee platform, tapi tetap masuk kalkulasi margin.
+
+### Simulasi: Jual 1 Item Rp150.000, Berapa yang Sampai ke Dompet?
+
+| Komponen | Marketplace (skema aktif) | Toko Online Sendiri |
+|----------|--------------------------|---------------------|
+| Harga jual | Rp150.000 | Rp150.000 |
+| HPP | Rp80.000 | Rp80.000 |
+| Biaya komisi admin | Rp15.000 (10%) | Rp0 |
+| Biaya program ongkir | Rp11.250 (7,5%) | Rp0 |
+| Logistik seller | Rp5.000 | Rp0 |
+| Iklan (estimasi) | Rp8.000 | Rp0 |
+| Payment gateway | — | Rp3.750 (2,5%) |
+| **Sisa margin** | **Rp30.750 (20,5%)** | **Rp66.250 (44,2%)** |
+
+Selisih per transaksi **Rp35.500**. Satu pesanan retur saja sudah menghapus keuntungan beberapa transaksi.
+
+### Kenapa Fee Naik Terus? 3 Penjelasan Tanpa Rumor
+
+1. **Masa subsidi berakhir** — potongan ongkir dan promo yang dulu didanai platform kini dialihkan sebagai biaya layanan penjual.
+2. **Biaya kecil yang ditampung** — Rp1.250/order, Rp100–3.000/order logistik, +2–7,5% program tertentu: sendirian kecil, digabung langsung menggerus margin.
+3. **Iklan sudah de facto wajib** — perubahan atribusi GMV Max membuat biaya iklan semakin sulit dihindari.
+
+### Timeline Perubahan 2025–2026
+
+- **Jul–Agustus 2025:** biaya proses Rp1.250/order (Shopee 20 Jul; Tokopedia & TikTok Shop 11 Agst).
+- **Januari 2026:** Shopee biaya administrasi 2–10% per kategori + biaya preorder 3%.
+- **1 Mei 2026:** Tokopedia & TikTok Shop biaya layanan logistik dari sisi penjual.
+- **2 Mei 2026:** tarif Gratis Ongkir XTRA Shopee naik (fashion tambahan 5,5 → 7,5%).
+- **7 Mei 2026:** aturan atribusi iklan GMV Max.
+- **18 Mei 2026:** Tokopedia batas komisi per item → Rp650.000.
+- **1 Agustus 2026:** pemungutan PPh Pasal 22 0,5%.
+
+### 3 Jurus Bertahan Tanpa Harus Keluar Marketplace
+
+**Jurus 1 — Hitung ulang unit economics per produk, bukan sekadar omzet.** Margin bersih = harga jual − HPP − komisi − biaya layanan − estimasi iklan − risiko retur. Produk yang marginnya negatif: naikkan harga atau hentikan.
+
+**Jurus 2 — Diversifikasi kanal.** Tetap jual di marketplace untuk exposure, tapi arahkan pembeli ke kanal sendiri: QR di kemasan, program member eksklusif, konten edukatif di IG/TikTok yang berakhir di website atau payment link Anda.
+
+**Jurus 3 — Bangun jalur penjualan sendiri.** Dengan toko online sendiri, satu-satunya potongan adalah payment gateway (**0,5–2,5%**). Margin, data, dan kontak pelanggan utuh milik Anda — hosting bisa Rp0/bulan.
+
+### Kesimpulan
+
+Kenaikan fee marketplace 2026 bukan kabar yang berhenti di Mei. Lakukan 3 hal: hitung ulang margin, diversifikasi kanal, dan bangun jalur yang Anda kontrol. Marketplace tetap berguna — tapi jangan jadikan satu-satunya pintu.
+
+**Butuh konsultasi gratis?** Chat Ardi via WhatsApp: 30 menit pertama gratis, tanpa kewajiban.
+
+👉 **Chat WhatsApp (Ardi - Arblok Digital): https://wa.me/6289508053795`
+  },
+  {
+    id: "pendaftaran-sekolah-online-semrawut",
+    slug: "pendaftaran-sekolah-online-semrawut-spmb-ppdb-2026",
+    title: "Pendaftaran Sekolah Online Semrawut: SPMB/PPDB 2026 Down dan Kenapa Terjadi Lagi",
+    excerpt: "SPMB/PPDB 2026: server down di Bekasi dan Bontang, 928 pendaftar lawan 130 kursi di Makassar, orang tua antre di Disdik. Kenapa pendaftaran online selalu semrawut tiap tahun + 3 solusi untuk sekolah, lengkap dengan sumber berita.",
+    category: "Sekolah & Pendidikan",
+    publishedAt: "2026-08-06",
+    readTime: "8 Menit Bacaan",
+    tags: ["Pendaftaran Sekolah Online", "SPMB 2026", "PPDB 2026", "Server Down", "Antrean Pendaftaran", "Literasi Digital", "SekolahRapi", "Arblok Digital"],
+    author: {
+      name: "Ardi",
+      role: "Founder & Lead Software Architect @ Arblok Digital"
+    },
+    faq: [
+      {
+        question: "Kenapa server PPDB/SPMB hampir selalu down setiap tahun ajaran baru?",
+        answer: "Karena banyak orang tua mengakses dan mengunggah berkas pada waktu yang sama saat pendaftaran dibuka, sementara kapasitas server dirancang untuk lalu lintas normal. Sistem yang tidak diuji lonjakan akan cepat kewalahan. Pola ini berulang sejak 2021, 2024, hingga 2026."
+      },
+      {
+        question: "Apa yang terjadi pada SPMB 2026 di Makassar?",
+        answer: "Hari pertama pendaftaran, banyak orang tua datang ke sekolah karena belum paham unggah dokumen. SMP Negeri 3 Makassar mencatat 928 pendaftar untuk kuota 130 kursi jalur domisili (Kompas TV, 23 Juni 2026)."
+      },
+      {
+        question: "Di mana saja kendala server pendaftaran dilaporkan pada 2026?",
+        answer: "Bekasi: sistem terganggu, orang tua antre di kantor Disdik (Lensa Bekasi, 1 Juli 2026). Bontang: PPDB online SMA/SMK bermasalah di hari pertama (Kita Muda Media, 22 Juni 2026). Beberapa kota lain juga melaporkan kesulitan saat akses puncak."
+      },
+      {
+        question: "Apakah sekolah boleh membuat sistem pendaftaran sendiri?",
+        answer: "Boleh. Jalur resmi (zonasi, afirmasi, prestasi) tetap mengikuti aturan Dinas, tetapi formulir, antrean, verifikasi bertahap, dan daftar tunggu bisa dikelola sekolah sendiri. Contoh implementasinya: SekolahRapi dan SekolahPro."
+      },
+      {
+        question: "Bagaimana cara agar pendaftaran sekolah tidak semrawut?",
+        answer: "Empat kunci: (1) sistem pendaftaran sendiri yang tetap hidup saat server Dinas bermasalah, (2) antrean berbasis slot waktu, (3) verifikasi bertahap dengan notifikasi WhatsApp, (4) pendampingan orang tua di titik layanan manual."
+      }
+    ],
+    content: `### Ringkasan Singkat (30 Detik)
+
+Pendaftaran sekolah negeri yang dilakukan online (dulu PPDB, kini disebut SPMB) selalu menghadirkan masalah yang sama: **server tidak bisa diakses saat pendaftaran dibuka**, **orang tua tidak bisa mengunggah berkas**, dan **antrean berpindah ke sekolah atau kantor Dinas Pendidikan**.
+
+Contoh Juni–Juli 2026: di Bekasi orang tua antre seharian di kantor Disdik. Di Bontang pendaftaran SMA/SMK bermasalah di hari pertama. Di Makassar sebuah SMP negeri mencatat **928 pendaftar untuk 130 kursi**, dan sebagian besar orang tua butuh pendampingan saat mengunggah dokumen. Pola yang sama terjadi sejak 2021, 2024, dan 2025.
+
+### Fakta di Lapangan: Mei–Juli 2026
+
+| Kota | Kejadian | Sumber |
+|------|----------|--------|
+| Makassar | SPMB jalur domisili: 928 pendaftar vs kuota 130 kursi; orang tua butuh pendampingan unggah | Kompas TV |
+| Bekasi | Sistem SPMB terganggu; orang tua antre seharian di kantor Disdik | Lensa Bekasi |
+| Bontang | PPDB online SMA/SMK bermasalah di hari pertama | Kita Muda Media |
+| Tangsel | Diskominfo menaikkan kapasitas server cegah down | Media Indonesia |
+
+Jejak sebelumnya: 2021 DKI Jakarta (server down, akun disetop sementara), 2024 Jawa Barat ("ambruk selalu berulang"), 2025 Banyumas (down sejam, 90% data masuk bersamaan).
+
+### Kenapa Sistem Pendaftaran Online Selalu Semrawut?
+
+1. **Semua mengakses di jam yang sama.** Ribuan orang membuka sistem dalam 2–3 jam pertama. Sistem yang dirancang untuk trafik "biasa" kewalahan saat puncak.
+2. **Kapasitas server sering dibuat hemat.** Menyewa kapasitas besar sepanjang tahun untuk beberapa hari itu mahal. Tanpa uji beban, hari-H jadi perbaikan dadakan.
+3. **Proses unggah berkas itu berat.** Scan KK, akta, dan foto dalam ukuran besar dikirim ribuan orang sekaligus. Sistem yang mengompres berkas di sisi pengguna jauh lebih ringan.
+4. **Literasi digital belum merata.** Banyak orang tua belum memahami unggah dan verifikasi. Sistem tanpa pendampingan manusia mempersulit sebagian warga.
+
+### 3 Solusi yang Bisa Langsung Diterapkan Sekolah
+
+**1. Halaman pendaftaran sendiri yang tetap hidup.** Server Dinas down tidak harus membuat sekolah ikut down. Formulir online, data masuk ke database sekolah, verifikasi bertahap. Prinsip ini diterapkan di **SekolahRapi** dan **SekolahPro**.
+
+**2. Antrean berbasis slot waktu, bukan rebutan.** Ubah pola "siapa cepat dia dapat" menjadi slot waktu (07.00–08.00, 08.00–09.00). Beban akses menyebar, orang tua dapat kepastian.
+
+**3. Verifikasi bertahap plus notifikasi WhatsApp.** Pisahkan isi data dan verifikasi berkas, beri kesempatan revisi, kirim status via wa.me tanpa biaya API. Posko manusia tetap ada untuk yang kurang melek teknologi.
+
+### Kesimpulan
+
+Kekacauan pendaftaran online bukan karena orang tua, melainkan karena sistem tidak diuji pada titik paling tegang dan tata caranya belum dijelaskan. Solusinya: sistem yang tahan lonjakan, antrean tanpa rebutan, verifikasi bertahap, dan pendampingan manusia. Sumber berita lengkap ada di versi artikel web (Kompas TV, Lensa Bekasi, Kita Muda Media, Media Indonesia, Bandungbergerak.id, Metro TV, detikNews, VOI).
+
+Butuh diskusi untuk sistem pendaftaran sekolah Anda? Konsultasi 30 menit pertama gratis.
+
+👉 **Chat WhatsApp (Ardi - Arblok Digital): https://wa.me/6289508053795**`
   }
 ];
 
@@ -1068,7 +1247,10 @@ First 30 minutes of consultation are free. If it clicks, we move to a proposal. 
 ];
 
 export const getArticlesData = (lang: string): Article[] => {
-  return lang === "id" ? ARTICLES_ID : ARTICLES_EN;
+  const source = lang === "id" ? ARTICLES_ID : ARTICLES_EN;
+  return [...source].sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
 };
 
 // Backward-compatible export

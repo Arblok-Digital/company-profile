@@ -228,6 +228,30 @@ Konsultasi 30 menit gratis. Hubungi Ardi via WhatsApp.`,
       { q: "Apakah Arblok Digital melayani perusahaan menengah?", a: "Ya. Kami melayani UMKM hingga perusahaan menengah." },
     ],
   },
+  {
+    slug: "fee-marketplace-makin-besar-2026-potongan-shopee-tokopedia-tiktok-shop",
+    title: "Fee Marketplace Makin Besar 2026: Rincian Potongan Shopee, Tokopedia & TikTok Shop + Cara Jualan Tanpa Tergerus",
+    excerpt: "Rincian lengkap fee marketplace 2026: potongan Shopee hingga 10%, komisi Tokopedia naik, TikTok Shop 2,5-12,2%. Lihat simulasi margin dan cara jualan tanpa tergerus fee.",
+    category: "UMKM & Marketplace",
+    publishedAt: "2026-08-06",
+    author: { name: "Ardi", role: "Founder & Lead Software Architect @ Arblok Digital" },
+    tags: ["Fee Marketplace", "Shopee", "Tokopedia", "TikTok Shop", "UMKM"],
+    content: "Konten premium file ini dibuat manual dengan sumber data lengkap dan tidak ditimpa generator.",
+    faq: [],
+    skipFile: true,
+  },
+  {
+    slug: "pendaftaran-sekolah-online-semrawut-spmb-ppdb-2026",
+    title: "Pendaftaran Sekolah Online Semrawut: SPMB/PPDB 2026 Down dan Kenapa Terjadi Lagi",
+    excerpt: "Sistem SPMB/PPDB 2026 down lagi saat pendaftaran dibuka. Analisis penyebab dan solusi sistem pendaftaran sekolah yang tidak semrawut.",
+    category: "Sekolah & Pendidikan",
+    publishedAt: "2026-08-06",
+    author: { name: "Ardi", role: "Founder & Lead Software Architect @ Arblok Digital" },
+    tags: ["SPMB", "PPDB", "Pendaftaran Sekolah", "Sistem Online", "Sekolah"],
+    content: "Konten premium file ini dibuat manual dengan sumber data lengkap dan tidak ditimpa generator.",
+    faq: [],
+    skipFile: true,
+  },
 ];
 
 // ── Simple markdown-ish to HTML converter ──
@@ -364,7 +388,9 @@ for (const article of articles) {
 </html>`;
 
   const outPath = join(OUT_DIR, `${article.slug}.html`);
-  writeFileSync(outPath, html, "utf-8");
+  if (!article.skipFile) {
+    writeFileSync(outPath, html, "utf-8");
+  }
 }
 
 console.log(`✅ ${articles.length} static article pages generated → ${OUT_DIR}`);

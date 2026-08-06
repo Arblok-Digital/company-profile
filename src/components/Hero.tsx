@@ -1,157 +1,178 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useLanguage } from "../LanguageContext";
+import { ArrowRight } from "lucide-react";
 
-const treeLines = [
-  { depth: 0, icon: "📦", label: "arblok/" },
-  { depth: 1, icon: "├──", label: "packages/" },
-  { depth: 2, icon: "│   ├──", label: "auth/" },
-  { depth: 2, icon: "│   ├──", label: "database/" },
-  { depth: 2, icon: "│   └──", label: "ui/" },
-  { depth: 1, icon: "├──", label: "apps/" },
-  { depth: 2, icon: "│   ├──", label: "kasirpro/" },
-  { depth: 2, icon: "│   ├──", label: "e-warga/" },
-  { depth: 2, icon: "│   ├──", label: "sekolahrapi/" },
-  { depth: 2, icon: "│   └──", label: "sanajan-qr/" },
-  { depth: 1, icon: "└──", label: "tooling/" },
-  { depth: 2, icon: "    └──", label: "deploy/" },
+const WHATSAPP_URL =
+  "https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20menceritakan%20masalah%20pencatatan%20atau%20alur%20kerja%20di%20organisasi%20saya.";
+
+const workflowRows = [
+  { id: "01", labelID: "Pencatatan", labelEN: "Records", outputID: "Data tersusun", outputEN: "Organized data", status: "ok" },
+  { id: "02", labelID: "Pelayanan", labelEN: "Services", outputID: "Status terlihat", outputEN: "Visible status", status: "ok" },
+  { id: "03", labelID: "Persetujuan", labelEN: "Approvals", outputID: "Riwayat tercatat", outputEN: "Recorded history", status: "pending" },
 ];
+
+function useCountUp(target: number, start: boolean, delayMs = 0) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!start) return;
+    let raf = 0;
+    let startTime = 0;
+    const duration = 1200;
+
+    const tick = (t: number) => {
+      if (!startTime) startTime = t;
+      const elapsed = t - startTime - delayMs;
+      if (elapsed < 0) {
+        raf = requestAnimationFrame(tick);
+        return;
+      }
+      const p = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setValue(Math.round(target * eased));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [start, target, delayMs]);
+
+  return value;
+}
 
 export default function Hero() {
   const { language } = useLanguage();
-  const navigate = useNavigate();
+  const [started, setStarted] = useState(false);
 
-  const eyebrow =
-    language === "id"
-      ? "Untuk UMKM, sekolah, dan kelurahan yang ingin serba digital"
-      : "For small businesses, schools, and village offices going digital";
+  useEffect(() => {
+    const id = window.setTimeout(() => setStarted(true), 250);
+    return () => window.clearTimeout(id);
+  }, []);
 
-  const headline =
-    language === "id"
-      ? "Dari kasir warung sampai portal sekolah — semua dari satu fondasi kode"
-      : "From warung POS to school portals — all on one shared codebase";
-
-  const subtitle =
-    language === "id"
-      ? [
-          "Setiap fitur lahir dari obrolan dengan pengguna, bukan dari ruang meeting.",
-          "Kami memahami cara kerja bisnis Anda terlebih dahulu, baru menulis kode.",
-          "Karena sistem yang baik harus mengikuti cara kerja manusia — bukan memaksa manusia mengikuti software.",
-          "Itulah mengapa produk Arblok benar-benar dipakai dalam operasional sehari-hari, bukan template instan yang akhirnya mangkrak.",
-        ]
-      : [
-          "Every feature starts with a conversation — not a meeting room.",
-          "We understand how your business works first, then write the code.",
-          "Good systems follow how people work — not force people to follow software.",
-          "That's why Arblok products are actually used in daily operations, not templates that end up abandoned.",
-        ];
+  const transactions = useCountUp(21, started, 0);
+  const activeFlows = useCountUp(4, started, 150);
+  const scatteredData = useCountUp(0, started, 300);
 
   return (
-    <section
-      id="hero"
-      className="relative pt-24 sm:pt-32 pb-12 sm:pb-16 bg-paper overflow-hidden"
-    >
-      {/* Subtle background ornament */}
-      <div className="absolute top-0 right-0 w-1/3 h-full">
-        <div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-accent/3 blur-3xl" />
-        <div className="absolute bottom-20 right-20 w-48 h-48 rounded-full bg-accent/2 blur-2xl" />
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Text side */}
-          <div className="lg:col-span-7">
-            {/* Eyebrow */}
-            <span className="font-mono text-xs text-ink-2 uppercase tracking-[0.15em]">
-              {eyebrow}
+    <section id="hero" className="relative overflow-hidden border-b border-rule bg-paper pb-16 pt-24 sm:pb-20 sm:pt-28">
+      <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" aria-hidden="true" />
+      <div className="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-gradient-to-br from-accent/15 via-accent/5 to-transparent blur-2xl" aria-hidden="true" />
+      <div className="relative z-10 mx-auto w-full px-6 sm:px-8 lg:max-w-none lg:px-14 xl:px-20">
+        <div className="grid items-stretch gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="flex flex-col justify-center lg:col-span-5">
+            <span className="badge-chip">
+              <span className="pulse-live block h-1.5 w-1.5 rounded-full bg-accent-2" aria-hidden="true" />
+              {language === "id" ? "Studi kasus nyata · Tasikmalaya" : "Real case studies · Tasikmalaya"}
             </span>
-
-            {/* Headline */}
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-ink leading-[1.05] tracking-tight mt-4">
-              {headline}
+            <h1 className="mt-5 text-balance font-body text-[2rem] font-bold leading-[1.05] tracking-[-0.03em] text-ink sm:text-[2.6rem] lg:text-[2.75rem] xl:text-[3.2rem]">
+              {language === "id"
+                ? "Jualan tanpa fee marketplace di setiap transaksi."
+                : "Sell without a marketplace fee on every transaction."}
             </h1>
-
-            {/* Subtitle — breathing room after headline */}
-            <div className="font-body text-sm sm:text-base text-ink-2 mt-6 leading-relaxed max-w-2xl space-y-2">
-              {subtitle.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
-
-            {/* CTAs — spaced clearly from subtitle */}
-            <div className="flex flex-wrap gap-4 mt-10">
-              <button
-                onClick={() => navigate("/consultant")}
-                className="font-body text-sm px-7 py-3.5 rounded border-2 border-accent text-accent font-medium hover:bg-accent hover:text-accent-ink transition-all"
-              >
-                {language === "id" ? "Konsultasi Gratis — 30 Menit" : "Free 30-min Consult"}
-              </button>
-              <button
-                onClick={() => navigate("/#portfolio")}
-                className="font-body text-sm px-6 py-3.5 rounded border border-rule text-ink-2 hover:text-accent hover:border-accent transition-all"
-              >
-                {language === "id" ? "Lihat Portofolio" : "View Portfolio"}
-              </button>
-            </div>
-
-            {/* Checklist — visually separated from CTAs */}
-            <div className="mt-10 pt-6 border-t border-rule/40">
-              <ul className="space-y-2">
-                {[
-                  language === "id" ? "Tidak perlu mengubah cara kerja bisnis Anda" : "No need to change how your business runs",
-                  language === "id" ? "Bisa mulai dari satu modul sesuai kebutuhan" : "Start with one module, scale as needed",
-                  language === "id" ? "Didampingi setelah sistem berjalan" : "Ongoing support after launch",
-                ].map((item, i) => (
-                  <li key={i} className="font-body text-sm text-ink-2 flex items-start gap-2">
-                    <span className="text-accent shrink-0">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Trust badge — bigger, not a footnote */}
-            <p className="font-mono text-xs sm:text-sm text-ink-2 mt-8 tracking-[0.05em]">
-              9+ Produk Live · 4+ Tahun Membangun · Dari Tasikmalaya
+            <p className="mt-5 max-w-lg font-body text-lg leading-7 text-ink-2 sm:leading-8">
+              {language === "id"
+                ? "Arblok Digital membangun toko online dan kasir sendiri — omzet dan stok terpantau dari HP, dan pekerjaannya tetap berjalan walau Anda sedang tidak melihat."
+                : "Arblok Digital builds your own online store and register — sales and stock watched from your phone, and the work keeps running even when you are not looking."}
             </p>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-gradient inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-5 py-2.5 font-body text-sm font-semibold">
+                {language === "id" ? "Konsultasi via WhatsApp" : "Consult via WhatsApp"}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </a>
+              <a href="#portfolio" className="inline-flex min-h-11 items-center justify-center rounded-lg border border-rule bg-paper px-5 py-2.5 font-body text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent">
+                {language === "id" ? "Lihat sistem yang sudah dibuat" : "See systems we have built"}
+              </a>
+            </div>
+            <ul className="mt-8 flex flex-wrap gap-2.5">
+              {(language === "id"
+                ? ["UMKM: jualan tanpa fee", "Sekolah: administrasi online", "Instansi: persetujuan"]
+                : ["SMEs: sell without fees", "Schools: online admin", "Public: approvals"]
+              ).map((item) => (
+                <li key={item} className="badge-chip font-body font-medium normal-case tracking-normal text-ink">
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Monorepo tree panel — right side on desktop, below text on mobile */}
-          <div className="lg:col-span-5 w-full">
-            <div className="bg-paper-2 border border-rule rounded p-6 sm:p-7 overflow-x-auto">
-              <div className="font-mono text-sm leading-7 text-ink whitespace-nowrap">
-                {treeLines.map((line, i) => (
-                  <div key={i} className="flex">
-                    <span className="text-ink-2 w-16 sm:w-20 shrink-0">
-                      {line.icon}
-                    </span>
-                    <span className={line.depth === 0 ? "text-ink font-medium" : "text-ink-2"}>
-                      {line.label}
-                    </span>
-                  </div>
-                ))}
+          <div className="flex flex-col justify-center lg:col-span-7">
+            <aside className="card flex h-full flex-col overflow-hidden" aria-label={language === "id" ? "Contoh alur sistem" : "Example system flow"}>
+              <div className="flex items-center justify-between gap-4 border-b border-rule bg-paper-2 px-5 py-3.5">
+                <div className="flex items-center gap-2.5">
+                  <span className="flex gap-1.5" aria-hidden="true">
+                    <span className="h-2.5 w-2.5 rounded-full bg-rule" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-rule" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-accent-2" />
+                  </span>
+                  <span className="font-mono text-xs text-ink-2">{language === "id" ? "Contoh peta pekerjaan" : "Example work map"}</span>
+                </div>
+                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-accent">Input → Process → Result</span>
               </div>
-              <div className="mt-4 pt-4 border-t border-rule space-y-1">
-                {[
-                  language === "id" ? "9 Produk Live" : "9 Live Products",
-                  language === "id" ? "Satu Fondasi Kode" : "One Codebase",
-                  language === "id" ? "Update Lebih Cepat" : "Faster Updates",
-                  language === "id" ? "Biaya Maintenance Lebih Ringan" : "Lower Maintenance Cost",
-                ].map((line, i) => (
-                  <div key={i} className="flex items-center gap-2">
-                    {i === 0 && <span className="inline-block w-2 h-2 rounded-full bg-accent shrink-0" />}
-                    <span
-                      className={`font-mono text-xs sm:text-sm uppercase tracking-[0.1em] ${
-                        i === 0 ? "text-accent font-medium" : "text-ink-2"
-                      }`}
+              <div className="flex flex-1 flex-col px-5 py-4">
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { value: transactions, label: language === "id" ? "Transaksi hari ini" : "Today's records" },
+                    { value: activeFlows, label: language === "id" ? "Alur aktif" : "Active flows" },
+                    { value: scatteredData, label: language === "id" ? "Data tercecer" : "Scattered data" },
+                  ].map((s) => (
+                    <div key={s.label} className="rounded-lg border border-rule bg-paper-2 p-3">
+                      <p className="stat-number font-body text-2xl font-bold text-accent">{s.value}</p>
+                      <p className="mt-0.5 font-body text-[11px] leading-4 text-ink-2">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 flex flex-1 flex-col justify-center gap-2.5">
+                  {workflowRows.map((row, index) => (
+                    <div
+                      key={row.id}
+                      className={`flex items-center gap-3 rounded-lg border border-rule bg-paper px-3.5 py-3 animate-fade-up ${started ? "visible" : ""}`}
+                      style={{ transitionDelay: `${0.35 + index * 0.12}s` }}
                     >
-                      {line}
-                    </span>
-                  </div>
-                ))}
+                      <span className="stat-number font-mono text-xs font-semibold text-accent">0{row.id}</span>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate font-body text-sm font-semibold text-ink">{language === "id" ? row.labelID : row.labelEN}</p>
+                      </div>
+                      <span className="h-6 w-px bg-rule" aria-hidden="true" />
+                      <div className="flex items-center gap-2">
+                        <span className="font-body text-xs font-medium text-ink-2">{language === "id" ? row.outputID : row.outputEN}</span>
+                        <span
+                          className={`pulse-dot h-1.5 w-1.5 shrink-0 rounded-full ${row.status === "ok" ? "bg-accent-2" : "bg-amber"}`}
+                          style={{ animationDelay: `${1.4 + index * 0.45}s` }}
+                          aria-hidden="true"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+              <div className="mt-auto border-t border-rule bg-paper-2 px-5 py-4">
+                <p className="flex items-start gap-2.5 font-body text-sm leading-6 text-ink-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                  {language === "id"
+                    ? "Teknologi mengikuti alur kerja. Fitur dipilih setelah pengguna dan prioritasnya dipahami."
+                    : "Technology follows the workflow. Features are selected after users and priorities are understood."}
+                </p>
+              </div>
+            </aside>
           </div>
+        </div>
+
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-rule pt-6">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-ink-2">
+            {language === "id" ? "Lanjutkan" : "Continue"}
+          </p>
+          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2" aria-label="Hero links">
+            {[
+              { href: "#services", label: language === "id" ? "Solusi yang bisa dibahas" : "Solutions we can discuss" },
+              { href: "#portfolio", label: language === "id" ? "Hasil yang sudah berjalan" : "Live results" },
+              { href: "#faq", label: language === "id" ? "Biaya, timeline, garansi" : "Pricing, timeline, warranty" },
+            ].map((link) => (
+              <a key={link.href} href={link.href} className="font-body text-sm font-medium text-ink-2 transition-colors hover:text-accent">
+                {link.label}
+              </a>
+            ))}
+          </nav>
         </div>
       </div>
     </section>

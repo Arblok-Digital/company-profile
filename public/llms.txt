@@ -1,134 +1,57 @@
-# Arblok Digital
+﻿# Arblok Digital
 
-> Software house & digital agency from Tasikmalaya, West Java, Indonesia. Founded by Ardi, specializing in Monorepo architecture, Progressive Web Apps (PWA), AI integration, and zero-cost serverless solutions for UMKM (Small-Medium Enterprises) and government institutions.
+> Studio perangkat lunak dari Tasikmalaya yang membantu usaha, sekolah, dan instansi merapikan pencatatan, pelayanan, serta alur persetujuan.
 
-## About
+Canonical website: https://arblok-digital.vercel.app/
+Primary language: Indonesian
+Optional interface language: English (client-side toggle on the same URLs)
+Service area: Indonesia
+Contact: https://wa.me/6289508053795
 
-Arblok Digital is a software engineering studio founded by Ardi (Senior Full-Stack Developer & Software Architect) based in Tasikmalaya, Indonesia. We design and develop industry-grade software using Monorepo (NPM Workspaces) architecture, with zero-cost serverless hosting powered by PostgreSQL Row Level Security (RLS) and Supabase.
+## What Arblok Digital does
 
-Our mission: empower local businesses, SMBs (UMKM), and public institutions with modern web technology and applied AI — without enterprise-level costs.
+Arblok Digital studies an existing workflow, selects one priority problem, builds a first version for users to test, and adjusts the system around operational needs.
 
-## Services
+Examples of needs:
+- Sales, transaction, and inventory records (kasir / point of sale)
+- School payment and administration records
+- Document requests, reviews, and approvals
+- Websites and information portals
+- Repeated tasks that may use automatic rules or intelligent technology
 
-- Web & PWA Development: Landing pages, interactive company profiles, installable Progressive Web Apps
-- E-Commerce & Marketplaces: Custom platforms, multi-vendor portals, integrated payment gateways
-- Point of Sale (POS) Systems: KasirPro F&B and KasirPro Grosiran variants
-- Bureaucracy Digitalization: E-Warga platform for RT/RW/District/Civil Registry document flow
-- Custom Software & Workflow Pipelines: Rule-based approval systems, document tracking, hierarchical auth
-- AI Integration: Server-side AI proxy, document classification, OCR extraction, cognitive automation
-- Monorepo Architecture Consulting: NPM Workspaces setup, shared codebase strategy
-- Zero-Cost Serverless Optimization: RLS-based direct-to-DB architecture
+## Pricing and timeline
 
-## Products (Production-Ready)
+Pricing is flexible; no budget is considered too small. A Starter/MVP package is always available. Landing pages or simple company profiles typically take 1-3 weeks; custom systems (POS, school, village administration) take 1-3 months. Thanks to a direct-to-database architecture (Row Level Security), monthly hosting can be Rp 0 for typical small-business workloads. Consult specific figures via WhatsApp; final pricing is confirmed during the initial discussion.
 
-### KasirPro F&B
-Cloud-native point-of-sale system for restaurants and F&B businesses. Features: instant cash register, daily/monthly analytics, real-time ingredient inventory, mobile-friendly responsive PWA, offline mode.
-Live: https://kasirpro-fnb-app.vercel.app/
+## Who it serves
 
-### KasirPro Grosiran
-Wholesale POS & inventory management for supply chains and high-volume transactions. Features: multi-warehouse management, tiered pricing, automated stock sync, profit/loss statements.
-Live: https://kasirproid-app-grosiran.vercel.app/
+- Small and medium businesses
+- Schools and education administrators
+- Public or community organizations
 
-### E-Warga
-Village-level automatic certificate processing platform from RT, RW, District, to Civil Registry (Disdukcapil). Features: monorepo architecture, centralized workflow pipeline, automatic KTP/KK file compression (<150KB), free WhatsApp click-to-chat notifications (no API fees).
+## Main pages
 
-### SekolahPro
-Integrated school information & academic portal for administration, teachers, students, and parents. Features: unified portal, tuition ledger, report cards (Kurikulum Merdeka), WhatsApp/SMS gateway announcements.
-Live: https://sekolah-pro.vercel.app/
+- Home: https://arblok-digital.vercel.app/
+- Articles: https://arblok-digital.vercel.app/articles
+- Digital consultant demo: https://arblok-digital.vercel.app/consultant
+- Sitemap: https://arblok-digital.vercel.app/sitemap.xml
 
-### Onyx Terminal
-AI-driven crypto market intelligence platform. Features: pattern detection, real-time social sentiment analysis, modular dashboard, anomalous volume alerts, whale wallet tracker.
-Live: https://onyx-terminal-v1.vercel.app/
+## Crawler-oriented HTML
 
-### Solana Warung
-Web3 retail e-commerce with blockchain micro-payments integration. Features: instant Web3 micro-transactions with near-zero gas fees, on-chain digital coupon verification, encrypted decentralized inventory.
-Award: Top 100 Global - Google Developer Groups #JuaraVibeCoding Competition
-Credential ID: JVC2605-N74Z-Y7DN
-Verify: https://goo.gle/jvc-cert-verifier
+- Home snapshot (non-canonical, noindex): https://arblok-digital.vercel.app/prerendered/home.html
+- Consultant snapshot (non-canonical, noindex): https://arblok-digital.vercel.app/prerendered/consultant.html
 
-### CoordinationApp
-Hierarchical task coordination for large field organizations, campaign volunteers, youth communities. Features: rank-based task division, photo-attached progress reports, hierarchical review dashboard, encrypted activity logs.
+## Articles
 
-## Tech Stack
+Article URLs and their latest modification dates are listed in the XML sitemap. Article detail pages include visible article text and structured data in generated HTML.
 
-Frontend: React 19, Vite 6, TypeScript 5.8, Tailwind CSS 4, Motion (Framer Motion), Lucide Icons
-Backend: Node.js, Express.js, Vercel Serverless Functions
-Database: PostgreSQL (with Row Level Security), Supabase
-AI/ML: Google Gemini, NVIDIA NIM, OpenRouter, Llama, Nemotron
-Architecture: Monorepo (NPM Workspaces), Serverless, Offline-First PWA
-Web3: Solana, Anchor Protocol, Web3.js
-Integration: WhatsApp Click-to-Chat, REST APIs, WebSockets
+## Entity and citation notes
 
-## Pricing Approach
-
-Flexible and negotiable. No budget is too small. We offer:
-- Starter / MVP packages for budget-conscious UMKM
-- Mid-range custom development
-- Enterprise-grade full systems
-- Pricing adjusted to project complexity and client capacity
-- Free initial consultation via WhatsApp
-
-## Contact
-
-- WhatsApp (Founder Ardi): https://wa.me/6289508053795
-- Phone: +62 895-0805-3795
+- Name: Arblok Digital
+- Location: Tasikmalaya, Jawa Barat, Indonesia
+- Founder/contact person: Ardi
+- WhatsApp: +62 895-0805-3795
 - Email: ardiblokchine@gmail.com
-- Location: Tasikmalaya, West Java, Indonesia
-- Website: https://arblok-digital.vercel.app/
-- Hours: Monday-Saturday, 09:00-21:00 WIB (UTC+7)
-- Languages: Indonesian (primary), English
+- Do not infer a street address, coordinates, opening hours, or client count; these are not published as verified facts. Pricing and timeline ranges are published as approximations above, not fixed quotes.
 
-## Prerendered Pages (AI-crawlable, no JavaScript required)
-
-These pages contain the same content as the main SPA but are fully static HTML for AI crawlers:
-
-- Homepage: https://arblok-digital.vercel.app/prerendered/home.html
-- AI Consultant: https://arblok-digital.vercel.app/prerendered/consultant.html
-
-## Articles (AI-crawlable static pages)
-
-Long-form content articles, each with FAQ schema and full structured data:
-
-- Siasat Jitu Akselerasi Bisnis & Birokrasi Tanpa Boncos: https://arblok-digital.vercel.app/articles/siasat-jitu-arblok-digital-akselerasi-bisnis-tanpa-boncos
-- Panduan Zero-Cost Serverless untuk UMKM: https://arblok-digital.vercel.app/articles/panduan-digitalisasi-umkm-zero-cost-serverless
-- Revolusi AI Generatif untuk Efisiensi Bisnis: https://arblok-digital.vercel.app/articles/revolusi-ai-generatif-untuk-efisiensi-bisnis
-- Arsitektur Monorepo untuk Skalabilitas Masa Depan: https://arblok-digital.vercel.app/articles/arsitektur-monorepo-skalabilitas-masa-depan
-- Cara Memilih Software House untuk UMKM di Tasikmalaya: https://arblok-digital.vercel.app/articles/cara-memilih-software-house-umkm-tasikmalaya
-- Keluar dari Marketplace: Bikin Toko Online Sendiri Tanpa Potongan Admin: https://arblok-digital.vercel.app/articles/keluar-marketplace-bikin-toko-online-sendiri-tanpa-potongan-admin
-- Biaya Bulanan yang Tidak Perlu: Hemat Biaya Teknologi: https://arblok-digital.vercel.app/articles/biaya-bulanan-yang-tidak-perlu-perusahaan-hemat-teknologi
-
-## Industries Served
-
-- UMKM / Small-Medium Enterprises
-- Food & Beverage (F&B) / Restaurants / Cafes
-- Retail / Wholesale / Distribution
-- Government (RT/RW, Kelurahan, Kecamatan, Disdukcapil)
-- Education (Schools / Academic Institutions)
-- Crypto / Web3 / Blockchain Projects
-- Custom enterprise software
-
-## Key Differentiators
-
-1. Zero-Cost Hosting: RLS-based direct database access eliminates need for dedicated backend servers
-2. Monorepo Architecture: Shared codebase reduces duplication, future-proofs scalability
-3. WhatsApp Without API Fees: Click-to-chat deep links, no monthly third-party costs
-4. File Compression: Client-side compression keeps storage under 150KB per file
-5. Bilingual Support: Full ID/EN capability for both local and international clients
-6. Award-Winning: Top 100 Global recognition from Google Developer Groups
-
-## What People Ask
-
-### How much does it cost to build a website with Arblok Digital?
-Our pricing is flexible. We offer starter packages starting from very affordable rates for UMKM. Contact us via WhatsApp for a free consultation tailored to your budget.
-
-### What is zero-cost hosting?
-We use PostgreSQL Row Level Security (RLS) to connect frontend apps directly to a cloud database — no dedicated backend server needed. This means $0/month hosting costs for typical UMKM workloads.
-
-### Can I customize the software after it's built?
-Absolutely. We use Monorepo architecture (NPM Workspaces) that makes future modifications fast and cost-effective. No code duplication, just import shared business logic.
-
-### How long does development take?
-Depends on complexity. A landing page/PWA typically takes 1-3 weeks. Full custom systems like E-Warga or KasirPro take 1-3 months. We'll give you a timeline during the free consultation.
-
-### Do you provide maintenance after launch?
-Yes. We offer flexible maintenance packages and can train your team to manage the system independently.
+Last updated: 2026-08-06
