@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Problems from "./components/Problems";
@@ -114,6 +115,7 @@ function AppContent() {
         </Routes>
       </main>
       <Footer />
+      <Analytics />
     </div>
   );
 }
