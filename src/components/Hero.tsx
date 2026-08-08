@@ -57,6 +57,73 @@ export default function Hero() {
     <section id="hero" className="relative overflow-hidden border-b border-rule bg-paper pb-16 pt-24 sm:pb-20 sm:pt-28">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" aria-hidden="true" />
       <div className="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-gradient-to-br from-accent/15 via-accent/5 to-transparent blur-2xl" aria-hidden="true" />
+      {/* Abstract data-flow illustration peeking out from behind the dashboard card */}
+      <div
+        className={`pointer-events-none absolute right-0 top-28 z-0 hidden aspect-[5/4] w-[64%] opacity-65 motion-safe:transition-all motion-safe:duration-500 lg:block ${
+          started ? "translate-x-0 translate-y-0" : "translate-x-4 translate-y-4"
+        } motion-reduce:opacity-65 motion-reduce:translate-x-0 motion-reduce:translate-y-0`}
+        aria-hidden="true"
+      >
+        <svg className="h-full w-full" viewBox="0 0 600 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Grid plus markers */}
+          <g className="text-rule">
+            <path d="M 120 30 M 120 20 L 120 40 M 110 30 L 130 30" stroke="currentColor" strokeWidth="1" />
+            <path d="M 580 30 M 580 20 L 580 40 M 570 30 L 590 30" stroke="currentColor" strokeWidth="1" />
+            <path d="M 120 450 M 120 440 L 120 460 M 110 450 L 130 450" stroke="currentColor" strokeWidth="1" />
+            <path d="M 580 450 M 580 440 L 580 460 M 570 450 L 590 450" stroke="currentColor" strokeWidth="1" />
+          </g>
+
+          {/* Scattered input nodes */}
+          <circle cx="36" cy="64" r="4.5" fill="currentColor" className="text-rule" />
+          <circle cx="60" cy="150" r="4.5" fill="currentColor" className="text-accent/50" />
+          <circle cx="95" cy="240" r="4.5" fill="currentColor" className="text-accent/50" />
+          <circle cx="50" cy="330" r="4.5" fill="currentColor" className="text-rule" />
+
+          {/* Flow lines: scattered -> organized */}
+          <path d="M 36 64 C 180 90, 220 160, 320 160" stroke="currentColor" strokeWidth="1.5" className="text-rule" />
+          <path d="M 60 150 C 160 160, 200 200, 320 200" stroke="currentColor" strokeWidth="2" className="text-accent/30" />
+          <path d="M 95 240 C 180 250, 200 240, 320 240" stroke="currentColor" strokeWidth="2" className="text-accent/30" />
+          <path d="M 50 330 C 180 340, 220 280, 320 280" stroke="currentColor" strokeWidth="1.5" className="text-rule" />
+
+          {/* Cross links */}
+          <path d="M 120 100 C 200 130, 220 200, 320 200" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" className="text-rule" />
+          <path d="M 100 190 C 180 210, 200 280, 320 280" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" className="text-rule" />
+
+          {/* Pipeline spine */}
+          <line x1="320" y1="130" x2="320" y2="310" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4" className="text-rule" />
+
+          {/* Organized output rows */}
+          <g>
+            <line x1="320" y1="160" x2="560" y2="160" stroke="currentColor" strokeWidth="2" className="text-accent" />
+            <rect x="560" y="155" width="22" height="10" rx="2" fill="currentColor" className="text-accent/20" stroke="currentColor" strokeWidth="1" />
+            <circle cx="571" cy="160" r="2.5" fill="currentColor" className="text-accent" />
+
+            <line x1="320" y1="200" x2="545" y2="200" stroke="currentColor" strokeWidth="2" className="text-accent-2" />
+            <circle cx="545" cy="200" r="3.5" fill="currentColor" className="text-accent-2" />
+
+            <line x1="320" y1="240" x2="575" y2="240" stroke="currentColor" strokeWidth="2" className="text-accent" />
+            <rect x="575" y="235" width="22" height="10" rx="2" fill="currentColor" className="text-accent/20" stroke="currentColor" strokeWidth="1" />
+            <circle cx="586" cy="240" r="2.5" fill="currentColor" className="text-accent" />
+
+            <line x1="320" y1="280" x2="530" y2="280" stroke="currentColor" strokeWidth="2" className="text-rule" />
+            <circle cx="530" cy="280" r="3.5" fill="currentColor" className="text-rule" />
+          </g>
+
+          {/* Server / system rack */}
+          <g className="text-rule">
+            <rect x="460" y="340" width="125" height="80" rx="8" stroke="currentColor" strokeWidth="1.5" className="fill-[var(--color-paper-2)]/60" />
+            <rect x="470" y="352" width="105" height="16" rx="3" stroke="currentColor" strokeWidth="1" className="fill-[var(--color-paper)]" />
+            <circle cx="480" cy="360" r="2" fill="currentColor" className="text-accent-2 animate-pulse" />
+            <line x1="495" y1="360" x2="555" y2="360" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
+            <rect x="470" y="372" width="105" height="16" rx="3" stroke="currentColor" strokeWidth="1" className="fill-[var(--color-paper)]" />
+            <circle cx="480" cy="380" r="2" fill="currentColor" className="text-accent animate-pulse" />
+            <line x1="495" y1="380" x2="535" y2="380" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
+            <rect x="470" y="392" width="105" height="16" rx="3" stroke="currentColor" strokeWidth="1" className="fill-[var(--color-paper)]" />
+            <circle cx="480" cy="400" r="2" fill="currentColor" className="text-accent-2 animate-pulse" />
+            <line x1="495" y1="400" x2="550" y2="400" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
+          </g>
+        </svg>
+      </div>
       <div className="relative z-10 mx-auto w-full px-6 sm:px-8 lg:max-w-none lg:px-14 xl:px-20">
         <div className="grid items-stretch gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col justify-center lg:col-span-5">
@@ -96,137 +163,8 @@ export default function Hero() {
             </ul>
           </div>
 
-          <div className="relative flex flex-col justify-center lg:col-span-7">
-            {/* Abstract visual illustration behind/around the card */}
-            <div
-              className={`pointer-events-none absolute -inset-10 -z-10 hidden lg:block motion-safe:transition-all motion-safe:duration-1000 ${
-                started ? "opacity-35 translate-y-0" : "opacity-0 translate-y-4"
-              } motion-reduce:opacity-35 motion-reduce:translate-y-0`}
-              aria-hidden="true"
-            >
-              <svg
-                className="h-full w-full"
-                viewBox="0 0 600 480"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                {/* Grid plus markers */}
-                <g className="text-rule">
-                  <path d="M 120 40 M 120 30 L 120 50 M 110 40 L 130 40" stroke="currentColor" strokeWidth="1" />
-                  <path d="M 480 40 M 480 30 L 480 50 M 470 40 L 490 40" stroke="currentColor" strokeWidth="1" />
-                  <path d="M 120 440 M 120 430 L 120 450 M 110 440 L 130 440" stroke="currentColor" strokeWidth="1" />
-                  <path d="M 480 440 M 480 430 L 480 450 M 470 440 L 490 440" stroke="currentColor" strokeWidth="1" />
-                </g>
-
-                {/* Left labels */}
-                <text x="40" y="60" fill="currentColor" className="text-ink-2/40 font-mono text-[9px] tracking-widest uppercase">
-                  {language === "id" ? "DATA TERCECER" : "UNORGANIZED DATA"}
-                </text>
-
-                {/* Right labels */}
-                <text x="420" y="60" fill="currentColor" className="text-accent-2/60 font-mono text-[9px] tracking-widest uppercase">
-                  {language === "id" ? "TERSTRUKTUR" : "STRUCTURED FLOW"}
-                </text>
-
-                {/* Flow lines (scattered to ordered) */}
-                {/* Line 1: top scattered to top row */}
-                <path
-                  d="M 60 120 C 180 120, 220 160, 320 160"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  className="text-rule"
-                />
-                <circle cx="60" cy="120" r="4.5" fill="currentColor" className="text-rule" />
-
-                {/* Line 2: middle scattered to second row */}
-                <path
-                  d="M 50 220 C 160 220, 200 200, 320 200"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className="text-accent/30"
-                />
-                <circle cx="50" cy="220" r="4.5" fill="currentColor" className="text-accent/50" />
-
-                {/* Line 3: lower middle to third row */}
-                <path
-                  d="M 80 320 C 180 320, 200 240, 320 240"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className="text-accent/30"
-                />
-                <circle cx="80" cy="320" r="4.5" fill="currentColor" className="text-accent/50" />
-
-                {/* Line 4: bottom scattered to fourth row */}
-                <path
-                  d="M 60 400 C 180 400, 220 280, 320 280"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  className="text-rule"
-                />
-                <circle cx="60" cy="400" r="4.5" fill="currentColor" className="text-rule" />
-
-                {/* Additional connection links */}
-                <path
-                  d="M 120 120 C 200 120, 220 200, 320 200"
-                  stroke="currentColor"
-                  strokeWidth="1"
-                  strokeDasharray="3 3"
-                  className="text-rule"
-                />
-                <path
-                  d="M 100 220 C 180 220, 200 280, 320 280"
-                  stroke="currentColor"
-                  strokeWidth="1"
-                  strokeDasharray="3 3"
-                  className="text-rule"
-                />
-
-                {/* Pipeline transition node boundary */}
-                <line x1="320" y1="130" x2="320" y2="310" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4" className="text-rule" />
-
-                {/* Right side ordered pipeline */}
-                <g>
-                  {/* Row 1 */}
-                  <line x1="320" y1="160" x2="520" y2="160" stroke="currentColor" strokeWidth="2" className="text-accent" />
-                  <rect x="520" y="155" width="20" height="10" rx="2" fill="currentColor" className="text-accent/20" stroke="currentColor" strokeWidth="1" />
-                  <circle cx="530" cy="160" r="2.5" fill="currentColor" className="text-accent" />
-
-                  {/* Row 2 */}
-                  <line x1="320" y1="200" x2="490" y2="200" stroke="currentColor" strokeWidth="2" className="text-accent-2" />
-                  <circle cx="490" cy="200" r="3.5" fill="currentColor" className="text-accent-2" />
-
-                  {/* Row 3 */}
-                  <line x1="320" y1="240" x2="540" y2="240" stroke="currentColor" strokeWidth="2" className="text-accent" />
-                  <rect x="540" y="235" width="20" height="10" rx="2" fill="currentColor" className="text-accent/20" stroke="currentColor" strokeWidth="1" />
-                  <circle cx="550" cy="240" r="2.5" fill="currentColor" className="text-accent" />
-
-                  {/* Row 4 */}
-                  <line x1="320" y1="280" x2="470" y2="280" stroke="currentColor" strokeWidth="2" className="text-rule" />
-                  <circle cx="470" cy="280" r="3.5" fill="currentColor" className="text-rule" />
-                </g>
-
-                {/* Database/Server visual symbol at the bottom right */}
-                <g className="text-rule">
-                  <rect x="420" y="340" width="140" height="80" rx="8" stroke="currentColor" strokeWidth="1.5" className="fill-[var(--color-paper-2)]/50" />
-                  
-                  {/* Server rack line 1 */}
-                  <rect x="430" y="352" width="120" height="16" rx="3" stroke="currentColor" strokeWidth="1" className="fill-[var(--color-paper)]" />
-                  <circle cx="440" cy="360" r="2" fill="currentColor" className="text-accent-2 animate-pulse" />
-                  <line x1="455" y1="360" x2="530" y2="360" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-
-                  {/* Server rack line 2 */}
-                  <rect x="430" y="372" width="120" height="16" rx="3" stroke="currentColor" strokeWidth="1" className="fill-[var(--color-paper)]" />
-                  <circle cx="440" cy="380" r="2" fill="currentColor" className="text-accent animate-pulse" />
-                  <line x1="455" y1="380" x2="510" y2="380" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-
-                  {/* Server rack line 3 */}
-                  <rect x="430" y="392" width="120" height="16" rx="3" stroke="currentColor" strokeWidth="1" className="fill-[var(--color-paper)]" />
-                  <circle cx="440" cy="400" r="2" fill="currentColor" className="text-accent-2 animate-pulse" />
-                  <line x1="455" y1="400" x2="525" y2="400" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-                </g>
-              </svg>
-            </div>
-            <aside className="card flex h-full flex-col overflow-hidden" aria-label={language === "id" ? "Contoh alur sistem" : "Example system flow"}>
+          <div className="flex flex-col justify-center lg:col-span-7">
+            <aside className="card relative z-10 flex h-full flex-col overflow-hidden" aria-label={language === "id" ? "Contoh alur sistem" : "Example system flow"}>
               <div className="flex items-center justify-between gap-4 border-b border-rule bg-paper-2 px-5 py-3.5">
                 <div className="flex items-center gap-2.5">
                   <span className="flex gap-1.5" aria-hidden="true">
