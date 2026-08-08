@@ -99,7 +99,7 @@ export default function Hero() {
           <div className="relative flex flex-col justify-center lg:col-span-7">
             {/* Abstract visual illustration behind/around the card */}
             <div
-              className={`pointer-events-none absolute -inset-10 -z-10 hidden lg:block opacity-0 translate-y-4 motion-safe:transition-all motion-safe:duration-1000 ${
+              className={`pointer-events-none absolute -inset-10 -z-10 hidden lg:block motion-safe:transition-all motion-safe:duration-1000 ${
                 started ? "opacity-35 translate-y-0" : "opacity-0 translate-y-4"
               } motion-reduce:opacity-35 motion-reduce:translate-y-0`}
               aria-hidden="true"
