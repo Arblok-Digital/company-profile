@@ -111,6 +111,7 @@ function serveHtml(content, extraSchema) {
     <a href="${BASE_URL}/#portfolio">Portofolio</a>
     <a href="${BASE_URL}/articles">Artikel</a>
     <a href="${BASE_URL}/consultant">Konsultan Digital</a>
+    <a href="${BASE_URL}/referral">Referral</a>
   </nav>
   ${content.body}
   <div class="cta">
@@ -259,4 +260,60 @@ const consultantSchema = `<script type="application/ld+json">${JSON.stringify({
 
 writeFileSync(join(OUT_DIR, "consultant.html"), serveHtml(consultantContent, consultantSchema), "utf-8");
 
-console.log(`✅ Prerendered: home.html + consultant.html → ${OUT_DIR}`);
+// ── REFERRAL PAGE ──
+const referralContent = {
+  title: "Program Referral | Dapatkan Komisi 30% & 10% Rekomendasi | Arblok Digital",
+  desc: "Rekomendasikan SekolahRapi, SekolahPro, atau jasa pembuatan website dan aplikasi Arblok Digital. Komisi 30% untuk produk, 10% untuk jasa. Cair satu kali setelah deal.",
+  canonical: `${BASE_URL}/referral`,
+  body: `
+<h1>Rekomendasikan produk Arblok Digital dan terima komisi saat deal jadi.</h1>
+<p>Kami membayar komisi satu kali untuk setiap rekomendasi yang berhasil: 30% untuk produk berlangganan dan 10% untuk proyek pembangunan. Cocok untuk siapa saja yang melihat sekolah atau usaha yang masih repot dengan pencatatan manual.</p>
+
+<h2>Produk dan komisi</h2>
+<div class="service">
+  <h3>SekolahRapi — Produk berlangganan · komisi 30%</h3>
+  <p>Pendaftaran siswa dan pembayaran SPP yang tadinya dicatat manual, jadi tercatat otomatis. Rp 149.000/bulan. Komisi 30% dari nilai deal yang berhasil ditutup, dibayar sekali. Simulasi: langganan setahun sekitar Rp 1,5 juta → komisi sekitar Rp 450 ribu.</p>
+</div>
+<div class="service">
+  <h3>SekolahPro — Produk berlangganan · komisi 30%</h3>
+  <p>Satu sistem untuk data siswa, SPP dan infak, gaji guru, dana BOS, sampai komunikasi orang tua. Harga dibahas saat konsultasi. Komisi 30% dari nilai deal yang berhasil ditutup, dibayar sekali. Simulasi: deal senilai Rp 2 juta → komisi Rp 600 ribu.</p>
+</div>
+<div class="service">
+  <h3>Jasa pembuatan website, kasir, dan toko online — Proyek · komisi 10%</h3>
+  <p>Company profile, aplikasi kasir, sampai toko online sendiri tanpa potongan marketplace. Mulai dari 8 juta tergantung ruang lingkup. Komisi 10% dari nilai kontrak, dibayar sekali setelah deal. Simulasi: proyek Rp 8 juta → komisi Rp 800 ribu; proyek Rp 50 juta → komisi Rp 5 juta.</p>
+</div>
+
+<h2>Cara kerja</h2>
+<ol>
+  <li>Tulis nama Anda — nama masuk otomatis ke semua tombol WhatsApp.</li>
+  <li>Pilih produk dan kirim lewat WhatsApp dengan nama Anda di dalam pesannya.</li>
+  <li>Komisi cair satu kali setelah deal ditutup dan dikonfirmasi.</li>
+</ol>
+
+<h2>Pertanyaan tentang komisi</h2>
+<h3>Berapa persen komisinya?</h3>
+<p>Dua kelompok: produk berlangganan seperti SekolahRapi dan SekolahPro memberi komisi 30% dari nilai deal yang ditutup. Jasa pembuatan memberi komisi 10% dari nilai kontrak. Dibayar sekali.</p>
+<h3>Apakah bisa merujuk lebih dari satu produk?</h3>
+<p>Bisa. Setiap produk punya tombol sendiri dengan nama Anda di pesannya. Tidak ada batasan jumlah.</p>
+<h3>Bagaimana komisinya dibayar?</h3>
+<p>Setelah deal ditutup dan dikonfirmasi, komisi dikirim ke rekening atau e-wallet yang anda sebutkan saat chat.</p>
+
+<div class="cta">
+  <p>Mulai dari nama Anda, lalu kirimkan satu pesan.</p>
+  <a class="wa" href="https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20berkonsultasi%20tentang%20program%20referensi.">Tanya program referensi via WhatsApp &rarr;</a>
+</div>
+`
+};
+
+const referralSchema = `<script type="application/ld+json">${JSON.stringify({
+  "@context": "https://schema.org", "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Berapa persen komisinya?", "acceptedAnswer": { "@type": "Answer", "text": "Produk berlangganan seperti SekolahRapi dan SekolahPro memberi komisi 30% dari nilai deal yang ditutup. Jasa pembuatan memberi komisi 10% dari nilai kontrak. Dibayar sekali." } },
+    { "@type": "Question", "name": "Apakah bisa merujuk lebih dari satu produk?", "acceptedAnswer": { "@type": "Answer", "text": "Bisa. Setiap produk punya tombol WhatsApp sendiri dengan nama Anda di dalam pesannya. Tidak ada batasan jumlah." } },
+    { "@type": "Question", "name": "Bagaimana komisinya dibayar?", "acceptedAnswer": { "@type": "Answer", "text": "Komisi dikirim ke rekening atau e-wallet yang disebutkan saat chat setelah deal ditutup dan dikonfirmasi." } }
+  ]
+})}</script>`;
+
+writeFileSync(join(OUT_DIR, "referral.html"), serveHtml(referralContent, referralSchema), "utf-8");
+
+console.log(`✅ Prerendered: home.html + consultant.html + referral.html → ${OUT_DIR}`);

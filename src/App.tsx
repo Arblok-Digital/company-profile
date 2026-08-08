@@ -10,6 +10,7 @@ import Portfolio from "./components/Portfolio";
 import FAQ from "./components/FAQ";
 import Articles from "./components/Articles";
 import AiConsultant from "./components/AiConsultant";
+import Referral from "./components/Referral";
 import Footer from "./components/Footer";
 import { LanguageProvider } from "./LanguageContext";
 import { Analytics } from "@vercel/analytics/react";
@@ -111,6 +112,7 @@ function AppContent() {
           <Route path="/articles" element={<Articles />} />
           <Route path="/articles/:slug" element={<Articles />} />
           <Route path="/consultant" element={<div className="pt-12"><AiConsultant /></div>} />
+          <Route path="/referral" element={<Referral />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

@@ -24,6 +24,7 @@ export default function Navbar() {
     services: language === "id" ? "Solusi" : "Solutions",
     portfolio: language === "id" ? "Portofolio" : "Portfolio",
     articles: language === "id" ? "Artikel" : "Articles",
+    referral: language === "id" ? "Referral" : "Referral",
     cta: language === "id" ? "Ceritakan Masalah" : "Tell Us Your Problem",
   };
 
@@ -34,6 +35,7 @@ export default function Navbar() {
     { to: "/#portfolio", label: navLabels.portfolio },
     { to: "/articles", label: navLabels.articles, exact: true },
     { to: "/consultant", label: language === "id" ? "Konsultan Digital" : "Digital Consultant", exact: true },
+    { to: "/referral", label: navLabels.referral, exact: true },
   ];
 
   return (

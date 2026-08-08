@@ -56,6 +56,7 @@ export default function Footer() {
                 { to: "/#faq", label: "FAQ" },
                 { to: "/articles", label: language === "id" ? "Artikel" : "Articles" },
                 { to: "/consultant", label: language === "id" ? "Konsultan digital" : "Digital consultant" },
+                { to: "/referral", label: language === "id" ? "Program referensi" : "Referral program" },
               ].map((link) => (
                 <li key={link.to}>
                   <Link

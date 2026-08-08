@@ -21,6 +21,7 @@ const staticRoutes = [
   { path: "/", priority: "1.0", changefreq: "weekly" },
   { path: "/articles", priority: "0.9", changefreq: "weekly" },
   { path: "/consultant", priority: "0.8", changefreq: "monthly" },
+  { path: "/referral", priority: "0.7", changefreq: "monthly" },
 ];
 
 // ── Article slugs (extracted from src/data/articles.ts) ──

@@ -6,7 +6,7 @@ export default function AiConsultant() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
-      content: "Halo! Saya adalah AI Consultant dari Arblok Digital. Apakah Anda memiliki rencana untuk membangun aplikasi web modern, sistem otomatisasi, atau ingin mengintegrasikan kecerdasan buatan (AI) ke dalam proses operasional bisnis atau dinas Anda? Tanyakan saja kepada saya, mari kita diskusikan solusi teknologi terbaik yang efisien dan hemat biaya!",
+      content: "Halo Kak, ini Arblok AI Consultant dari Arblok Digital. 👋 Bisa saling bahas santai di sini dulu: mau bikin app, kasir digital, sistem sekolah/kelurahan, atau ngerapihin proses bisnis biar gak ribet manual. Ceritain aja kebutuhan Kakak, nanti kita tentukan paling pas buat kasusnya. Mau mulai dari mana?",
       timestamp: new Date()
     }
   ]);
@@ -132,9 +132,10 @@ export default function AiConsultant() {
   };
 
   const suggestionPrompts = [
-    "Bisakah kamu menjelaskan tentang Arblok Digital?",
-    "Berapa biaya pembuatan website?",
-    "Apa itu Monorepo dan kenapa penting?",
+    "Arblok Digital itu ngapain aja?",
+    "Budget pas-pasan, bisa gak bikin web kasir?",
+    "KasirPro bisa buat usaha makanan gak?",
+    "Sekolah kami masih catat manual, cocoknya apa?",
   ];
 
   return (

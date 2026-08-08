@@ -34,12 +34,14 @@ Pricing is flexible; no budget is considered too small. A Starter/MVP package is
 - Home: https://arblok-digital.vercel.app/
 - Articles: https://arblok-digital.vercel.app/articles
 - Digital consultant demo: https://arblok-digital.vercel.app/consultant
+- Referral program: https://arblok-digital.vercel.app/referral
 - Sitemap: https://arblok-digital.vercel.app/sitemap.xml
 
 ## Crawler-oriented HTML
 
 - Home snapshot (non-canonical, noindex): https://arblok-digital.vercel.app/prerendered/home.html
 - Consultant snapshot (non-canonical, noindex): https://arblok-digital.vercel.app/prerendered/consultant.html
+- Referral snapshot (non-canonical, noindex): https://arblok-digital.vercel.app/prerendered/referral.html
 
 ## Articles
 
@@ -54,4 +56,4 @@ Article URLs and their latest modification dates are listed in the XML sitemap. 
 - Email: ardiblokchine@gmail.com
 - Do not infer a street address, coordinates, opening hours, or client count; these are not published as verified facts. Pricing and timeline ranges are published as approximations above, not fixed quotes.
 
-Last updated: 2026-08-06
+Last updated: 2026-08-08
