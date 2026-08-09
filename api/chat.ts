@@ -85,7 +85,7 @@ async function streamNvidia(messages: any[], systemInstruction: string, res: Ver
   const apiKey = process.env.NVIDIA_API_KEY;
   if (!apiKey) throw new Error("NVIDIA_API_KEY belum dikonfigurasi.");
 
-  if (apiKey.startsWith("sk-or-") || process.env.OPENROUTER_API_KEY) {
+  if (apiKey?.startsWith("sk-or-") || process.env.OPENROUTER_API_KEY) {
     console.log("[Vercel/NVIDIA] Deteksi OpenRouter key, redirect...");
     return streamOpenRouter(messages, systemInstruction, res);
   }
@@ -224,6 +224,18 @@ async function streamGemini(messages: any[], systemInstruction: string, res: Ver
 
 // ─── Handler ───────────────────────────────────────────────────
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  try {
+    return await handleRequest(req, res);
+  } catch (err: any) {
+    console.error("[Vercel/Chat] Unhandled:", err?.message || err);
+    if (!res.headersSent) {
+      return res.status(500).json({ error: err?.message || "Terjadi kendala internal. Coba lagi." });
+    }
+    return res.end();
+  }
+}
+
+async function handleRequest(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed. Gunakan POST." });
   }

@@ -214,11 +214,18 @@ export function useAiChatStream(options: UseAiChatStreamOptions = {}): AiChatStr
         if (!res.ok) {
           let detail = `Server error: ${res.status}`;
           try {
-            const data = await res.json();
-            if (data?.error) detail = String(data.error);
+            const raw = await res.text();
+            if (raw) {
+              try {
+                const data = JSON.parse(raw);
+                if (data?.error) detail = String(data.error);
+                else if (data?.message) detail = String(data.message);
+              } catch {
+                detail = raw.slice(0, 120);
+              }
+            }
           } catch {
-            const text = await res.text();
-            if (text) detail = text.slice(0, 120);
+            detail = `Server error: ${res.status}`;
           }
           throw new Error(detail);
         }
