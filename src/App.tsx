@@ -10,6 +10,7 @@ import Portfolio from "./components/Portfolio";
 import FAQ from "./components/FAQ";
 import Articles from "./components/Articles";
 import AiConsultant from "./components/AiConsultant";
+import FloatingChatWidget from "./components/FloatingChatWidget";
 import Referral from "./components/Referral";
 import Footer from "./components/Footer";
 import { LanguageProvider } from "./LanguageContext";
@@ -117,6 +118,7 @@ function AppContent() {
         </Routes>
       </main>
       <Footer />
+      <FloatingChatWidget />
     </div>
   );
 }

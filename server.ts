@@ -332,6 +332,13 @@ async function setupApp() {
     } else {
       const distPath = path.join(process.cwd(), "dist");
       app.use(express.static(distPath, { extensions: ["html"] }));
+      app.use((req, res, next) => {
+        const clean = req.path.replace(/^\/+/, "");
+        if (clean.includes(".") && !existsSync(path.join(distPath, clean))) {
+          return res.status(404).end();
+        }
+        next();
+      });
       app.get("/articles/:slug", (req, res) => {
         const file = path.join(distPath, "articles", `${req.params.slug}.html`);
         if (existsSync(file)) return res.sendFile(file);
