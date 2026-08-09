@@ -41,6 +41,8 @@ export interface Article {
   content: string;
   category: string;
   publishedAt: string;
+  /** Tanggal modifikasi terakhir (untuk schema dateModified). Fallback: publishedAt. */
+  dateModified?: string;
   author: {
     name: string;
     role: string;

@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build:sitemap": "node scripts/generate-sitemap.mjs",
-    "prerender": "node scripts/prerender-articles.mjs && node scripts/prerender-site.mjs",
-    "prerender:articles": "node scripts/prerender-articles.mjs",
+    "build:sitemap": "tsx scripts/generate-sitemap.mjs",
+    "prerender": "tsx scripts/gen-og-articles.mjs && tsx scripts/prerender-articles.mjs && node scripts/prerender-site.mjs",
+    "prerender:articles": "tsx scripts/prerender-articles.mjs",
     "prerender:site": "node scripts/prerender-site.mjs",
     "build": "npm run lint && npm run prerender && vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
     "start": "node dist/server.cjs",
@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
+    "@phosphor-icons/react": "^2.1.10",
     "@tailwindcss/vite": "^4.1.14",
     "@vercel/analytics": "^2.0.1",
     "@vitejs/plugin-react": "^5.0.4",

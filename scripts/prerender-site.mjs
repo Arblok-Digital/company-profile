@@ -129,8 +129,8 @@ function serveHtml(content, extraSchema) {
 
 // ── HOME PAGE ──
 const homeContent = {
-  title: "Arblok Digital | Sistem Digital untuk Usaha, Sekolah & Instansi",
-  desc: "Arblok Digital membantu usaha, sekolah, dan instansi membuat sistem pencatatan, pelayanan, dan persetujuan. Mulai dari satu masalah prioritas — harga transparan, hosting mulai Rp 0/bulan.",
+  title: "Arblok Digital | Sistem untuk UMKM, Sekolah & Instansi",
+  desc: "Arblok Digital membuat sistem pencatatan, pelayanan, dan persetujuan untuk usaha, sekolah, dan instansi — hosting bisa Rp 0/bulan.",
   canonical: BASE_URL,
   body: `
 <p>Studio perangkat lunak · Tasikmalaya</p>
@@ -197,17 +197,31 @@ ${portfolioItems.map(p => `
 
 const homeSchema = `<script type="application/ld+json">${JSON.stringify({
   "@context": "https://schema.org", "@type": "ProfessionalService",
+  "@id": "https://arblok-digital.vercel.app/#organization",
   "name": "ARBLOK Digital", "url": BASE_URL,
   "description": homeContent.desc,
   "address": { "@type": "PostalAddress", "addressLocality": "Tasikmalaya", "addressRegion": "Jawa Barat", "addressCountry": "Indonesia" },
+  "geo": { "@type": "GeoCoordinates", "latitude": -7.3268, "longitude": 108.2208 },
+  "areaServed": "Indonesia",
+  "sameAs": ["https://wa.me/6289508053795"],
   "telephone": "+6289508053795", "email": "ardiblokchine@gmail.com",
   "knowsAbout": ["Sistem penjualan dan persediaan", "Administrasi sekolah", "Pelayanan dokumen", "Alur persetujuan", "Website dan portal informasi", "Otomatisasi pekerjaan berulang"],
   "founder": { "@type": "Person", "name": "Ardi" },
   "contactPoint": { "@type": "ContactPoint", "telephone": "+6289508053795", "contactType": "customer service", "availableLanguage": ["Indonesian", "English"] }
 })}</script><script type="application/ld+json">${JSON.stringify({
+  "@context": "https://schema.org", "@type": "WebSite",
+  "@id": "https://arblok-digital.vercel.app/#website",
+  "url": BASE_URL,
+  "name": "Arblok Digital",
+  "description": homeContent.desc,
+  "publisher": { "@id": "https://arblok-digital.vercel.app/#organization" },
+  "inLanguage": ["id", "en"]
+})}</script><script type="application/ld+json">${JSON.stringify({
   "@context": "https://schema.org", "@type": "FAQPage",
   "mainEntity": faqID.map(item => ({ "@type": "Question", "name": item.question, "acceptedAnswer": { "@type": "Answer", "text": item.answer } }))
 })}</script>`;
+/* Catatan: SearchAction sengaja dikosongkan — belum ada halaman pencarian di situs.
+   Sitelinks Search Box hanya boleh dipasang kalau halaman hasil pencarian benar-benar ada. */
 
 writeFileSync(join(OUT_DIR, "home.html"), serveHtml(homeContent, homeSchema), "utf-8");
 

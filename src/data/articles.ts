@@ -8,6 +8,7 @@ const ARTICLES_ID: Article[] = [
     excerpt: "Banyak agensi memasang tarif selangit dan menolak UMKM berbudget minim. Arblok Digital hadir mendobrak batasan itu dengan arsitektur Monorepo & Zero-Cost Serverless. Baca strategi kami melahirkan KasirPro dan E-Warga yang bersahabat untuk semua kantong!",
     category: "Teknologi & Bisnis",
     publishedAt: "2026-07-10",
+    dateModified: "2026-08-09",
     readTime: "6 Menit Bacaan",
     tags: ["Arblok Digital", "Monorepo", "Zero-Cost", "Marketing", "SaaS Lokal", "KasirPro", "E-Warga"],
     author: {
@@ -67,6 +68,7 @@ Mari kita bertransmutasi dari keresahan menjadi karya nyata! Hubungi Founder kam
     excerpt: "Banyak pemilik UMKM takut Go-Digital karena biaya server bulanan yang mahal. Temukan bagaimana arsitektur Zero-Cost Serverless dengan PostgreSQL Row Level Security (RLS) di Supabase memotong biaya operasional menjadi Rp 0,- tanpa mengorbankan keamanan data.",
     category: "Digitalisasi UMKM",
     publishedAt: "2026-07-08",
+    dateModified: "2026-08-09",
     readTime: "5 Menit Bacaan",
     tags: ["Digitalisasi UMKM", "Serverless", "Supabase", "Zero-Cost", "Birokrasi Modern"],
     author: {
@@ -115,6 +117,7 @@ Berikut adalah 3 pilar utama untuk mewujudkan ekosistem digital yang hemat biaya
     excerpt: "Banyak perusahaan mengira teknologi AI hanya sebatas chatbot penjawab pesan otomatis. Pelajari bagaimana integrasi Large Language Models (LLM) di sisi server dapat meningkatkan konversi penjualan, mengotomatisasi posting kampanye, dan melakukan analisis pasar otonom.",
     category: "Kecerdasan Buatan (AI)",
     publishedAt: "2026-07-08",
+    dateModified: "2026-08-09",
     readTime: "6 Menit Bacaan",
     tags: ["Kecerdasan Buatan (AI)", "Gemini AI", "Automasi Bisnis", "Teknologi Cerdas", "IEO"],
     author: {
@@ -157,6 +160,7 @@ Arblok Digital merancang solusi AI terintegrasi yang berfokus pada hasil bisnis 
     excerpt: "Mengapa memulai dengan satu codebase tunggal (monorepo) menggunakan NPM Workspaces adalah pilihan terbaik bagi startup dan agensi teknologi modern. Solusi menghindari redundansi logika dan mempercepat waktu rilis ke pasar (time-to-market).",
     category: "Teknologi & Bisnis",
     publishedAt: "2026-07-08",
+    dateModified: "2026-08-09",
     readTime: "4 Menit Bacaan",
     tags: ["Monorepo", "NPM Workspaces", "Arsitektur Perangkat Lunak", "TypeScript", "Scalability"],
     author: {
@@ -201,6 +205,7 @@ Melalui penerapan **Monorepo (NPM Workspaces)**, Arblok Digital menyatukan selur
     excerpt: "Bingung milih software house di Tasikmalaya? Pelajari 5 kriteria penting: portofolio nyata, arsitektur scalable, transparansi biaya, dukungan after-launch, dan testimonial. Plus cara bedain agensi beneran dari reseller template.",
     category: "Digitalisasi UMKM",
     publishedAt: "2026-07-17",
+    dateModified: "2026-08-09",
     readTime: "7 Menit Bacaan",
     tags: ["Software House Tasikmalaya", "Digital Agency", "UMKM Digital", "Web Development", "Arblok Digital", "PWA Tasikmalaya", "Jasa Pembuatan Website"],
     author: {
@@ -330,6 +335,7 @@ Gak ada yang lebih mahal daripada software murah yang harus dibikin ulang 6 bula
     excerpt: "Biaya admin Shopee & Tokopedia naik 2-10% per transaksi Mei 2026. Pelajari cara bikin toko online sendiri dengan payment gateway langsung: 0% potongan platform, margin utuh, dan customer jadi milik lo. Plus checklist modal & teknologinya.",
     category: "UMKM & Marketplace",
     publishedAt: "2026-07-17",
+    dateModified: "2026-08-09",
     readTime: "8 Menit Bacaan",
     tags: ["Keluar Marketplace", "Toko Online Sendiri", "Biaya Admin Marketplace", "UMKM 2026", "Shopee Tokopedia", "Payment Gateway", "Web Development Tasikmalaya", "Arblok Digital"],
     author: {
@@ -514,6 +520,7 @@ Konsultasi 30 menit pertama gratis. Setelah itu, kalau cocok, kita lanjut ke pro
     excerpt: "Banyak perusahaan membayar puluhan juta per tahun untuk software yang tidak sepenuhnya dimanfaatkan. Pelajari cara menghemat 30-40% biaya operasional teknologi tanpa kehilangan fungsi kritis.",
     category: "Efisiensi Bisnis",
     publishedAt: "2026-07-22",
+    dateModified: "2026-08-09",
     readTime: "7 Menit Bacaan",
     tags: ["Biaya Operasional", "Efisiensi Teknologi", "Software Custom", "Cost Optimization", "Arblok Digital", "Tasikmalaya", "Digitalisasi Perusahaan", "Konsultasi IT"],
     author: {
@@ -603,6 +610,7 @@ Kalau perusahaan Anda sedang mengevaluasi biaya operasional teknologi tahun ini,
     excerpt: "Potongan total di Shopee, Tokopedia & TikTok Shop bisa lebih dari 20% dari nilai transaksi (Mei 2026): komisi naik, biaya logistik baru dari sisi penjual, batas komisi Tokopedia Rp650.000, plus PPh 22 0,5%. Rincian biaya, simulasi margin, dan 3 jurus jualan dengan potongan minimal.",
     category: "UMKM & Marketplace",
     publishedAt: "2026-08-06",
+    dateModified: "2026-08-09",
     readTime: "9 Menit Bacaan",
     tags: ["Fee Marketplace 2026", "Biaya Admin Shopee", "Komisi Tokopedia", "Potongan TikTok Shop", "Biaya Layanan Logistik", "PPh 22", "Toko Online Sendiri", "UMKM", "Arblok Digital"],
     author: {
@@ -696,6 +704,14 @@ Selisih per transaksi **Rp35.500**. Satu pesanan retur saja sudah menghapus keun
 
 Kenaikan fee marketplace 2026 bukan kabar yang berhenti di Mei. Lakukan 3 hal: hitung ulang margin, diversifikasi kanal, dan bangun jalur yang Anda kontrol. Marketplace tetap berguna — tapi jangan jadikan satu-satunya pintu.
 
+### Sumber Data
+
+- Katadata.id — "Biaya Admin Marketplace Naik, Seller Mulai Lirik Kanal Penjualan Mandiri" (Mei 2026).
+- Bisnis via Datasatu (bersumber Investing.com) — "Tarif Komisi Marketplace Makin Tinggi, Seller Harus Hitung Ulang Margin" (Mei 2026).
+- Tokopedia Seller University — halaman "Biaya Komisi Platform" (2026).
+- Toco.id dan UKMIndonesia.id — ringkasan perubahan biaya marketplace Mei 2026.
+- BiteShip Blog — "Biaya Marketplace Indonesia 2026: Perbandingan Lengkap" (Juli 2026).
+
 **Butuh konsultasi gratis?** Chat Ardi via WhatsApp: 30 menit pertama gratis, tanpa kewajiban.
 
 👉 **Chat WhatsApp (Ardi - Arblok Digital): https://wa.me/6289508053795`
@@ -707,6 +723,7 @@ Kenaikan fee marketplace 2026 bukan kabar yang berhenti di Mei. Lakukan 3 hal: h
     excerpt: "SPMB/PPDB 2026: server down di Bekasi dan Bontang, 928 pendaftar lawan 130 kursi di Makassar, orang tua antre di Disdik. Kenapa pendaftaran online selalu semrawut tiap tahun + 3 solusi untuk sekolah, lengkap dengan sumber berita.",
     category: "Sekolah & Pendidikan",
     publishedAt: "2026-08-06",
+    dateModified: "2026-08-09",
     readTime: "8 Menit Bacaan",
     tags: ["Pendaftaran Sekolah Online", "SPMB 2026", "PPDB 2026", "Server Down", "Antrean Pendaftaran", "Literasi Digital", "SekolahRapi", "Arblok Digital"],
     author: {
@@ -770,6 +787,14 @@ Jejak sebelumnya: 2021 DKI Jakarta (server down, akun disetop sementara), 2024 J
 ### Kesimpulan
 
 Kekacauan pendaftaran online bukan karena orang tua, melainkan karena sistem tidak diuji pada titik paling tegang dan tata caranya belum dijelaskan. Solusinya: sistem yang tahan lonjakan, antrean tanpa rebutan, verifikasi bertahap, dan pendampingan manusia. Sumber berita lengkap ada di versi artikel web (Kompas TV, Lensa Bekasi, Kita Muda Media, Media Indonesia, Bandungbergerak.id, Metro TV, detikNews, VOI).
+
+### Sumber Data
+
+- Kompas TV — peliputan SPMB Makassar: 928 pendaftar vs kuota 130 kursi jalur domisili (23 Juni 2026).
+- Lensa Bekasi — sistem SPMB terganggu, orang tua antre di kantor Disdik (1 Juli 2026).
+- Kita Muda Media — PPDB online SMA/SMK Bontang bermasalah di hari pertama (22 Juni 2026).
+- Media Indonesia — Diskominfo Tangsel menaikkan kapasitas server cegah down.
+- Bandungbergerak.id, Metro TV, detikNews, VOI — jejak permasalahan PPDB/SPMB 2021, 2024, 2025.
 
 Butuh diskusi untuk sistem pendaftaran sekolah Anda? Konsultasi 30 menit pertama gratis.
 

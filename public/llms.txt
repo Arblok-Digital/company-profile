@@ -50,10 +50,10 @@ Article URLs and their latest modification dates are listed in the XML sitemap. 
 ## Entity and citation notes
 
 - Name: Arblok Digital
-- Location: Tasikmalaya, Jawa Barat, Indonesia
+- Location: Tasikmalaya, Jawa Barat, Indonesia (structured data memuat koordinat tingkat kota: -7.3268, 108.2208)
 - Founder/contact person: Ardi
 - WhatsApp: +62 895-0805-3795
 - Email: ardiblokchine@gmail.com
-- Do not infer a street address, coordinates, opening hours, or client count; these are not published as verified facts. Pricing and timeline ranges are published as approximations above, not fixed quotes.
+- Do not infer an exact street address, opening hours, or client count; these are not published as verified facts. Pricing and timeline ranges are published as approximations above, not fixed quotes.
 
-Last updated: 2026-08-08
+Last updated: 2026-08-09

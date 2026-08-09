@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 /**
  * generate-sitemap.mjs
- * Generates sitemap.xml from articles.ts data.
- * Run: node scripts/generate-sitemap.mjs
- * Add to package.json: "build:sitemap": "node scripts/generate-sitemap.mjs"
+ * Regenerates public/sitemap.xml dari src/data/articles.ts (single source).
+ * Catatan: prerender-articles.mjs juga menulis sitemap.xml yang sama;
+ * script ini tetap dipertahankan sebagai pintu generate terpisah.
+ * Run: tsx scripts/generate-sitemap.mjs
  */
-
 import { writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+import { ARTICLES_DATA } from "../src/data/articles.ts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -16,7 +17,6 @@ const ROOT = join(__dirname, "..");
 const BASE_URL = "https://arblok-digital.vercel.app";
 const TODAY = new Date().toISOString().split("T")[0];
 
-// ── Static routes ──
 const staticRoutes = [
   { path: "/", priority: "1.0", changefreq: "weekly" },
   { path: "/articles", priority: "0.9", changefreq: "weekly" },
@@ -24,49 +24,6 @@ const staticRoutes = [
   { path: "/referral", priority: "0.7", changefreq: "monthly" },
 ];
 
-// ── Article slugs (extracted from src/data/articles.ts) ──
-// Update this array when adding new articles.
-// Each article links to /articles page — individual routes TBD.
-const articles = [
-  {
-    slug: "siasat-jitu-arblok-digital-akselerasi-bisnis-tanpa-boncos",
-    lastmod: "2026-07-10",
-  },
-  {
-    slug: "panduan-digitalisasi-umkm-zero-cost-serverless",
-    lastmod: "2026-07-08",
-  },
-  {
-    slug: "revolusi-ai-generatif-untuk-efisiensi-bisnis",
-    lastmod: "2026-07-08",
-  },
-  {
-    slug: "arsitektur-monorepo-skalabilitas-masa-depan",
-    lastmod: "2026-07-08",
-  },
-  {
-    slug: "cara-memilih-software-house-umkm-tasikmalaya",
-    lastmod: "2026-07-17",
-  },
-  {
-    slug: "keluar-marketplace-bikin-toko-online-sendiri-tanpa-potongan-admin",
-    lastmod: "2026-07-17",
-  },
-  {
-    slug: "biaya-bulanan-yang-tidak-perlu-perusahaan-hemat-teknologi",
-    lastmod: "2026-07-22",
-  },
-  {
-    slug: "fee-marketplace-makin-besar-2026-potongan-shopee-tokopedia-tiktok-shop",
-    lastmod: "2026-08-06",
-  },
-  {
-    slug: "pendaftaran-sekolah-online-semrawut-spmb-ppdb-2026",
-    lastmod: "2026-08-06",
-  },
-];
-
-// ── Build XML ──
 function urlEntry(loc, lastmod, changefreq, priority) {
   return `  <url>
     <loc>${loc}</loc>
@@ -78,17 +35,15 @@ function urlEntry(loc, lastmod, changefreq, priority) {
 
 const entries = [];
 
-// Static routes
 for (const r of staticRoutes) {
   entries.push(urlEntry(`${BASE_URL}${r.path}`, TODAY, r.changefreq, r.priority));
 }
 
-// Individual article routes (/articles/:slug)
-for (const a of articles) {
+for (const a of ARTICLES_DATA) {
   entries.push(
     urlEntry(
       `${BASE_URL}/articles/${a.slug}`,
-      a.lastmod,
+      a.dateModified || a.publishedAt,
       "monthly",
       "0.7"
     )

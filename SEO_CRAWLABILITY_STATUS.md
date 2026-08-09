@@ -1,152 +1,154 @@
 # SEO / IEO / GEO / AI Crawlability — Status Tervalidasi
 
-> **Dokumen ini adalah source of truth.** Ditulis setelah proses debugging panjang di mana
-> beberapa laporan "sudah selesai" ternyata tidak sinkron dengan kondisi live production.
-> Semua status di bawah ini **dikonfirmasi lewat pengujian langsung** (curl + browser
-> console), bukan asumsi dari commit message atau laporan audit semata.
+> **Dokumen ini adalah source of truth.** Semua status di bawah ini **dikonfirmasi lewat
+> pengujian langsung** (curl + browser console + build produksi lokal), bukan asumsi dari
+> commit message atau laporan audit semata.
 >
 > **Aturan buat agent manapun yang kerja di repo ini:** jangan klaim "sudah fix" hanya
-> berdasarkan commit message atau membaca source code. Validasi dulu ke live URL
-> production sebelum melaporkan status ke user.
+> berdasarkan commit message atau membaca source code. Validasi dulu ke local repo / build
+> production, baru laporkan status.
 
-Terakhir divalidasi: 2026-07-23, commit `319164f` (setelah redeploy tanpa build cache).
+Terakhir divalidasi: **2026-08-09** — audit ulang penuh + Fase 2 selesai (`npm run build` 0 error, server production dist dites via curl).
 
 ---
 
-## 1. Isu yang Sudah Fixed (Confirmed di Production)
+## 1. Isu yang Sudah Fixed (Confirmed)
 
 ### 1.1 Canonical Mismatch — FIXED ✅
-**Masalah lama:** File statis artikel di `public/articles/[slug].html` punya
-`<link rel="canonical">` yang menunjuk ke URL tanpa ekstensi `.html`
-(mis. `/articles/cara-memilih-software-house-umkm-tasikmalaya`), tapi URL itu sendiri
-di-serve oleh SPA shell kosong (`index.html`) — bukan artikelnya. Ini self-contradicting
-canonical yang berisiko bikin artikel tidak pernah ke-index Google.
+**Masalah lama:** Artikel punya `<link rel="canonical">` ke URL tanpa ekstensi `.html`, padahal URL itu sendiri di-serve SPA shell kosong oleh Vercel (canonical bertentangan sendiri).
 
-**Fix:** Tambah rewrite rule di `vercel.json`, **sebelum** catch-all:
+**Fix:** Rewrite rule di `vercel.json`, dipasang sebelum catch-all:
 ```json
 { "source": "/articles/:slug", "destination": "/articles/:slug.html" }
 ```
 
-**Cara validasi (WAJIB pakai curl, bukan fetch tool AI manapun — banyak yang cache):**
-```bash
-curl -sI https://arblok-digital.vercel.app/articles/cara-memilih-software-house-umkm-tasikmalaya
-```
-Expected: `Content-Disposition: inline; filename="....html"` dan `X-Vercel-Cache: MISS` atau `HIT`
-(bukan serve index.html SPA shell).
+**Validasi (live, 2026-08-09):**
+`curl -sI https://arblok-digital.vercel.app/articles/fee-marketplace-makin-besar-2026-potongan-shopee-tokopedia-tiktok-shop`
+→ `200 OK` + `Content-Disposition: inline; filename="....html"`, isi HTML = artikel penuh (canonical, BlogPosting, FAQPage, BreadcrumbList).
 
 ---
 
 ### 1.2 Nav/Footer `<button>` → `<a>`/`<Link>` — FIXED ✅
-**Masalah lama:** Semua internal navigation (`Beranda`, `Layanan`, `Artikel`, dst) pakai
-`<button onClick={() => navTo(...)}>`. Google/AI crawler tidak mengenali `<button>`
-sebagai link — nol internal link equity, nol link graph untuk crawlability.
+**Validasi live (2026-08-09):** `nav` berisi **9 `<a href>`** dan **2 `<button>`** (language switcher + hamburger). Keduanya adalah toggle UI, bukan link.
 
-**Fix:** Diganti ke `<Link to="...">` (React Router) di `Navbar.tsx` (123 baris berubah)
-dan `Footer.tsx` (63 baris berubah), commit `319164f`.
-
-**PENTING — jangan ganti semua button jadi Link.** 3 button berikut **HARUS TETAP
-BUTTON** karena bukan navigasi ke halaman lain, cuma toggle state UI:
+**Yang HARUS tetap `<button>`** (bukan navigasi):
 - Language switcher desktop
-- Language switcher mobile
-- Hamburger menu toggle (buka/tutup nav mobile)
+- Language switcher mobile (muncul saat menu mobile terbuka)
+- Hamburger menu toggle
 
-**Cara validasi (browser console, di halaman live):**
 ```js
-document.querySelectorAll('nav button').length   // expected: 3
-document.querySelectorAll('nav a[href]').length  // expected: 15
+document.querySelectorAll('nav a[href]').length  // 9
+document.querySelectorAll('nav button').length   // 2 (saat menu mobile tertutup)
 ```
 
 ---
 
-### 1.3 llms.txt — 7 Artikel Ditambahkan — FIXED ✅
-**Masalah lama:** `llms.txt` cuma nge-list 2 prerendered page (`home.html`,
-`consultant.html`). 7 artikel statis di `public/articles/*.html` gak ke-link dari
-manapun yang bisa ditemukan AI crawler → orphaned content.
+### 1.3 llms.txt — pola baru (lebih tahan drift) — FIXED ✅
+**Perubahan pola (2026-08-09):** llms.txt **tidak lagi** memuat daftar artikel manual. Sekarang:
+- Artikel dirujuk ke `sitemap.xml` — "Article URLs and their latest modification dates are listed in the XML sitemap".
+- 3 snapshot AI-crawler: `home.html`, `consultant.html`, `referral.html`.
+- Entity notes konsisten (nama, kota, founder, WhatsApp, email, catatan koordinat tingkat kota).
+- `Last updated: 2026-08-09`.
 
-**Fix:** Section baru `## Articles (AI-crawlable static pages)` ditambahkan dengan
-7 link lengkap.
-
-**Cara validasi:**
-```bash
-curl -s https://arblok-digital.vercel.app/llms.txt | findstr /c:"articles/"
-```
-Expected: 7 baris.
+**Validasi:** `curl -s https://arblok-digital.vercel.app/llms.txt` → memuat 3 snapshot + referensi sitemap.
 
 ---
 
-### 1.4 Sitemap.xml — FIXED ✅
-Sitemap sudah menunjuk ke path bersih `/articles/[slug]` (tanpa `#anchor`, tanpa
-`.html`). Karena rewrite di poin 1.1 sudah jalan, URL-URL ini sekarang benar-benar
-menyajikan konten yang tepat, bukan cuma path kosong.
+### 1.4 Sitemap.xml — FIXED ✅ (13 URL)
+**Kondisi sekarang:** 4 halaman statis (`/`, `/articles`, `/consultant`, `/referral`) + 9 artikel = **13 URL**.
+- `lastmod` artikel = `dateModified` (data nyata, bukan `publishedAt`).
+- Generator baca langsung dari `src/data/articles.ts` (single source): `scripts/prerender-articles.mjs` dan `scripts/generate-sitemap.mjs`.
 
-**Cara validasi:**
-```bash
-curl -s https://arblok-digital.vercel.app/sitemap.xml | findstr /c:"articles/"
-```
-Expected: 7 baris `<loc>`.
+**Validasi (local prod server, 2026-08-09):** sitemap berisi 13 `<loc>`, termasuk `/referral`.
 
 ---
 
-## 2. Lesson Learned — Kenapa Validasi Manual Wajib
+## 2. Fase 2 — SELESAI (2026-08-09)
 
-Selama proses fix ini terjadi 3x mismatch antara "klaim selesai" vs kenyataan:
+| # | Item backlog lama | Status | Implementasi |
+|---|---|---|---|
+| 1 | Schema `sameAs` | ✅ (terbatas) | `sameAs: ["https://wa.me/6289508053795"]` di `index.html` (ProfessionalService) + `prerender-site.mjs`. LinkedIn/GitHub ditunda — profil resmi belum ada, dan mengarang URL dilarang. |
+| 2 | `LocalBusiness` / geo | ✅ (tingkat kota) | `geo: { latitude: -7.3268, longitude: 108.2208 }` — koordinat kota Tasikmalaya. Koordinat alamat jalan **sengaja tidak dipasang** (sesuai catatan llms.txt: alamat jalan tidak dipublikasikan). |
+| 3 | `WebSite` + `SearchAction` | ✅ WebSite tanpa SearchAction | `WebSite` + `@id #website`, `publisher: #organization`, `inLanguage`. `SearchAction` **sengaja TIDAK dipasang** — situs belum punya halaman hasil pencarian; schema palsu berisiko. Dipasang ulang kalau fitur search benar-benar ada. |
+| 4 | `dateModified` artikel | ✅ | Field `dateModified?: string` di `src/types.ts`; diisi `2026-08-09` untuk 9 artikel (`src/data/articles.ts`). Dipakai di BlogPosting JSON-LD, `article:modified_time`, dan `lastmod` sitemap. Sudah tidak hardcode = `datePublished`. |
+| 5 | OG image unik per artikel | ✅ | Script baru `scripts/gen-og-articles.mjs` (pakai `@napi-rs/canvas`) → `public/og/article-[slug].png` (1200x630, palet brand). Dipakai di `og:image`, `twitter:image`, dan BlogPosting `image`. |
+| 6 | `contentToHtml()` lengkap | ✅ | Kini menangani: heading `###` → `<h2>`, bullet `-`/daftar, list bernomor, **tabel pipa** → `<table>`, bold, italic, dan URL otomatis jadi link. |
+| 7 | Drift data source | ✅ ditutup | `prerender-articles.mjs` **import langsung dari `src/data/articles.ts`** (dijalankan via `tsx`). Copy hardcoded di dalam script dihapus; `generate-sitemap.mjs` ikut baca dari sumber yang sama. |
+| 8 | Hindari edit manual HTML artikel | ✅ dipatuhi | Semua 9 file `public/articles/*.html` di-regenerate dari data. Daftar "Sumber Data" milik 2 artikel baru (fee marketplace dan SPMB) dipindah dulu ke `articles.ts` sebelum regenerasi agar tidak hilang. |
 
-1. **Klaim #1 round pertama:** commit message bilang "fix(seo): canonical mismatch",
-   tapi isi `vercel.json` yang di-fetch dari GitHub ternyata masih versi lama (rewrite
-   rule belum ada).
-2. **Setelah file dikonfirmasi benar isinya:** live site tetap serve versi lama karena
-   **Vercel build cache** menyimpan build lama meski commit baru sudah di-clone.
-   Solusi: **Redeploy dari Vercel Dashboard dengan "Skip Build Cache" dicentang**,
-   bukan `rm -rf node_modules/.vite` di lokal (itu cache lokal, gak ngaruh ke server
-   Vercel yang selalu clone fresh dari GitHub tiap deploy).
-3. **Nav button:** source code sudah benar dari awal, tapi live site masih nunjukin
-   16 button karena alasan yang sama — stale build cache di Vercel.
+**Meta tambahan di artikel statis:** `hreflang` id + x-default, `article:published_time`, `article:modified_time`, `article:section`, `article:tag`, `og:image:width/height/alt`, `meta:keywords`, CTA WhatsApp kontekstual per artikel.
 
-**Kesimpulan:** kalau ada perubahan di kode yang gak keliatan efeknya di production
-padahal source code sudah benar, **cek dulu apakah build di-deploy dengan cache
-di-skip**, sebelum menyalahkan hal lain.
+**Hasil validasi fase 2 (local prod server):**
+- Artikel fee: 9 `<h2>`, 1 `<table>` (simulasi margin), FAQ lengkap, "Sumber Data", `hreflang` id+x-default, OG unik, `dateModified: 2026-08-09`.
+- Homepage: 4 blok JSON-LD valid (semua ter-parse, 0 error).
+- 9 file OG image terbaca `image/png`, 200 OK.
 
 ---
 
-## 3. Struktur File Relevan (Jangan Dihapus)
+## 3. Belum Dikerjakan (sengaja — menunggu konfirmasi Ardi)
+
+| Item | Alasan ditunda |
+|---|---|
+| `twitter:site` / `twitter:creator` | Tidak ada handle resmi terverifikasi. Mengarang handle = data palsu. |
+| `sameAs` LinkedIn / GitHub | Profil resmi belum ada. |
+| Alamat jalan / koordinat presisi | llms.txt menyatakan tidak dipublikasikan sebagai fakta terverifikasi. |
+| `SearchAction` (Sitelinks Search Box) | Membutuhkan halaman hasil pencarian sungguhan. |
+| Schema Review/testimonial | Menghindari Google manual action; butuh testimoni asli klien (KasirPro, E-Warga, SekolahRapi). |
+
+---
+
+## 4. Lesson Learned
+
+1. **Klaim ≠ kenyataan:** commit message bukan bukti. Validasi wajib via curl + browser terhadap hasil LIVE (atau build lokal production).
+2. **Vercel build cache:** perubahan tidak kelihatan di production → redeploy dengan **"Skip Build Cache"** dicentang.
+3. **Satu sumber data:** artikel kini bersumber tunggal dari `src/data/articles.ts`. JANGAN edit `public/articles/*.html` atau `public/sitemap.xml` manual, dan jangan kembalikan copy hardcoded ke dalam script.
+4. **Script yang import `.ts` harus dijalankan dengan `tsx`** — `prerender-articles.mjs`, `gen-og-articles.mjs`, `generate-sitemap.mjs` (jangan `node ...` langsung).
+
+---
+
+## 5. Struktur File Relevan (Jangan Dihapus)
 
 ```
 public/
-├── articles/*.html       ← 7 file statis, WAJIB ada, di-serve via vercel.json rewrite
+├── articles/*.html       ← 9 artikel statis (dari src/data/articles.ts)
+├── og/article-*.png      ← 9 OG image unik per artikel
 ├── prerendered/
-│   ├── home.html         ← prerendered homepage untuk AI crawler
-│   └── consultant.html   ← prerendered consultant page
-├── llms.txt              ← WAJIB, referensi utama AI crawler
-├── sitemap.xml           ← WAJIB
-├── robots.txt            ← WAJIB
-└── manifest.json / sw.js ← PWA, jangan dihapus
+│   ├── home.html         ← snapshot homepage (noindex, untuk AI crawler)
+│   ├── consultant.html   ← snapshot consultant page
+│   └── referral.html     ← snapshot referral page
+├── og-image.png          ← OG utama (homepage & halaman lain)
+├── llms.txt              ← referensi AI crawler (Last updated: 2026-08-09)
+├── sitemap.xml           ← 13 URL; WAJIB di-regenerate, jangan edit manual
+├── robots.txt            ← AI crawlers allowed
+└── manifest.json / sw.js ← PWA
 
 src/
-├── components/Navbar.tsx, Footer.tsx  ← sudah pakai <Link>, jangan revert ke <button>
-├── data/articles.ts                    ← source data artikel
+  components/Navbar.tsx, Footer.tsx   ← pakai <Link>, jangan revert ke <button>
+  data/articles.ts                    ← SINGLE SOURCE artikel (termasuk dateModified)
+  types.ts                            ← Article.dateModified?: string
 
 scripts/
-└── prerender-articles.mjs   ← generate static HTML dari articles.ts saat build
+  prerender-articles.mjs   ← artikel + sitemap dari src/data/articles.ts (via tsx)
+  gen-og-articles.mjs      ← OG image per artikel (via tsx)
+  prerender-site.mjs       ← snapshot home/consultant/referral (node)
+  generate-sitemap.mjs     ← generator sitemap terpisah (via tsx)
+  gen-og.mjs               ← og-image.png utama
+  gen-og-articles.mjs
 
-vercel.json    ← WAJIB, berisi semua rewrite rules kritis di atas
-server.ts      ← Express server buat proxy AI chat (/api/chat), TIDAK terkait SEO
+package.json:
+  "prerender": "tsx scripts/gen-og-articles.mjs && tsx scripts/prerender-articles.mjs && node scripts/prerender-site.mjs"
+
+vercel.json   ← rewrite /articles/:slug → .html, headers keamanan
+server.ts     ← Express: proxy AI chat + static dist (route /articles/:slug sudah ada)
 ```
 
 ---
 
-## 4. Belum Dikerjakan (Fase 2 — Prioritas Rendah)
+## 6. Protokol Perubahan (ringkas)
 
-Dari audit awal, poin-poin berikut belum divalidasi/dikerjakan, tidak kritis:
-- Schema `sameAs` masih cuma WhatsApp — perlu tambah LinkedIn/GitHub untuk Knowledge Panel
-- Belum ada `LocalBusiness` schema (geo coordinates Tasikmalaya)
-- Belum ada `WebSite` + `SearchAction` schema (Sitelinks Search Box)
-- `dateModified` artikel masih hardcode sama dengan `datePublished`
-- OG image sama untuk semua artikel (belum unik per artikel)
-- Missing `twitter:site` / `twitter:creator`
-- `prerender-articles.mjs` — fungsi `contentToHtml()` cuma handle numbered list & bold,
-  belum handle heading (`###`) dan bullet list (`*`) dengan benar
-- Article data ada di 2 tempat (`articles.ts` + generated `.html`) — perlu dipastikan
-  `prerender-articles.mjs` selalu generate ulang dari `articles.ts`, jangan manual edit
-  file `.html` langsung
-
-Jangan kerjakan poin-poin ini sampai ada instruksi eksplisit dari user.
+1. Ubah data artikel → **hanya** edit di `src/data/articles.ts` (title/excerpt/content/faq/dateModified). JANGAN sentuh file statis/sitemap manual.
+2. Jalankan `npm run build` sampai 0 error (lint + prerender + vite + server). 
+   Kalau hanya artikel berubah tanpa UI: cukup `npm run prerender`.
+3. Tes lokal: `NODE_ENV=production PORT=3006 node dist/server.cjs`, lalu curl cek artikel, sitemap, og image, homepage.
+4. Tunjukkan ke Ardi di localhost terlebih dahulu, baru commit + push.
+5. Setelah deploy: validasi live (canonical, og:image, sitemap, llms.txt). Jangan klaim "sudah fix" tanpa bukti.
