@@ -1,129 +1,214 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "../LanguageContext";
 import { ArrowRight } from "lucide-react";
 
 const WHATSAPP_URL =
   "https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20menceritakan%20masalah%20pencatatan%20atau%20alur%20kerja%20di%20organisasi%20saya.";
 
-const workflowRows = [
-  { id: "01", labelID: "Pencatatan", labelEN: "Records", outputID: "Data tersusun", outputEN: "Organized data", status: "ok" },
-  { id: "02", labelID: "Pelayanan", labelEN: "Services", outputID: "Status terlihat", outputEN: "Visible status", status: "ok" },
-  { id: "03", labelID: "Persetujuan", labelEN: "Approvals", outputID: "Riwayat tercatat", outputEN: "Recorded history", status: "pending" },
+const CHECK = "\u2713";
+
+interface ActivityItem {
+  time: string;
+  text: string;
+}
+
+interface SecondaryStat {
+  value: string;
+  label: string;
+}
+
+interface CycleDataset {
+  client: string;
+  target: number;
+  buildLogs: string[];
+  activity: ActivityItem[];
+  secondary: SecondaryStat[];
+}
+
+const datasets: CycleDataset[] = [
+  {
+    client: "toko-berkah.id",
+    target: 21,
+    buildLogs: ["Provisioning storefront", "Syncing kasir & stok", "Sistem live"],
+    activity: [
+      { time: "10:42:03", text: "transaksi baru Rp 45.000" },
+      { time: "10:41:58", text: "stok diperbarui" },
+      { time: "10:41:41", text: "laporan tersinkron" },
+    ],
+    secondary: [
+      { value: "4", label: "alur aktif" },
+      { value: "0", label: "data tercecer" },
+      { value: "2", label: "antrean" },
+    ],
+  },
+  {
+    client: "warung-sari.id",
+    target: 21,
+    buildLogs: ["Provisioning storefront", "Syncing kasir & stok", "Sistem live"],
+    activity: [
+      { time: "11:07:12", text: "pesanan online diterima" },
+      { time: "11:06:58", text: "stok diturunkan" },
+      { time: "11:06:40", text: "rekap penjualan terkirim" },
+    ],
+    secondary: [
+      { value: "3", label: "alur aktif" },
+      { value: "0", label: "data tercecer" },
+      { value: "1", label: "antrean" },
+    ],
+  },
+  {
+    client: "sekolah-cendekia.id",
+    target: 21,
+    buildLogs: ["Provisioning storefront", "Syncing kasir & stok", "Sistem live"],
+    activity: [
+      { time: "09:23:44", text: "surat masuk diproses" },
+      { time: "09:23:30", text: "persetujuan via HP" },
+      { time: "09:23:05", text: "arsip tersinkron" },
+    ],
+    secondary: [
+      { value: "5", label: "alur aktif" },
+      { value: "0", label: "data tercecer" },
+      { value: "3", label: "antrean" },
+    ],
+  },
 ];
 
-function useCountUp(target: number, start: boolean, delayMs = 0) {
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    if (!start) return;
-    let raf = 0;
-    let startTime = 0;
-    const duration = 1200;
-
-    const tick = (t: number) => {
-      if (!startTime) startTime = t;
-      const elapsed = t - startTime - delayMs;
-      if (elapsed < 0) {
-        raf = requestAnimationFrame(tick);
-        return;
-      }
-      const p = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setValue(Math.round(target * eased));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [start, target, delayMs]);
-
-  return value;
-}
+// One full cycle: typing (1.5s) → checkmark logs (1s) → count-up (1s) →
+// activity log (1.1s) → secondary stats (0.6s) → hold (1s)
+const PHASE_TIMES = [1500, 1000, 1000, 1100, 600, 1000];
+const CYCLE_MS = PHASE_TIMES.reduce((total, t) => total + t, 0);
 
 export default function Hero() {
   const { language } = useLanguage();
   const [started, setStarted] = useState(false);
+  const [isReducedMotion, setIsReducedMotion] = useState(false);
+  const [phase, setPhase] = useState(0);
+  const [commandText, setCommandText] = useState("");
+  const [checkmarkCount, setCheckmarkCount] = useState(0);
+  const [resultValue, setResultValue] = useState(0);
+  const [activityCount, setActivityCount] = useState(0);
+  const [statsVisible, setStatsVisible] = useState(false);
+  const [dataset, setDataset] = useState<CycleDataset>(datasets[0]);
+
+  const phaseRef = useRef(0);
+  const dataIndexRef = useRef(0);
+  const checkmarkRef = useRef(0);
+  const resultRef = useRef(0);
+  const activityRef = useRef(0);
 
   useEffect(() => {
     const id = window.setTimeout(() => setStarted(true), 250);
     return () => window.clearTimeout(id);
   }, []);
 
-  const transactions = useCountUp(21, started, 0);
-  const activeFlows = useCountUp(4, started, 150);
-  const scatteredData = useCountUp(0, started, 300);
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handleChange = () => setIsReducedMotion(mediaQuery.matches);
+    setIsReducedMotion(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  useEffect(() => {
+    if (!started || isReducedMotion) return;
+
+    let animationFrame = 0;
+    let startTime = 0;
+
+    const animate = (now: number) => {
+      if (!startTime) startTime = now;
+      const elapsed = now - startTime;
+      const cyclePosition = elapsed % CYCLE_MS;
+
+      let currentPhase = 0;
+      let phaseElapsed = 0;
+      let cumulative = 0;
+      for (let i = 0; i < PHASE_TIMES.length; i++) {
+        cumulative += PHASE_TIMES[i];
+        if (cyclePosition < cumulative) {
+          currentPhase = i;
+          phaseElapsed = cyclePosition - (cumulative - PHASE_TIMES[i]);
+          break;
+        }
+      }
+
+      if (currentPhase !== phaseRef.current) {
+        phaseRef.current = currentPhase;
+        setPhase(currentPhase);
+
+        if (currentPhase === 0) {
+          // New cycle: pick the next client/dataset, reset everything
+          dataIndexRef.current = (dataIndexRef.current + 1) % datasets.length;
+          setDataset(datasets[dataIndexRef.current]);
+          setCommandText("");
+          checkmarkRef.current = 0;
+          activityRef.current = 0;
+          resultRef.current = 0;
+          setCheckmarkCount(0);
+          setActivityCount(0);
+          setStatsVisible(false);
+          setResultValue(0);
+        } else if (currentPhase === 1) {
+          checkmarkRef.current = 0;
+          setCheckmarkCount(0);
+        } else if (currentPhase === 2) {
+          resultRef.current = 0;
+          setResultValue(0);
+        } else if (currentPhase === 3) {
+          activityRef.current = 0;
+          setActivityCount(0);
+        } else if (currentPhase === 4) {
+          setStatsVisible(true);
+        }
+      }
+
+      const active = datasets[dataIndexRef.current];
+
+      if (currentPhase === 0) {
+        // Typing effect
+        const command = `arblok deploy --client=${active.client}`;
+        const progress = Math.min(phaseElapsed / PHASE_TIMES[0], 1);
+        setCommandText(command.slice(0, Math.floor(progress * command.length)));
+      } else if (currentPhase === 1) {
+        // Checkmark logs appear staggered and stay
+        const total = active.buildLogs.length;
+        const count = Math.min(Math.floor(phaseElapsed / 250) + 1, total);
+        if (count !== checkmarkRef.current) {
+          checkmarkRef.current = count;
+          setCheckmarkCount(count);
+        }
+      } else if (currentPhase === 2) {
+        // Count-up 0 → target (fixed, non-zero)
+        const progress = Math.min(phaseElapsed / PHASE_TIMES[2], 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(active.target * eased);
+        if (value !== resultRef.current) {
+          resultRef.current = value;
+          setResultValue(value);
+        }
+      } else if (currentPhase === 3) {
+        // Activity log rows appear staggered
+        const total = active.activity.length;
+        const count = Math.min(Math.floor(phaseElapsed / 300) + 1, total);
+        if (count !== activityRef.current) {
+          activityRef.current = count;
+          setActivityCount(count);
+        }
+      }
+
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [started, isReducedMotion]);
+
+  const fullCommand = `arblok deploy --client=${dataset.client}`;
 
   return (
     <section id="hero" className="relative overflow-hidden border-b border-rule bg-paper pb-16 pt-24 sm:pb-20 sm:pt-28">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" aria-hidden="true" />
       <div className="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-gradient-to-br from-accent/15 via-accent/5 to-transparent blur-2xl" aria-hidden="true" />
-      {/* Abstract data-flow illustration peeking out from behind the dashboard card */}
-      <div
-        className={`pointer-events-none absolute right-0 top-28 z-0 hidden aspect-[5/4] w-[64%] opacity-65 motion-safe:transition-all motion-safe:duration-500 lg:block ${
-          started ? "translate-x-0 translate-y-0" : "translate-x-4 translate-y-4"
-        } motion-reduce:opacity-65 motion-reduce:translate-x-0 motion-reduce:translate-y-0`}
-        aria-hidden="true"
-      >
-        <svg className="h-full w-full" viewBox="0 0 600 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-          {/* Grid plus markers */}
-          <g className="text-rule">
-            <path d="M 120 30 M 120 20 L 120 40 M 110 30 L 130 30" stroke="currentColor" strokeWidth="1" />
-            <path d="M 580 30 M 580 20 L 580 40 M 570 30 L 590 30" stroke="currentColor" strokeWidth="1" />
-            <path d="M 120 450 M 120 440 L 120 460 M 110 450 L 130 450" stroke="currentColor" strokeWidth="1" />
-            <path d="M 580 450 M 580 440 L 580 460 M 570 450 L 590 450" stroke="currentColor" strokeWidth="1" />
-          </g>
-
-          {/* Scattered input nodes */}
-          <circle cx="36" cy="64" r="4.5" fill="currentColor" className="text-rule" />
-          <circle cx="60" cy="150" r="4.5" fill="currentColor" className="text-accent/50" />
-          <circle cx="95" cy="240" r="4.5" fill="currentColor" className="text-accent/50" />
-          <circle cx="50" cy="330" r="4.5" fill="currentColor" className="text-rule" />
-
-          {/* Flow lines: scattered -> organized */}
-          <path d="M 36 64 C 180 90, 220 160, 320 160" stroke="currentColor" strokeWidth="1.5" className="text-rule" />
-          <path d="M 60 150 C 160 160, 200 200, 320 200" stroke="currentColor" strokeWidth="2" className="text-accent/30" />
-          <path d="M 95 240 C 180 250, 200 240, 320 240" stroke="currentColor" strokeWidth="2" className="text-accent/30" />
-          <path d="M 50 330 C 180 340, 220 280, 320 280" stroke="currentColor" strokeWidth="1.5" className="text-rule" />
-
-          {/* Cross links */}
-          <path d="M 120 100 C 200 130, 220 200, 320 200" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" className="text-rule" />
-          <path d="M 100 190 C 180 210, 200 280, 320 280" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" className="text-rule" />
-
-          {/* Pipeline spine */}
-          <line x1="320" y1="130" x2="320" y2="310" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4" className="text-rule" />
-
-          {/* Organized output rows */}
-          <g>
-            <line x1="320" y1="160" x2="560" y2="160" stroke="currentColor" strokeWidth="2" className="text-accent" />
-            <rect x="560" y="155" width="22" height="10" rx="2" fill="currentColor" className="text-accent/20" stroke="currentColor" strokeWidth="1" />
-            <circle cx="571" cy="160" r="2.5" fill="currentColor" className="text-accent" />
-
-            <line x1="320" y1="200" x2="545" y2="200" stroke="currentColor" strokeWidth="2" className="text-accent-2" />
-            <circle cx="545" cy="200" r="3.5" fill="currentColor" className="text-accent-2" />
-
-            <line x1="320" y1="240" x2="575" y2="240" stroke="currentColor" strokeWidth="2" className="text-accent" />
-            <rect x="575" y="235" width="22" height="10" rx="2" fill="currentColor" className="text-accent/20" stroke="currentColor" strokeWidth="1" />
-            <circle cx="586" cy="240" r="2.5" fill="currentColor" className="text-accent" />
-
-            <line x1="320" y1="280" x2="530" y2="280" stroke="currentColor" strokeWidth="2" className="text-rule" />
-            <circle cx="530" cy="280" r="3.5" fill="currentColor" className="text-rule" />
-          </g>
-
-          {/* Server / system rack */}
-          <g className="text-rule">
-            <rect x="460" y="340" width="125" height="80" rx="8" stroke="currentColor" strokeWidth="1.5" className="fill-[var(--color-paper-2)]/60" />
-            <rect x="470" y="352" width="105" height="16" rx="3" stroke="currentColor" strokeWidth="1" className="fill-[var(--color-paper)]" />
-            <circle cx="480" cy="360" r="2" fill="currentColor" className="text-accent-2 animate-pulse" />
-            <line x1="495" y1="360" x2="555" y2="360" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-            <rect x="470" y="372" width="105" height="16" rx="3" stroke="currentColor" strokeWidth="1" className="fill-[var(--color-paper)]" />
-            <circle cx="480" cy="380" r="2" fill="currentColor" className="text-accent animate-pulse" />
-            <line x1="495" y1="380" x2="535" y2="380" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-            <rect x="470" y="392" width="105" height="16" rx="3" stroke="currentColor" strokeWidth="1" className="fill-[var(--color-paper)]" />
-            <circle cx="480" cy="400" r="2" fill="currentColor" className="text-accent-2 animate-pulse" />
-            <line x1="495" y1="400" x2="550" y2="400" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-          </g>
-        </svg>
-      </div>
       <div className="relative z-10 mx-auto w-full px-6 sm:px-8 lg:max-w-none lg:px-14 xl:px-20">
         <div className="grid items-stretch gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col justify-center lg:col-span-5">
@@ -163,65 +248,182 @@ export default function Hero() {
             </ul>
           </div>
 
-          <div className="flex flex-col justify-center lg:col-span-7">
-            <aside className="card relative z-10 flex h-full flex-col overflow-hidden" aria-label={language === "id" ? "Contoh alur sistem" : "Example system flow"}>
-              <div className="flex items-center justify-between gap-4 border-b border-rule bg-paper-2 px-5 py-3.5">
-                <div className="flex items-center gap-2.5">
-                  <span className="flex gap-1.5" aria-hidden="true">
-                    <span className="h-2.5 w-2.5 rounded-full bg-rule" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-rule" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-accent-2" />
-                  </span>
-                  <span className="font-mono text-xs text-ink-2">{language === "id" ? "Contoh peta pekerjaan" : "Example work map"}</span>
+          <div className="relative flex flex-col justify-center gap-4 overflow-hidden lg:col-span-7">
+            {/* Deploy Sequence Card — decorative animation demo, angka di dalamnya ilustratif (bukan klaim data klien), jadi disembunyikan dari accessibility tree & AI crawler */}
+            <div className="card relative flex h-full flex-col overflow-hidden" aria-hidden="true">
+              {/* Ambient terminal texture */}
+              <div className="terminal-grid pointer-events-none absolute inset-0" aria-hidden="true" />
+              <div className="terminal-scanlines pointer-events-none absolute inset-0" aria-hidden="true" />
+
+              {/* Terminal Header */}
+              <div className="relative z-10 flex items-center gap-2 border-b border-rule bg-paper-2 px-4 py-3">
+                <div className="flex gap-2">
+                  <span className="h-1 w-1 rounded-full bg-red-500" aria-hidden="true" />
+                  <span className="h-1 w-1 rounded-full bg-yellow-500" aria-hidden="true" />
+                  <span className="h-1 w-1 rounded-full bg-green-500" aria-hidden="true" />
                 </div>
-                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-accent">Input → Process → Result</span>
+                <span className="font-mono text-xs text-ink-2">
+                  {language === "id" ? "Urutan deploy" : "Deploy sequence"}
+                </span>
               </div>
-              <div className="flex flex-1 flex-col px-5 py-4">
-                <div className="grid grid-cols-3 gap-3">
-                  {[
-                    { value: transactions, label: language === "id" ? "Transaksi hari ini" : "Today's records" },
-                    { value: activeFlows, label: language === "id" ? "Alur aktif" : "Active flows" },
-                    { value: scatteredData, label: language === "id" ? "Data tercecer" : "Scattered data" },
-                  ].map((s) => (
-                    <div key={s.label} className="rounded-lg border border-rule bg-paper-2 p-3">
-                      <p className="stat-number font-body text-2xl font-bold text-accent">{s.value}</p>
-                      <p className="mt-0.5 font-body text-[11px] leading-4 text-ink-2">{s.label}</p>
+
+              {/* Terminal Body */}
+              <div className="relative z-10 flex flex-1 flex-col overflow-hidden px-4 py-4">
+                {isReducedMotion ? (
+                  /* Static complete state (prefers-reduced-motion) */
+                  <div className="flex flex-1 flex-col">
+                    <div className="font-mono text-xs text-ink-2 truncate sm:text-sm">
+                      <span className="text-accent">$ </span>
+                      {fullCommand}
                     </div>
-                  ))}
-                </div>
-                <div className="mt-4 flex flex-1 flex-col justify-center gap-2.5">
-                  {workflowRows.map((row, index) => (
-                    <div
-                      key={row.id}
-                      className={`flex items-center gap-3 rounded-lg border border-rule bg-paper px-3.5 py-3 animate-fade-up ${started ? "visible" : ""}`}
-                      style={{ transitionDelay: `${0.35 + index * 0.12}s` }}
-                    >
-                      <span className="stat-number font-mono text-xs font-semibold text-accent">0{row.id}</span>
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate font-body text-sm font-semibold text-ink">{language === "id" ? row.labelID : row.labelEN}</p>
-                      </div>
-                      <span className="h-6 w-px bg-rule" aria-hidden="true" />
-                      <div className="flex items-center gap-2">
-                        <span className="font-body text-xs font-medium text-ink-2">{language === "id" ? row.outputID : row.outputEN}</span>
-                        <span
-                          className={`pulse-dot h-1.5 w-1.5 shrink-0 rounded-full ${row.status === "ok" ? "bg-accent-2" : "bg-amber"}`}
-                          style={{ animationDelay: `${1.4 + index * 0.45}s` }}
-                          aria-hidden="true"
-                        />
-                      </div>
+                    <div className="mt-4 space-y-1.5">
+                      {dataset.buildLogs.map((log) => (
+                        <div key={log} className="font-mono text-xs text-ink-2 sm:text-sm">
+                          <span className="text-accent-2">{CHECK}</span> {log}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                    <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:gap-5">
+                      <div className="flex items-end gap-3 sm:gap-4">
+                        <div className="relative">
+                          <span className="font-mono text-5xl font-bold tabular-nums text-accent sm:text-6xl xl:text-7xl">{dataset.target}</span>
+                          <span className="absolute -right-2 -top-1 h-2 w-2 rounded-full bg-accent-2" aria-hidden="true" />
+                        </div>
+                        <div className="pb-1.5">
+                          <p className="font-mono text-xs text-ink-2">
+                            {language === "id" ? "Transaksi hari ini" : "Today's transactions"}
+                          </p>
+                          <p className="font-mono text-[0.65rem] text-ink-2/60">{dataset.client}</p>
+                        </div>
+                      </div>
+                      <div className="w-full space-y-1.5">
+                        <p className="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-ink-2/50">
+                          {language === "id" ? "Aktivitas langsung" : "Live activity"}
+                        </p>
+                        {dataset.activity.map((item) => (
+                          <div key={item.time} className="font-mono text-[0.7rem] leading-relaxed text-ink-2/80">
+                            <span className="text-ink-2/50">{item.time}</span>
+                            <span className="text-accent-2/70">{"\u2192"}</span>
+                            <span> {item.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-5 sm:gap-7">
+                        {dataset.secondary.map((stat) => (
+                          <div key={stat.label} className="text-center">
+                            <div className="font-mono text-lg font-semibold tabular-nums text-ink sm:text-xl">{stat.value}</div>
+                            <div className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-ink-2/60">{stat.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="font-mono text-[0.62rem] text-ink-2/60">
+                        <span className="text-accent-2/80">{"\u25cf"}</span>{" "}
+                        {language === "id" ? "sistem berjalan otomatis — tanpa pengawasan" : "system running unattended"}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    {/* Command line */}
+                    <div className="font-mono text-xs text-ink-2 truncate sm:text-sm">
+                      <span className="text-accent">$ </span>
+                      <span>{phase === 0 ? commandText : fullCommand}</span>
+                      {phase === 0 && (
+                        <span className="cursor-blink ml-0.5 inline-block h-3.5 w-[0.55em] translate-y-[0.2em] bg-accent-2" aria-hidden="true" />
+                      )}
+                    </div>
+
+                    {/* Animated stage */}
+                    <div className="relative mt-4 min-h-[13rem] flex-1">
+                      {/* Checkmark build logs (phases 1-2, then collapse up at phase 3) */}
+                      <div
+                        className={`space-y-1.5 transition-all duration-500 ${
+                          phase === 0
+                            ? "max-h-24 opacity-0"
+                            : phase >= 3
+                              ? "max-h-0 overflow-hidden opacity-0"
+                              : "max-h-24 opacity-100"
+                        }`}
+                        aria-hidden={phase < 1 || phase >= 3}
+                      >
+                        {dataset.buildLogs.map((log, index) => (
+                          <div
+                            key={log}
+                            className={`font-mono text-xs text-ink-2 transition-all duration-300 sm:text-sm ${
+                              index < checkmarkCount ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+                            }`}
+                            style={{ transitionDelay: `${index * 90}ms` }}
+                          >
+                            <span className="text-accent-2">{CHECK}</span> {log}
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Dashboard (phase 2+): mounts only after the deploy command is typed, in normal flow so it can never overlap */}
+                      {phase >= 2 && (
+                        <div className="phase-fade-in flex w-full flex-1 flex-col items-center justify-center gap-4 sm:gap-5">
+                          <div className="flex items-end gap-3 sm:gap-4">
+                            <div className="relative">
+                              <span className="font-mono text-5xl font-bold tabular-nums text-accent sm:text-6xl xl:text-7xl">{resultValue}</span>
+                              <span className="absolute -right-2 -top-1 h-2 w-2 rounded-full bg-accent-2 animate-pulse" aria-hidden="true" />
+                            </div>
+                            <div className="pb-1.5">
+                              <p className="font-mono text-xs text-ink-2">
+                                {language === "id" ? "Transaksi hari ini" : "Today's transactions"}
+                              </p>
+                              <p className="font-mono text-[0.65rem] text-ink-2/60">{dataset.client}</p>
+                            </div>
+                          </div>
+
+                          <div className="w-full space-y-1.5">
+                            <p className="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-ink-2/50">
+                              {language === "id" ? "Aktivitas langsung" : "Live activity"}
+                            </p>
+                            {dataset.activity.map((item, index) => (
+                              <div
+                                key={`${dataset.client}-${item.time}`}
+                                className={`font-mono text-[0.7rem] leading-relaxed text-ink-2/80 transition-all duration-300 ${
+                                  index < activityCount ? "translate-x-0 opacity-100" : "-translate-x-2 opacity-0"
+                                }`}
+                                style={{ transitionDelay: `${index * 70}ms` }}
+                              >
+                                <span className="text-ink-2/50">{item.time}</span>
+                                <span className="text-accent-2/70">{"\u2192"}</span>
+                                <span> {item.text}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className={`flex items-center gap-5 transition-opacity duration-500 sm:gap-7 ${statsVisible ? "opacity-100" : "opacity-0"}`}>
+                            {dataset.secondary.map((stat) => (
+                              <div key={stat.label} className="text-center">
+                                <div className="font-mono text-lg font-semibold tabular-nums text-ink sm:text-xl">{stat.value}</div>
+                                <div className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-ink-2/60">{stat.label}</div>
+                              </div>
+                            ))}
+                          </div>
+
+                          <p className="font-mono text-[0.62rem] text-ink-2/60">
+                            <span className="text-accent-2/80">{"\u25cf"}</span>{" "}
+                            {language === "id" ? "sistem berjalan otomatis — tanpa pengawasan" : "system running unattended"}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* Typing progress hairline (phase 0) */}
+                      {phase === 0 && (
+                        <div className="absolute inset-x-0 bottom-0 h-px bg-rule" aria-hidden="true">
+                          <div
+                            className="h-full bg-accent-2/70 transition-[width] duration-150 ease-out"
+                            style={{ width: fullCommand.length ? `${(commandText.length / fullCommand.length) * 100}%` : "0%" }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
-              <div className="mt-auto border-t border-rule bg-paper-2 px-5 py-4">
-                <p className="flex items-start gap-2.5 font-body text-sm leading-6 text-ink-2">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                  {language === "id"
-                    ? "Teknologi mengikuti alur kerja. Fitur dipilih setelah pengguna dan prioritasnya dipahami."
-                    : "Technology follows the workflow. Features are selected after users and priorities are understood."}
-                </p>
-              </div>
-            </aside>
+            </div>
           </div>
         </div>
 

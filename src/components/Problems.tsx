@@ -1,5 +1,11 @@
+import { type CSSProperties } from "react";
 import { useLanguage } from "../LanguageContext";
 import { Store, School } from "lucide-react";
+
+const caseColor: Record<string, string> = {
+  "01": "oklch(0.85 0.12 85)",
+  "02": "oklch(0.75 0.13 165)",
+};
 
 export default function Problems() {
   const { language } = useLanguage();
@@ -78,7 +84,7 @@ export default function Problems() {
         </div>
 
         <div className="mt-12 space-y-8">
-          {cases.map((item) => (
+          {cases.map((item, index) => (
             <article key={item.id} className="card card-hover grid gap-8 p-6 sm:p-8 lg:grid-cols-12 lg:items-center">
               <div className="lg:col-span-4 lg:max-w-md">
                 <div className="flex items-center justify-between gap-x-3 gap-y-2">
@@ -86,11 +92,11 @@ export default function Problems() {
                     <span className="stat-number font-mono text-xs font-semibold text-accent">{item.id}</span>
                     <span className="badge-chip font-body font-medium normal-case tracking-normal text-ink">{item.tag}</span>
                   </div>
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-paper-2 text-accent">
+                  <span className="status-glow" style={{ "--node-color": caseColor[item.id], "--icon-delay": `${index * 0.6}s` } as CSSProperties}>
                     {item.id === "01" ? (
-                      <Store className="h-4.5 w-4.5" aria-hidden="true" strokeWidth={1.75} />
+                      <Store className="h-6 w-6" aria-hidden="true" strokeWidth={2} />
                     ) : (
-                      <School className="h-4.5 w-4.5" aria-hidden="true" strokeWidth={1.75} />
+                      <School className="h-6 w-6" aria-hidden="true" strokeWidth={2} />
                     )}
                   </span>
                 </div>

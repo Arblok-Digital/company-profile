@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useLanguage } from "../LanguageContext";
 import { MessageCircle, Copy, Check, Share2, ExternalLink, GraduationCap, Bot } from "lucide-react";
@@ -102,7 +102,7 @@ const FAQ_ID = [
   },
   {
     q: "Bagaimana komisinya dibayar?",
-    a: "Setelah deal ditutup dan fakta tersebukar, komisi dikirim melalui rekening atau e-wallet yang anda sebutkan saat chat. Detail pembayaran dikonfirmasi langsung via WhatsApp.",
+    a: "Setelah deal ditutup dan fakta terkonfirmasi, komisi dikirim melalui rekening atau e-wallet yang Anda sebutkan saat chat. Detail pembayaran dikonfirmasi langsung via WhatsApp.",
   },
 ];
 
@@ -143,16 +143,50 @@ export default function Referral() {
   const products = language === "id" ? ID_PRODUCTS : EN_PRODUCTS;
   const faq = language === "id" ? FAQ_ID : FAQ_EN;
 
-  useEffect(() => {
-    document.title = language === "id"
+useEffect(() => {
+    const prevTitle = document.title;
+    const metaDesc = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    const prevDesc = metaDesc?.content;
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    const prevCanonical = canonical?.href;
+    const ogUrl = document.querySelector<HTMLMetaElement>('meta[property="og:url"]');
+    const prevOgUrl = ogUrl?.content;
+    const ogTitle = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
+    const prevOgTitle = ogTitle?.content;
+    const ogDesc = document.querySelector<HTMLMetaElement>('meta[property="og:description"]');
+    const prevOgDesc = ogDesc?.content;
+    const twTitle = document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]');
+    const prevTwTitle = twTitle?.content;
+    const twDesc = document.querySelector<HTMLMetaElement>('meta[name="twitter:description"]');
+    const prevTwDesc = twDesc?.content;
+
+    const REFERRAL_BASE_URL = "https://arblok-digital.vercel.app/referral";
+    const title = language === "id"
       ? "Program Referral | Dapatkan Komisi 30% & 10% | Arblok Digital"
       : "Referral Program | Earn 30% & 10% Commission | Arblok Digital";
-    const desc = document.querySelector<HTMLMetaElement>('meta[name="description"]');
-    if (desc) {
-      desc.content = language === "id"
-        ? "Rekomendasikan SekolahRapi, SekolahPro, atau jasa pembuatan website dan aplikasi Arblok Digital. Komisi 30% untuk produk & 10% untuk jasa. Cair satu kali setelah deal."
-        : "Refer SekolahRapi, SekolahPro, or Arblok Digital's website and app services. Earn 30% on products and 10% on services, paid once per deal.";
-    }
+    const desc = language === "id"
+      ? "Rekomendasikan SekolahRapi, SekolahPro, atau jasa pembuatan website dan aplikasi Arblok Digital. Komisi 30% untuk produk langganan & 10% untuk jasa. Cair satu kali setelah deal."
+      : "Refer SekolahRapi, SekolahPro, or Arblok Digital's website and app services. Earn 30% on products and 10% on services, paid once per deal.";
+
+    document.title = title;
+    metaDesc?.setAttribute("content", desc);
+    canonical?.setAttribute("href", REFERRAL_BASE_URL);
+    ogUrl?.setAttribute("content", REFERRAL_BASE_URL);
+    ogTitle?.setAttribute("content", title);
+    ogDesc?.setAttribute("content", desc);
+    twTitle?.setAttribute("content", title);
+    twDesc?.setAttribute("content", desc);
+
+    return () => {
+      document.title = prevTitle;
+      if (metaDesc && prevDesc !== undefined) metaDesc.setAttribute("content", prevDesc);
+      if (canonical && prevCanonical) canonical.setAttribute("href", prevCanonical);
+      if (ogUrl && prevOgUrl) ogUrl.setAttribute("content", prevOgUrl);
+      if (ogTitle && prevOgTitle) ogTitle.setAttribute("content", prevOgTitle);
+      if (ogDesc && prevOgDesc) ogDesc.setAttribute("content", prevOgDesc);
+      if (twTitle && prevTwTitle) twTitle.setAttribute("content", prevTwTitle);
+      if (twDesc && prevTwDesc) twDesc.setAttribute("content", prevTwDesc);
+    };
   }, [language]);
 
   const saveName = () => {
@@ -165,8 +199,9 @@ export default function Referral() {
 
   const shareLink = () => {
     const base = window.location.origin;
-    const n = name.trim().split(/\s+/)[0] || "teman-anda";
-    return `${base}/referral?n=${encodeURIComponent(n)}`;
+    const clean = name.trim();
+    if (!clean) return `${base}/referral`;
+    return `${base}/referral?n=${encodeURIComponent(clean)}`;
   };
 
   const waHref = (product: Product) => {
@@ -208,7 +243,7 @@ export default function Referral() {
     ? [
         { title: "Tulis nama Anda", desc: "Satu kali ketik, terisi di semua tombol WhatsApp halaman ini dan tersimpan di perangkat Anda." },
         { title: "Pilih produk", desc: "SekolahRapi, SekolahPro, atau jasa pembuatan. Tiap tombol mengirim pesan yang sudah menyebut nama Anda dan produknya." },
-        { title: "Komisi cair saat deal", desc: "Setelah deal ditutup dan dikonfirmasi, komisi dibayar sekali sesuai tarif. tidak ada biaya, tidak ada kuota." },
+        { title: "Komisi cair saat deal", desc: "Setelah deal ditutup dan dikonfirmasi, komisi dibayar sekali sesuai tarif. Tidak ada biaya, tidak ada kuota." },
       ]
     : [
         { title: "Write your name", desc: "Typed once, filled into every WhatsApp button on this page and saved on your device." },
@@ -222,7 +257,7 @@ export default function Referral() {
       <section className="border-b border-rule">
         <div className="mx-auto max-w-6xl px-6 pb-16 pt-32 sm:px-8 sm:pt-36">
           <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">
-            {language === "id" ? "Program referensasi" : "Referral program"}
+            {language === "id" ? "Program referensi" : "Referral program"}
           </p>
           <h1 className="mt-5 max-w-3xl text-balance font-body text-4xl font-semibold leading-[1.08] tracking-[-0.035em] text-ink sm:text-5xl">
             {language === "id"
@@ -325,7 +360,7 @@ export default function Referral() {
                       : product.tier === "saas" ? "Subscription product" : "One-time project"}
                   </span>
                   <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2">
-                    {product.tier === "saas" ? "komisi 30%" : "komisi 10%"}
+                    {language === "id" ? (product.tier === "saas" ? "komisi 30%" : "komisi 10%") : (product.tier === "saas" ? "30% commission" : "10% commission")}
                   </span>
                 </div>
                 <div className="px-6 pb-6 pt-4">

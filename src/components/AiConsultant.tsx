@@ -27,6 +27,36 @@ export default function AiConsultant() {
     scrollToBottom();
   }, [messages, isLoading]);
 
+  useEffect(() => {
+    const prevTitle = document.title;
+    const metaDesc = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    const prevDesc = metaDesc?.content;
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    const prevCanonical = canonical?.href;
+    const ogUrl = document.querySelector<HTMLMetaElement>('meta[property="og:url"]');
+    const prevOgUrl = ogUrl?.content;
+
+    const CONSULTANT_URL = "https://arblok-digital.vercel.app/consultant";
+    const title = "Konsultan Digital | Tanya Apa Saja | Arblok Digital";
+    const desc = "Tanya langsung konsultan digital Arblok — bahas sistem untuk usaha, sekolah, dan instansi tanpa biaya. Jawaban cepat, bahasa Indonesia.";
+
+    document.title = title;
+    metaDesc?.setAttribute("content", desc);
+    canonical?.setAttribute("href", CONSULTANT_URL);
+    ogUrl?.setAttribute("content", CONSULTANT_URL);
+
+    return () => {
+      document.title = prevTitle;
+      if (metaDesc && prevDesc !== undefined) metaDesc.setAttribute("content", prevDesc);
+      if (canonical && prevCanonical) canonical.setAttribute("href", prevCanonical);
+      if (ogUrl && prevOgUrl) ogUrl.setAttribute("content", prevOgUrl);
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => abortRef.current?.abort();
+  }, []);
+
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 

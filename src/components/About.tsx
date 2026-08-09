@@ -1,9 +1,15 @@
-﻿import { useRef } from "react";
+﻿import { useRef, type CSSProperties } from "react";
 import { useLanguage } from "../LanguageContext";
 import { useInView } from "../hooks/useInView";
 import { Ear, Crosshair, FlaskConical, LifeBuoy } from "lucide-react";
 
 const stepIcons = [Ear, Crosshair, FlaskConical, LifeBuoy];
+const stepIconColor = [
+  "oklch(0.85 0.12 85)",
+  "oklch(0.64 0.16 262)",
+  "oklch(0.75 0.13 165)",
+  "oklch(0.68 0.16 45)",
+];
 
 export default function About() {
   const { language } = useLanguage();
@@ -43,10 +49,10 @@ export default function About() {
               <li key={step.title} className="card card-hover p-6 sm:p-7">
                 <div className="flex items-center justify-between gap-4">
                   <span className="stat-number font-mono text-sm font-semibold text-accent">0{index + 1}</span>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-paper-2 text-accent">
+                  <span className="status-glow" style={{ "--node-color": stepIconColor[index], "--icon-delay": `${index * 0.6}s` } as CSSProperties}>
                     {(() => {
                       const Icon = stepIcons[index];
-                      return <Icon className="h-5 w-5" aria-hidden="true" strokeWidth={1.75} />;
+                      return <Icon className="h-6 w-6" aria-hidden="true" strokeWidth={2} />;
                     })()}
                   </span>
                 </div>

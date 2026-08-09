@@ -1,12 +1,18 @@
-﻿import React, { useRef } from "react";
+﻿import React, { useRef, type CSSProperties } from "react";
 import { useLanguage } from "../LanguageContext";
 import { useInView } from "../hooks/useInView";
-import { ShoppingCart, GraduationCap, FileCheck2, Globe, Workflow } from "lucide-react";
+import { Storefront, ChalkboardTeacher, Stamp, GlobeSimple, ArrowsClockwise } from "@phosphor-icons/react";
 
 const WHATSAPP_URL =
   "https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20mendiskusikan%20sistem%20untuk%20kebutuhan%20organisasi%20saya.";
 
-const serviceIcons = [ShoppingCart, GraduationCap, FileCheck2, Globe, Workflow];
+const serviceIcons = [
+  Storefront,
+  ChalkboardTeacher,
+  Stamp,
+  GlobeSimple,
+  ArrowsClockwise,
+];
 
 export default function Services() {
   const { language } = useLanguage();
@@ -43,29 +49,29 @@ export default function Services() {
         </div>
 
         <div ref={sectionRef} className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
-            <article key={service.title} className={`card card-hover animate-fade-up p-6 ${sectionVisible ? "visible" : ""} ${index === services.length - 1 ? "md:col-span-2 lg:col-span-2" : ""}`} style={{ "--stagger-index": index } as React.CSSProperties}>
-              <div className="flex items-center justify-between">
-                <span className="stat-number font-mono text-sm font-semibold text-accent">0{index + 1}</span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-paper-2 text-accent">
-                  {(() => {
-                    const Icon = serviceIcons[index];
-                    return <Icon className="h-4.5 w-4.5" aria-hidden="true" strokeWidth={1.75} />;
-                  })()}
-                </span>
-              </div>
-              <h3 className="mt-5 font-body text-lg font-semibold text-ink">{service.title}</h3>
-              <p className="mt-3 font-body text-sm leading-6 text-ink-2">{service.desc}</p>
-              <ul className="mt-5 space-y-2 border-t border-rule pt-4">
-                {service.items.map((item) => (
-                  <li key={item} className="flex items-start gap-2 font-body text-sm leading-5 text-ink-2">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+          {services.map((service, index) => {
+            const Icon = serviceIcons[index];
+            return (
+              <article key={service.title} className={`card card-hover animate-fade-up p-6 ${sectionVisible ? "visible" : ""} ${index === services.length - 1 ? "md:col-span-2 lg:col-span-2" : ""}`} style={{ "--stagger-index": index } as React.CSSProperties}>
+                <div className="flex items-center justify-between">
+                  <span className="stat-number font-mono text-sm font-semibold text-accent">0{index + 1}</span>
+                  <span className="status-glow" style={{ "--icon-delay": `${index * 0.3}s` } as CSSProperties}>
+                    <Icon className="h-7 w-7" weight="duotone" aria-hidden="true" />
+                  </span>
+                </div>
+                <h3 className="mt-5 font-body text-lg font-semibold text-ink">{service.title}</h3>
+                <p className="mt-3 font-body text-sm leading-6 text-ink-2">{service.desc}</p>
+                <ul className="mt-5 space-y-2 border-t border-rule pt-4">
+                  {service.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2 font-body text-sm leading-5 text-ink-2">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
         </div>
 
         <div className="card mt-14 flex flex-col gap-5 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-8">

@@ -1,3 +1,4 @@
+import { type CSSProperties } from "react";
 import { useLanguage } from "../LanguageContext";
 
 export default function RunsItself() {
@@ -62,7 +63,9 @@ export default function RunsItself() {
               <li key={item.key} className="card card-hover flex flex-col gap-3 p-6">
                 <div className="flex items-center justify-between">
                   <span className="stat-number font-mono text-sm font-semibold text-accent">0{index + 1}</span>
-                  <span className="h-8 w-8 rounded-lg bg-paper-2 text-center font-mono text-sm leading-8 text-accent-2" aria-hidden="true">→</span>
+                  <span className="status-glow" style={{ "--node-color": "oklch(0.75 0.13 165)", "--icon-delay": `${index * 0.5}s` } as CSSProperties} aria-hidden="true">
+                    <span className="arrow-flow font-mono text-base leading-none">→</span>
+                  </span>
                 </div>
                 <h3 className="font-body text-base font-semibold leading-6 text-ink">{item.title}</h3>
                 <p className="mt-auto font-body text-sm leading-6 text-ink-2">{item.desc}</p>

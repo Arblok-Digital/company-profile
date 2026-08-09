@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Award, ExternalLink } from "lucide-react";
 import { PortfolioItem } from "../types";
 import { useLanguage } from "../LanguageContext";
@@ -82,7 +82,7 @@ export default function Portfolio() {
       status: "Production-ready",
       techStack: ["React", "Gemini AI", "Tailwind CSS", "Market WebSockets", "D3 Charts"],
       features: [
-        "Deteksi pola grafik & tren harga bertenaga AI",
+        "Deteksi pola grafik & tren harga bertenaga kecerdasan buatan",
         "Analisis sentimen sosial media real-time",
         "Dashboard modular yang dapat disesuaikan",
         "Sistem alarm anomali volume perdagangan pasar",
@@ -249,7 +249,7 @@ export default function Portfolio() {
       status: "Production-ready",
       techStack: ["React", "Gemini AI", "Tailwind CSS", "WebSockets", "D3 Charts"],
       features: [
-        "AI pattern detection for charts & price trends",
+        "Pattern detection for charts & price trends",
         "Real-time social media sentiment parsing",
         "Fully modular customizable dashboard",
         "Anomalous volume alerts & whale tracker",

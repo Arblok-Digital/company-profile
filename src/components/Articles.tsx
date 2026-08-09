@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { BookOpen, Calendar, Clock, ArrowLeft, Tag, ChevronDown, ChevronUp, User, Sparkles } from "lucide-react";
-import { Article, FAQItem } from "../types";
+import { Calendar, Clock, ArrowLeft, ChevronDown, User, Sparkles } from "lucide-react";
+import { Article } from "../types";
 import { getArticlesData } from "../data/articles";
 import { useLanguage } from "../LanguageContext";
 
@@ -13,7 +13,7 @@ export default function Articles() {
   const [activeCategory, setActiveCategory] = useState<string>("Semua");
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
-  const articlesData = getArticlesData(language);
+  const articlesData = useMemo(() => getArticlesData(language), [language]);
 
   useEffect(() => {
     setActiveCategory(language === "id" ? "Semua" : "All");
@@ -25,6 +25,51 @@ export default function Articles() {
       setSelectedArticle(found);
     }
   }, [slug, articlesData]);
+
+  useEffect(() => {
+    const prevTitle = document.title;
+    const metaDesc = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    const prevDesc = metaDesc?.content;
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    const prevCanonical = canonical?.href;
+    const ogUrl = document.querySelector<HTMLMetaElement>('meta[property="og:url"]');
+    const prevOgUrl = ogUrl?.content;
+    const ogTitle = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
+    const prevOgTitle = ogTitle?.content;
+    const ogDesc = document.querySelector<HTMLMetaElement>('meta[property="og:description"]');
+    const prevOgDesc = ogDesc?.content;
+
+    const article = slug ? articlesData.find((a) => a.slug === slug) : null;
+    const urlBase = "https://arblok-digital.vercel.app";
+    const path = slug ? `/articles/${slug}` : "/articles";
+    const canonicalUrl = `${urlBase}${path}`;
+    const title = article
+      ? `${article.title} | Arblok Digital`
+      : language === "id"
+        ? "Artikel | Tips & Studi Kasus Digital | Arblok Digital"
+        : "Articles | Digital Tips & Case Studies | Arblok Digital";
+    const desc = article
+      ? article.excerpt || title
+      : language === "id"
+        ? "Kumpulan artikel seputar sistem digital untuk usaha, sekolah, dan instansi — narasi kasus nyata dari Tasikmalaya."
+        : "Articles about digital systems for businesses, schools, and government offices — real case studies from Tasikmalaya.";
+
+    document.title = title;
+    metaDesc?.setAttribute("content", desc);
+    canonical?.setAttribute("href", canonicalUrl);
+    ogUrl?.setAttribute("content", canonicalUrl);
+    ogTitle?.setAttribute("content", title);
+    ogDesc?.setAttribute("content", desc);
+
+    return () => {
+      document.title = prevTitle;
+      if (metaDesc && prevDesc !== undefined) metaDesc.setAttribute("content", prevDesc);
+      if (canonical && prevCanonical) canonical.setAttribute("href", prevCanonical);
+      if (ogUrl && prevOgUrl) ogUrl.setAttribute("content", prevOgUrl);
+      if (ogTitle && prevOgTitle) ogTitle.setAttribute("content", prevOgTitle);
+      if (ogDesc && prevOgDesc) ogDesc.setAttribute("content", prevOgDesc);
+    };
+  }, [slug, language, articlesData]);
 
   const categories = language === "id"
     ? ["Semua", ...new Set(articlesData.map((a) => a.category))]
@@ -93,7 +138,7 @@ export default function Articles() {
                 const trimmed = paragraph.trim();
                 if (!trimmed) return null;
                 if (trimmed.startsWith("### ")) {
-                  return <h3 key={idx} className="font-display text-xl text-ink mt-8 mb-2">{trimmed.replace("### ", "")}</h3>;
+                  return <h2 key={idx} className="font-display text-xl text-ink mt-8 mb-2">{trimmed.replace("### ", "")}</h2>;
                 }
                 if (trimmed.startsWith("**") && trimmed.endsWith("**")) {
                   return <p key={idx} className="font-body font-medium text-ink">{trimmed.replace(/\*\*/g, "")}</p>;
