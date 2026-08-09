@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import dotenv from "dotenv";
-import { buildSystemInstruction } from "../src/lib/arblok-knowledge";
-import { checkRateLimit, getClientIp } from "../src/lib/rate-limit";
+import { buildSystemInstruction } from "../src/lib/arblok-knowledge.js";
+import { checkRateLimit, getClientIp } from "../src/lib/rate-limit.js";
 
 dotenv.config();
 
