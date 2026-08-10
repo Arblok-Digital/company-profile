@@ -64,6 +64,14 @@ export const ARBLOK_PROJECTS: ArblokProject[] = [
     link: "https://onyx-terminal-v1.vercel.app/",
   },
   {
+    id: "resah-co",
+    title: "RESAH.CO — AI E-Commerce",
+    category: "AI & Automation",
+    description:
+      "Toko online streetwear yang buka 24 jam tanpa jaga CS: AI Assistant berbasis Gemini jualan, rekomendasi produk, cek stok real-time, hitung ongkir multi-kurir, sampai proses pembayaran (QRIS, E-Wallet, VA) — semua otomatis lewat chat. Ada admin dashboard untuk kelola produk, stok per ukuran, order, dan analisis penjualan.",
+    link: "/portfolio/resah-co.html",
+  },
+  {
     id: "solana-warung",
     title: "Solana Warung",
     category: "Web3 & Blockchain",
