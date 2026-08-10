@@ -8,3 +8,4 @@ coverage/
 !.env.example
 .kilo/
 .playwright-mcp/
+.hermes/

@@ -16,6 +16,25 @@ export default function Portfolio() {
 
   const portfolioItems: PortfolioItem[] = language === "id" ? [
     {
+      id: "resah-co",
+      title: "RESAH.CO — AI E-Commerce",
+      category: "AI & Automation",
+      description: "Dibangun untuk brand streetwear yang ingin tokonya buka 24 jam tanpa harus jaga CS. AI Assistant berbasis Gemini bisa jual, rekomendasi produk, cek stok real-time, hitung ongkir, sampai proses pembayaran — semua otomatis lewat chat. Admin dashboard lengkap untuk kelola produk, stok, order, dan analisis penjualan.",
+      badge: "AI E-Commerce",
+      status: "Production-ready",
+      techStack: ["React 19", "TypeScript", "Gemini AI", "Express", "Midtrans", "Tailwind CSS"],
+      features: [
+        "AI Assistant 24/7 — jawab pertanyaan pelanggan & rekomendasi produk otomatis",
+        "Cek stok real-time, buat pesanan, dan proses pembayaran via chat",
+        "Hitung ongkir multi-kurir + pilihan pembayaran QRIS, E-Wallet, VA",
+        "Dashboard admin — kelola stok per ukuran, tambah produk, update resi",
+        "Analisis penjualan: produk terlaris, stok menipis, revenue harian",
+      ],
+      link: "/portfolio/resah-co.html",
+      image: "/portfolio/resah-co.jpg",
+      imageLabel: "RESAH.CO AI E-Commerce landing page",
+    },
+    {
       id: "sekolah-rapi",
       title: "SekolahRapi",
       category: "Web Application",
@@ -182,6 +201,25 @@ export default function Portfolio() {
       imageLabel: "CoordinationApp screenshot",
     },
   ] : [
+    {
+      id: "resah-co",
+      title: "RESAH.CO — AI E-Commerce",
+      category: "AI & Automation",
+      description: "Built for streetwear brands that want their store open 24/7 without staffing a support team. A Gemini-powered AI assistant handles sales, product recommendations, real-time stock checks, shipping calculations, and payment processing — all via chat. Complete admin dashboard for product, stock, order, and sales analytics management.",
+      badge: "AI E-Commerce",
+      status: "Production-ready",
+      techStack: ["React 19", "TypeScript", "Gemini AI", "Express", "Midtrans", "Tailwind CSS"],
+      features: [
+        "24/7 AI assistant — auto-answer customer questions & recommend products",
+        "Real-time stock checks, order creation, and payment processing via chat",
+        "Multi-courier shipping calculator + QRIS, E-Wallet, VA payment options",
+        "Admin dashboard — per-size stock management, add products, update tracking",
+        "Sales analytics: best-sellers, low-stock alerts, daily revenue reports",
+      ],
+      link: "/portfolio/resah-co.html",
+      image: "/portfolio/resah-co.jpg",
+      imageLabel: "RESAH.CO AI E-Commerce landing page",
+    },
     {
       id: "sekolah-rapi",
       title: "SekolahRapi",
