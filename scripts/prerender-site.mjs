@@ -204,7 +204,7 @@ const homeSchema = `<script type="application/ld+json">${JSON.stringify({
   "address": { "@type": "PostalAddress", "addressLocality": "Tasikmalaya", "addressRegion": "Jawa Barat", "addressCountry": "Indonesia" },
   "geo": { "@type": "GeoCoordinates", "latitude": -7.3268, "longitude": 108.2208 },
   "areaServed": "Indonesia",
-  "sameAs": ["https://wa.me/6289508053795", "https://www.linkedin.com/in/ardi-jobin-455446380", "https://www.instagram.com/arblokd/", "https://www.tiktok.com/@ardiblokchine"],
+  "sameAs": ["https://wa.me/6289508053795", "https://www.linkedin.com/in/ardi-jobin-455446380", "https://www.instagram.com/arblokd/", "https://www.tiktok.com/@ardiblokchine", "https://web.facebook.com/profile.php?id=61591871531409"],
   "telephone": "+6289508053795", "email": "ardiblokchine@gmail.com",
   "knowsAbout": ["Sistem penjualan dan persediaan", "Administrasi sekolah", "Pelayanan dokumen", "Alur persetujuan", "Website dan portal informasi", "Otomatisasi pekerjaan berulang"],
   "founder": { "@type": "Person", "name": "Ardi" },

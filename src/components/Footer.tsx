@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "../LanguageContext";
 import { useInView } from "../hooks/useInView";
 import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
-import { InstagramLogo, TiktokLogo, LinkedinLogo } from "@phosphor-icons/react";
+import { InstagramLogo, TiktokLogo, LinkedinLogo, FacebookLogo } from "@phosphor-icons/react";
 
 const SOCIALS = [
   { name: "LinkedIn", Icon: LinkedinLogo, href: "https://www.linkedin.com/in/ardi-jobin-455446380" },
   { name: "Instagram", Icon: InstagramLogo, href: "https://www.instagram.com/arblokd/" },
   { name: "TikTok", Icon: TiktokLogo, href: "https://www.tiktok.com/@ardiblokchine" },
+  { name: "Facebook", Icon: FacebookLogo, href: "https://web.facebook.com/profile.php?id=61591871531409" },
 ];
 
 export default function Footer() {
