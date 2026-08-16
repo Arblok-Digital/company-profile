@@ -25,14 +25,14 @@ Sistem desain ini menjadi acuan untuk seluruh halaman Arblok Digital. Tujuannya 
 | `--color-ink` | oklch(0.93 0.008 265) — off-white teks utama |
 | `--color-ink-2` | oklch(0.66 0.015 265) — muted off-white |
 | `--color-rule` | oklch(0.85 0.02 265 / 0.14) — border putih transparan tipis |
-| `--color-accent` | oklch(0.64 0.16 262) — indigo terang (kontras di dark) |
+| `--color-accent` | #E2823F — burnt orange / amber-orange (RGB 226, 130, 63) |
 | `--color-accent-ink` | oklch(0.16 0.012 70) — graphite (teks di atas accent) |
 | `--color-accent-2` | oklch(0.75 0.13 165) — emerald terang (status/sukses) |
-| `--color-focus` | indigo terang (visible keyboard focus) |
+| `--color-focus` | burnt orange (visible keyboard focus) |
 | `--radius-card` | 1rem |
 | `--shadow-card` | ring 1px + drop shadow gelap (border > shadow di dark) |
 
-Aksen indigo terang untuk CTA dan highlight; emerald hanya untuk status atau hasil. Pada tema gelap, kontras teks accent (`text-accent` di atas `bg-paper`) WAJIB dicek — jangan pakai accent gelap di atas bg gelap.
+Aksen burnt orange (#E2823F) untuk CTA dan highlight; emerald hanya untuk status atau hasil. Pada tema gelap, kontras teks accent (`text-accent` di atas `bg-paper`) WAJIB dicek — jangan pakai accent gelap di atas bg gelap.
 
 ## Typography
 - **Semua heading & body:** Inter, system sans-serif — 600/700. Heading harus lugas dan mudah dipindai. **TIDAK pakai serif editorial (Newsreader).**
@@ -47,7 +47,7 @@ Gunakan skala empat poin yang tersedia sebagai `var(--space-*)` atau padanan uti
 ## Surfaces & technical detail
 - **Kartu** (`.card` / `.card-hover`): radius 1rem, border 1px rule, shadow lembut, hover naik 3px + border accent. Ini elemen utama — pakai kartu untuk masalah, solusi, langkah, portofolio, FAQ.
 - Panel sekunder: `bg-paper-2`. Border tipis untuk struktur.
-- **CTA**: `.btn-gradient` (indigo gradient, shadow lembut, hover brightness) untuk primary; outline/secondary untuk teks.
+- **CTA**: `.btn-gradient` (burnt orange gradient, shadow lembut, hover brightness) untuk primary; outline/secondary untuk teks.
 - **Badge chip** (`.badge-chip`): pill kecil mono uppercase untuk eyebrow & trust points.
 - Grid tipis (`bg-grid`) + radial blur accent di hero sebagai latar.
 - Hindari glow berlebihan, glassmorphism berat, partikel, dan gradient besar yang mengganggu.
@@ -59,7 +59,7 @@ Gunakan skala empat poin yang tersedia sebagai `var(--space-*)` atau padanan uti
 - `prefers-reduced-motion: reduce` mematikan animation, transition, dan smooth scrolling.
 
 ## CTA voice
-- Primary: **solid gradient indigo** (`.btn-gradient`), rounded-lg, aksi konkret.
+- Primary: **solid gradient burnt orange** (`.btn-gradient`), rounded-lg, aksi konkret.
 - Secondary: outline/teks dengan arrow.
 - CTA menyebut tindakan konkret, misalnya "Ceritakan masalah Anda".
 - Kontak WhatsApp memakai nomor resmi dan pesan awal yang sesuai konteks.

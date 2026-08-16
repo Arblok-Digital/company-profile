@@ -21,14 +21,14 @@ export default function Services() {
 
   const services = language === "id"
     ? [
-{ title: "Penjualan dan persediaan", desc: "Toko online dan kasir sendiri untuk usaha — jualan tanpa fee marketplace yang terus naik.", items: ["Toko online & kasir tanpa biaya platform", "Pencatatan transaksi dan stok", "Laporan yang dapat diperiksa"] },
+{ title: "Penjualan dan persediaan", desc: "Toko online dan kasir sendiri untuk usaha — jualan tanpa fee marketplace yang terus naik.", items: ["Cetak struk & catat stok otomatis", "QR Order langsung dari meja", "Laporan keuangan otomatis tanpa Excel"] },
         { title: "Administrasi sekolah", desc: "Untuk pembayaran, data siswa, dan pekerjaan administrasi yang perlu dipantau oleh petugas terkait.", items: ["Pencatatan pembayaran", "Data siswa dan kelas", "Status administrasi"] },
         { title: "Pelayanan dan persetujuan", desc: "Untuk pengajuan surat, pemeriksaan dokumen, dan keputusan yang melewati beberapa petugas.", items: ["Formulir pengajuan", "Tahap pemeriksaan", "Riwayat keputusan"] },
         { title: "Website dan portal informasi", desc: "Untuk memperjelas layanan, menerima permintaan, atau menyediakan area informasi bagi pelanggan dan anggota.", items: ["Company profile", "Formulir dan katalog", "Portal yang dapat dipasang di ponsel"] },
         { title: "Pekerjaan berulang", desc: "Untuk tugas yang bisa dibantu aturan otomatis atau teknologi pintar setelah alurnya jelas.", items: ["Pengingat dan notifikasi", "Pembacaan data dokumen", "Pengelompokan permintaan"] },
       ]
     : [
-{ title: "Sales and inventory", desc: "Your own online store and POS — sell without marketplace fees that keep rising.", items: ["Online store & POS with no platform fee", "Transaction and stock records", "Reviewable reports"] },
+{ title: "Sales and inventory", desc: "Your own online store and POS — sell without marketplace fees that keep rising.", items: ["Print receipts & auto stock tracking", "QR ordering straight from the table", "Automatic financial reports — no Excel"] },
         { title: "School administration", desc: "For payments, student data, and administrative work that relevant staff need to monitor.", items: ["Payment records", "Student and class data", "Administration status"] },
         { title: "Services and approvals", desc: "For requests, document reviews, and decisions that move through several staff members.", items: ["Request forms", "Review stages", "Decision history"] },
         { title: "Websites and information portals", desc: "For explaining services, receiving requests, or providing an information area for customers and members.", items: ["Company profile", "Forms and catalogues", "Installable mobile portal"] },

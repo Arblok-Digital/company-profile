@@ -6,7 +6,7 @@ import { Ear, Crosshair, FlaskConical, LifeBuoy } from "lucide-react";
 const stepIcons = [Ear, Crosshair, FlaskConical, LifeBuoy];
 const stepIconColor = [
   "oklch(0.85 0.12 85)",
-  "oklch(0.64 0.16 262)",
+  "var(--color-accent)",
   "oklch(0.75 0.13 165)",
   "oklch(0.68 0.16 45)",
 ];
@@ -67,8 +67,14 @@ export default function About() {
           <p className="max-w-3xl font-body text-sm leading-6 text-ink-2">
             {language === "id" ? "Hasil pembicaraan awal adalah gambaran alur, prioritas fitur, dan tahap pengerjaan—bukan daftar istilah teknis yang sulit diperiksa." : "The initial discussion produces a workflow outline, feature priorities, and delivery stages—not a list of technical terms that is hard to review."}
           </p>
-          <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-accent">{language === "id" ? "Masalah → Ruang lingkup → Uji" : "Problem → Scope → Test"}</span>
+<span className="font-mono text-[10px] uppercase tracking-[0.12em] text-accent">{language === "id" ? "Masalah → Ruang lingkup → Uji" : "Problem → Scope → Test"}</span>
         </div>
+
+        <p className="mt-8 border-l-2 border-accent pl-5 font-body text-sm leading-6 text-ink-2 sm:text-base sm:leading-7">
+          {language === "id"
+            ? "Dikembangkan langsung oleh tim teknis profesional dari Tasikmalaya. Pendampingan setup sampai bisa, tanpa pusing urusan teknis."
+            : "Built directly by a professional technical team from Tasikmalaya. Guided through setup until it works — no technical headaches."}
+        </p>
       </div>
     </section>
   );

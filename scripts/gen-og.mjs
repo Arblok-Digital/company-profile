@@ -3,7 +3,7 @@
  * gen-og.mjs
  * Generate public/og-image.png (1200x630) = tiruan desain hero situs Arblok Digital:
  * kiri = headline + tagline, kanan = kartu "Contoh peta pekerjaan" (mockup alur sistem).
- * Palet dari src/index.css (dark graphite + indigo + teal).
+ * Palet dari src/index.css (warm graphite + burnt orange #E2823F + emerald).
  * Run: node scripts/gen-og.mjs
  */
 import { createCanvas } from "@napi-rs/canvas";
@@ -20,39 +20,39 @@ const canvas = createCanvas(W, H);
 const ctx = canvas.getContext("2d");
 
 // ── Palette (dari src/index.css) ──
-const PAPER = "#1c1b26";
-const PAPER2 = "#26242f";
-const INK = "#eef0f6";
-const INK2 = "#9aa3b7";
-const ACCENT = "#6a7bff";
-const ACCENT2 = "#4ed6bf";
+const PAPER = "#1b1712";
+const PAPER2 = "#26201a";
+const INK = "#f2ece2";
+const INK2 = "#a99d8c";
+const ACCENT = "#E2823F";
+const ACCENT2 = "#4BD9A3";
 const AMBER = "#e8c86a";
-const RULE = "rgba(238,240,246,0.14)";
-const RULE_SOFT = "rgba(238,240,246,0.09)";
+const RULE = "rgba(242,236,226,0.14)";
+const RULE_SOFT = "rgba(242,236,226,0.09)";
 
 const FONT_SANS = "'Segoe UI', sans-serif";
 const FONT_MONO = "'Cascadia Mono', 'Consolas', monospace";
 
 // ── Background ──
 const bg = ctx.createLinearGradient(0, 0, 0, H);
-bg.addColorStop(0, "#21202c");
-bg.addColorStop(1, "#14131f");
+bg.addColorStop(0, "#241e16");
+bg.addColorStop(1, "#14100b");
 ctx.fillStyle = bg;
 ctx.fillRect(0, 0, W, H);
 
 const glow = ctx.createRadialGradient(W - 60, 20, 0, W - 60, 20, 560);
-glow.addColorStop(0, "rgba(106,123,255,0.3)");
-glow.addColorStop(1, "rgba(106,123,255,0)");
+glow.addColorStop(0, "rgba(226,130,63,0.3)");
+glow.addColorStop(1, "rgba(226,130,63,0)");
 ctx.fillStyle = glow;
 ctx.fillRect(W - 700, -300, 760, 760);
 
 const glow2 = ctx.createRadialGradient(150, H + 60, 0, 150, H + 60, 500);
-glow2.addColorStop(0, "rgba(78,214,190,0.18)");
-glow2.addColorStop(1, "rgba(78,214,190,0)");
+glow2.addColorStop(0, "rgba(75,217,163,0.18)");
+glow2.addColorStop(1, "rgba(75,217,163,0)");
 ctx.fillStyle = glow2;
 ctx.fillRect(-380, H - 260, 700, 520);
 
-ctx.fillStyle = "rgba(238,240,246,0.05)";
+ctx.fillStyle = "rgba(242,236,226,0.05)";
 for (let y = 22; y < H; y += 48) {
   for (let x = 22; x < W; x += 48) ctx.fillRect(x, y, 1.6, 1.6);
 }
@@ -92,11 +92,11 @@ const LW = 470;
 
 // badge chip
 ctx.font = `600 15px ${FONT_SANS}`;
-const chipText = "Studi kasus nyata · Tasikmalaya";
+const chipText = "Solusi Software & POS Tanpa Komisi – ARBLOK Digital";
 const chipW = ctx.measureText(chipText).width + 44;
 let chipY = 64;
 rr(LX, chipY, chipW, 34, 17);
-ctx.fillStyle = "rgba(238,240,246,0.08)";
+ctx.fillStyle = "rgba(242,236,226,0.08)";
 ctx.fill();
 ctx.strokeStyle = RULE;
 ctx.lineWidth = 1;
@@ -113,7 +113,7 @@ ctx.fillText(chipText, LX + 34, chipY + 17);
 // headline
 ctx.textBaseline = "alphabetic";
 ctx.font = `700 40px ${FONT_SANS}`;
-const h1Lines = wrapLines(ctx, "Jualan tanpa fee marketplace di setiap transaksi.", 430);
+const h1Lines = wrapLines(ctx, "Hentikan Potongan Fee Marketplace. Miliki Sistem Toko & Kasir Sendiri yang Otomatis.", 430);
 let y = chipY + 34 + 16;
 ctx.fillStyle = INK;
 for (const [i, line] of h1Lines.entries()) {
@@ -133,9 +133,9 @@ ctx.fill();
 ctx.font = `400 17px ${FONT_SANS}`;
 ctx.fillStyle = INK2;
 const subTexts = [
-  "Arblok Digital membangun toko online dan kasir sendiri.",
-  "Omzet dan stok terpantau dari HP, dan sistemnya",
-  "tetap berjalan walau Anda sedang tidak melihat.",
+  "Arblok Digital membangun kasir, toko online,",
+  "dan operasional bisnis khusus tanpa komisi per",
+  "transaksi — kontrol stok & omzet dari HP.",
 ];
 let sy = h1End + 34;
 for (const [i, line] of subTexts.entries()) {
@@ -167,19 +167,19 @@ for (const [i, c] of chipsID.entries()) {
 }
 
 // CTA
-const ctaW = 210;
+const ctaW = 270;
 const ctaH = 44;
 const ctaY = chipY2 + 47;
 const cg = ctx.createLinearGradient(LX, 0, LX + ctaW, 0);
 cg.addColorStop(0, ACCENT);
-cg.addColorStop(1, "#8f9bff");
+cg.addColorStop(1, "#c96a2b");
 ctx.fillStyle = cg;
 rr(LX, ctaY, ctaW, ctaH, 22);
 ctx.fill();
-ctx.fillStyle = "#14131f";
+ctx.fillStyle = "#181310";
 ctx.font = `700 15px ${FONT_SANS}`;
 ctx.textBaseline = "middle";
-ctx.fillText("Konsultasi via WhatsApp", LX + ctaW / 2, ctaY + ctaH / 2 + 1);
+ctx.fillText("Hitung Penghematan Bisnis Anda", LX + ctaW / 2, ctaY + ctaH / 2 + 1);
 ctx.textBaseline = "alphabetic";
 
 // ── Kartu mockup (kanan) ──
@@ -189,7 +189,7 @@ const CDY = 66;
 const CDH = H - 66 - 58;
 
 rr(CDX, CDY, CDW, CDH, 12);
-ctx.fillStyle = "rgba(30,29,40,0.85)";
+ctx.fillStyle = "rgba(38,32,26,0.85)";
 ctx.fill();
 ctx.strokeStyle = RULE;
 ctx.stroke();
@@ -232,7 +232,7 @@ const tileY = CDY + 44 + 14;
 for (const [i, t] of tiles.entries()) {
   const tx = CDX + tileP + i * (tileW + 6);
   rr(tx, tileY, tileW, tileH, 8);
-  ctx.fillStyle = "rgba(38,36,47,0.9)";
+  ctx.fillStyle = "rgba(38,32,26,0.9)";
   ctx.fill();
   ctx.strokeStyle = RULE_SOFT;
   ctx.stroke();
@@ -256,7 +256,7 @@ let rowY = tileY + tileH + 14;
 for (const [i, r] of rows.entries()) {
   const rw = CDW - tileP * 2;
   rr(CDX + tileP, rowY, rw, rowH, 8);
-  ctx.fillStyle = "rgba(28,27,38,0.9)";
+  ctx.fillStyle = "rgba(27,23,18,0.9)";
   ctx.fill();
   ctx.strokeStyle = RULE_SOFT;
   ctx.stroke();
@@ -286,7 +286,7 @@ for (const [i, r] of rows.entries()) {
 // footer note
 const footY = CDY + CDH - 44;
 rr(CDX, footY, CDW, 44, 12);
-ctx.fillStyle = "rgba(38,36,47,0.9)";
+ctx.fillStyle = "rgba(38,32,26,0.9)";
 ctx.fill();
 ctx.beginPath();
 ctx.rect(CDX, footY, CDW, 12);
@@ -302,7 +302,7 @@ ctx.fillText("Teknologi mengikuti alur kerja — fitur dipilih setelah", CDX + 3
 ctx.textBaseline = "alphabetic";
 
 // ── Footer URL ──
-ctx.fillStyle = "rgba(154,163,183,0.7)";
+ctx.fillStyle = "rgba(169,157,140,0.7)";
 ctx.font = `400 15px ${FONT_MONO}`;
 ctx.fillText("arblok-digital.vercel.app", LX, H - 34);
 

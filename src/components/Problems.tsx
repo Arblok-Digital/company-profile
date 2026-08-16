@@ -16,7 +16,7 @@ export default function Problems() {
           id: "01",
           tag: "Studi kasus · UMKM",
           title: "Pemilik toko tidak bisa memantau penjualan kasir secara langsung.",
-          pain: "Fee marketplace naik tiap transaksi, dan kasir manual menyebarkan pencatatan — pemilik baru tahu omzet setelah rekap akhir hari.",
+          pain: "Kirim barang ke pelanggan tapi keuntungan tergerus potongan 10–15%? Saatnya punya platform sendiri tanpa biaya tersembunyi.",
           steps: [
             { key: "Input", title: "Kasir mencatat jualan di HP atau komputer", desc: "Transaksi dan stok tercatat saat itu juga" },
             { key: "Proses", title: "Sistem menyusun rekap dan mengurangi stok otomatis", desc: "Tidak perlu rekap ulang di buku" },
@@ -42,7 +42,7 @@ export default function Problems() {
           id: "01",
           tag: "Case study · SME",
           title: "A store owner cannot monitor sales at the register in real time.",
-          pain: "Marketplace fees rise with each transaction, and a manual register scatters the records — the owner only learns the figure after a re-count.",
+          pain: "You ship goods to customers, yet 10-15% of the profit is eaten by fees? Time to own a platform with no hidden costs.",
           steps: [
             { key: "Input", title: "The cashier records sales from a phone or computer", desc: "Transactions and stock are captured instantly" },
             { key: "Process", title: "The system builds the report and reduces stock automatically", desc: "No manual re-totalling" },

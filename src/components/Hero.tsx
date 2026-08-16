@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "../LanguageContext";
-import { ArrowRight } from "lucide-react";
+import { MessageCircle, Eye } from "lucide-react";
 
 const WHATSAPP_URL =
-  "https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20menceritakan%20masalah%20pencatatan%20atau%20alur%20kerja%20di%20organisasi%20saya.";
+  "https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20mau%20konsultasi%20sistem%20kasir%2Ftoko%20online%20tanpa%20fee.";
 
 const CHECK = "\u2713";
 
@@ -204,45 +204,74 @@ export default function Hero() {
   }, [started, isReducedMotion]);
 
   const fullCommand = `arblok deploy --client=${dataset.client}`;
+const statusLive = isReducedMotion || phase >= 2;
 
   return (
     <section id="hero" className="relative overflow-hidden border-b border-rule bg-paper pb-16 pt-24 sm:pb-20 sm:pt-28">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" aria-hidden="true" />
-      <div className="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-gradient-to-br from-accent/15 via-accent/5 to-transparent blur-2xl" aria-hidden="true" />
+      <div
+        className="blob-breathe pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full blur-2xl"
+        style={{
+          background:
+            "radial-gradient(circle, color-mix(in oklch, var(--color-accent) 22%, transparent), color-mix(in oklch, var(--color-accent) 3%, transparent) 70%)",
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="blob-breathe pointer-events-none absolute -bottom-24 -left-32 h-[24rem] w-[24rem] rounded-full blur-2xl"
+        style={{
+          background:
+            "radial-gradient(circle, color-mix(in oklch, var(--color-accent-2) 18%, transparent), color-mix(in oklch, var(--color-accent-2) 3%, transparent) 70%)",
+          animationDuration: "7s",
+          animationDelay: "1.2s",
+        }}
+        aria-hidden="true"
+      />
       <div className="relative z-10 mx-auto w-full px-6 sm:px-8 lg:max-w-none lg:px-14 xl:px-20">
         <div className="grid items-stretch gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col justify-center lg:col-span-5">
             <span className="badge-chip">
               <span className="pulse-live block h-1.5 w-1.5 rounded-full bg-accent-2" aria-hidden="true" />
-              {language === "id" ? "Studi kasus nyata · Tasikmalaya" : "Real case studies · Tasikmalaya"}
+              {language === "id"
+                ? "Solusi Software & POS Tanpa Komisi – ARBLOK Digital"
+                : "Commission-Free Software & POS Solutions – ARBLOK Digital"}
             </span>
             <h1 className="mt-5 text-balance font-body text-[2rem] font-bold leading-[1.05] tracking-[-0.03em] text-ink sm:text-[2.6rem] lg:text-[2.75rem] xl:text-[3.2rem]">
               {language === "id"
-                ? "Jualan tanpa fee marketplace di setiap transaksi."
-                : "Sell without a marketplace fee on every transaction."}
+                ? "Hentikan Potongan Fee Marketplace. Miliki Sistem Toko & Kasir Sendiri yang Otomatis."
+                : "Stop Marketplace Fee Cuts. Own an Automated Store & Cashier System."}
             </h1>
             <p className="mt-5 max-w-lg font-body text-lg leading-7 text-ink-2 sm:leading-8">
               {language === "id"
-                ? "Arblok Digital membangun toko online dan kasir sendiri — omzet dan stok terpantau dari HP, dan pekerjaannya tetap berjalan walau Anda sedang tidak melihat."
-                : "Arblok Digital builds your own online store and register — sales and stock watched from your phone, and the work keeps running even when you are not looking."}
+                ? "Arblok Digital membangun sistem kasir, toko online, dan operasional bisnis khusus tanpa komisi per transaksi. Kontrol stok, kelola laporan keuangan, dan pantau omzet secara real-time langsung dari smartphone Anda."
+                : "Arblok Digital builds your cashier, online store, and business operations free of per-transaction commissions. Control stock, manage financial reports, and monitor revenue in real time straight from your smartphone."}
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-gradient inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-5 py-2.5 font-body text-sm font-semibold">
-                {language === "id" ? "Konsultasi via WhatsApp" : "Consult via WhatsApp"}
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                {language === "id" ? "Hitung Penghematan Bisnis Anda (WA)" : "Calculate Your Business Savings (WA)"}
+                <MessageCircle className="h-4 w-4" aria-hidden="true" />
               </a>
               <a href="#portfolio" className="inline-flex min-h-11 items-center justify-center rounded-lg border border-rule bg-paper px-5 py-2.5 font-body text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent">
-                {language === "id" ? "Lihat sistem yang sudah dibuat" : "See systems we have built"}
+                {language === "id" ? "Lihat Demo & Portofolio" : "View Demo & Portfolio"}
+                <Eye className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
-            <ul className="mt-8 flex flex-wrap gap-2.5">
+            <ul className="mt-8 grid grid-cols-3 gap-4 divide-x divide-rule sm:gap-6">
               {(language === "id"
-                ? ["UMKM: jualan tanpa fee", "Sekolah: administrasi online", "Instansi: persetujuan"]
-                : ["SMEs: sell without fees", "Schools: online admin", "Public: approvals"]
-              ).map((item) => (
-                <li key={item} className="badge-chip font-body font-medium normal-case tracking-normal text-ink">
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                  {item}
+                ? [
+                    { value: "0%", label: "Potongan Transaksi" },
+                    { value: "100%", label: "Hak Milik Data & Pelanggan" },
+                    { value: "24/7", label: "Akses Realtime dari HP" },
+                  ]
+                : [
+                    { value: "0%", label: "Transaction Fees" },
+                    { value: "100%", label: "Your Data & Customers" },
+                    { value: "24/7", label: "Realtime Access from Phone" },
+                  ]
+              ).map((stat) => (
+                <li key={stat.label} className="pl-4 sm:pl-6">
+                  <div className="font-mono text-xl font-bold tabular-nums text-ink sm:text-2xl">{stat.value}</div>
+                  <div className="mt-1 font-mono text-[0.6rem] uppercase leading-tight tracking-[0.12em] text-ink-2 sm:text-[0.65rem]">{stat.label}</div>
                 </li>
               ))}
             </ul>
@@ -250,7 +279,7 @@ export default function Hero() {
 
           <div className="relative flex flex-col justify-center gap-4 overflow-hidden lg:col-span-7">
             {/* Deploy Sequence Card — decorative animation demo, angka di dalamnya ilustratif (bukan klaim data klien), jadi disembunyikan dari accessibility tree & AI crawler */}
-            <div className="card relative flex h-full flex-col overflow-hidden" aria-hidden="true">
+            <div className="card card-glow relative flex h-full flex-col overflow-hidden" aria-hidden="true">
               {/* Ambient terminal texture */}
               <div className="terminal-grid pointer-events-none absolute inset-0" aria-hidden="true" />
               <div className="terminal-scanlines pointer-events-none absolute inset-0" aria-hidden="true" />
@@ -265,6 +294,15 @@ export default function Hero() {
                 <span className="font-mono text-xs text-ink-2">
                   {language === "id" ? "Urutan deploy" : "Deploy sequence"}
                 </span>
+                <div className="ml-auto flex items-center gap-2">
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${statusLive ? "bg-accent-2 pulse-live" : "bg-accent"}`}
+                    aria-hidden="true"
+                  />
+                  <span className="hidden font-mono text-[0.6rem] uppercase tracking-[0.1em] text-ink-2 sm:inline">
+                    {statusLive ? "live" : language === "id" ? "menyiapkan" : "preparing"}
+                  </span>
+                </div>
               </div>
 
               {/* Terminal Body */}
@@ -429,7 +467,7 @@ export default function Hero() {
 
         <div className="mt-12 flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-rule pt-6">
           <p className="font-mono text-xs uppercase tracking-[0.14em] text-ink-2">
-            {language === "id" ? "Lanjutkan" : "Continue"}
+            {language === "id" ? "Jelajahi" : "Explore"}
           </p>
           <nav className="flex flex-wrap items-center gap-x-6 gap-y-2" aria-label="Hero links">
             {[

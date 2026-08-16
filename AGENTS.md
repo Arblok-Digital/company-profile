@@ -86,7 +86,7 @@ Detail lengkap ada di `PROJECT_CONTEXT.md` (baca juga).
 **AI SDK**: @google/genai v2.4
 **Live URL**: https://arblok-digital.vercel.app/
 **Owner**: Ardi (Tasikmalaya) — WhatsApp +6289508053795
-**Branding**: Modern Software Studio (Dark) — warm graphite `oklch(0.16 0.012 70)`, indigo accent, emerald status. SEMUA token ada di `src/index.css` + `design.md`; JANGAN hardcode warna slate/cyan custom di komponen baru
+**Branding**: Modern Software Studio (Dark) — warm graphite `oklch(0.16 0.012 70)`, burnt orange accent `#E2823F`, emerald status. SEMUA token ada di `src/index.css` + `design.md`; JANGAN hardcode warna slate/cyan custom di komponen baru
 **Languages**: ID + EN bilingual
 
 ---

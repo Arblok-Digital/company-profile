@@ -12,7 +12,7 @@
 - **Tipe**: Company profile + AI consultant demo + blog
 - **Owner/Founder**: Ardi (Tasikmalaya, Jawa Barat, Indonesia)
 - **Live URL**: https://arblok-digital.vercel.app/
-- **Branding**: Dark theme (slate-950) + cyan/indigo accents
+- **Branding**: Dark warm graphite (oklch(0.16 0.012 70)) + burnt orange accent (#E2823F) + emerald status
 - **Bahasa**: Bilingual ID/EN via LanguageContext + manual conditionals
 
 ## 2. WORKFLOW & ENVIRONMENT

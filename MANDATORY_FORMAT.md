@@ -15,7 +15,7 @@
 | 1 | Positioning | **"Sistem digital untuk usaha, sekolah, dan instansi"** — BUKAN naratif "Software House & Digital Agency" yang teknis |
 | 2 | Bahasa | Awam, rendah hati, langsung. ID primary, EN secondary (inline `language === "id" ? ... : ...`) |
 | 3 | Alur marketing | **Problem → Process → Solution → Proof → Answer → Contact** (sesuai design.md) |
-| 4 | Gaya visual | **Modern Software Studio (Dark)** — dark warm graphite, indigo accent terang, kartu rounded + ring, mockup dashboard, CTA solid gradient (design.md). JANGAN pilih warna ungu/neon AI-slop |
+| 4 | Gaya visual | **Modern Software Studio (Dark)** — dark warm graphite, burnt orange accent (#E2823F), kartu rounded + ring, mockup dashboard, CTA solid gradient (design.md). JANGAN pilih warna ungu/neon AI-slop |
 | 5 | 3 persona | **UMKM** (bebas fee marketplace, punya lead), **Sekolah** (administrasi & pendaftaran online), **Instansi/Kelurahan** (birokrasi & persetujuan) |
 | 6 | Domain solusi | Pencatatan, pelayanan, alur persetujuan, portal informasi, pekerjaan berulang |
 | 7 | Kontak | WhatsApp `https://wa.me/6289508053795` (dengan `?text=` pre-filled sesuai konteks) |
@@ -27,7 +27,7 @@
 - ❌ **Dilarang:** angka/invented metrics tanpa sumber ("hemat 70%", "1000+ klien") — kalau tidak bisa diverifikasi, jangan ditulis.
 - ❌ **Dilarang:** kata "AI" di copy marketing → ganti "kecerdasan buatan", "sistem otomatis", "teknologi pintar".
 - ❌ **Dilarang:** copy yang sama persis di 2+ komponen berbeda (verbatim duplication).
-- ✅ CTA menyebut aksi konkret ("Ceritakan masalah Anda", "Diskusikan kebutuhan"), primary = **solid indigo gradient** (`btn-gradient`), secondary = outline. Lihat `design.md`.
+- ✅ CTA menyebut aksi konkret ("Ceritakan masalah Anda", "Diskusikan kebutuhan"), primary = **solid burnt orange gradient** (`btn-gradient`), secondary = outline. Lihat `design.md`.
 
 ## 3. Struktur Halaman Beranda (tidak berubah lagi)
 

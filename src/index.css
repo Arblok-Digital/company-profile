@@ -7,7 +7,7 @@
   --color-ink: oklch(0.93 0.008 265);
   --color-ink-2: oklch(0.66 0.015 265);
   --color-rule: oklch(0.85 0.02 265 / 0.14);
-  --color-accent: oklch(0.64 0.16 262);
+  --color-accent: #E2823F;
   --color-accent-ink: oklch(0.16 0.012 70);
   --color-accent-2: oklch(0.75 0.13 165);
   --color-amber: oklch(0.85 0.12 85);
@@ -20,7 +20,7 @@
   --radius-card: 1rem;
 
   --shadow-card: 0 0 0 1px oklch(0 0 0 / 0.12), 0 10px 30px -12px oklch(0 0 0 / 0.55);
-  --shadow-card-lg: 0 0 0 1px oklch(0.64 0.16 262 / 0.3), 0 18px 50px -14px oklch(0 0 0 / 0.65);
+  --shadow-card-lg: 0 0 0 1px color-mix(in oklch, var(--color-accent) 30%, transparent), 0 18px 50px -14px oklch(0 0 0 / 0.65);
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -70,7 +70,7 @@ body {
 
 /* Solid gradient CTA */
 .btn-gradient {
-  background: linear-gradient(135deg, oklch(0.51 0.19 262), oklch(0.56 0.15 250));
+  background: linear-gradient(135deg, var(--color-accent), color-mix(in oklch, var(--color-accent) 70%, var(--color-paper)));
   color: var(--color-accent-ink);
   box-shadow: 0 8px 20px -8px color-mix(in oklch, var(--color-accent) 55%, transparent);
   transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), filter 0.2s var(--ease-out);
@@ -159,6 +159,24 @@ body {
   animation: pulse 2s ease-in-out infinite;
 }
 
+/* Breathing box-shadow untuk card deploy sequence (hero) */
+@keyframes card-glow {
+  0%, 100% { box-shadow: var(--shadow-card); }
+  50% { box-shadow: var(--shadow-card-lg); }
+}
+.card-glow {
+  animation: card-glow 5s ease-in-out infinite;
+}
+
+/* Breathing ambient blobs (hero background) */
+@keyframes blob-breathe {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.blob-breathe {
+  animation: blob-breathe 6s ease-in-out infinite;
+}
+
 /* Terminal card ambient textures */
 .terminal-grid {
   background-image: radial-gradient(oklch(0.93 0.008 265 / 0.09) 1px, transparent 1px);
@@ -195,7 +213,7 @@ body {
    yang breathing pelan di belakangnya. TIDAK ada titik node beranimasi di sekitar icon.
    Motion language: easing ease-in-out sama dengan keyframes `pulse` (dashboard hero
    "Sistem live"), siklus glow-breathe 3s biar terasa lampu bernapas, bukan blink alarm.
-   Warna default --color-accent (indigo); bisa di-override per icon via --node-color. */
+   Warna default --color-accent (burnt orange); bisa di-override per icon via --node-color. */
 @keyframes glow-breathe {
   0%, 100% { opacity: 0.2; }
   50% { opacity: 0.45; }

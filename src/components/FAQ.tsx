@@ -112,7 +112,7 @@ export default function FAQ() {
             </p>
           </div>
           <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-gradient mt-6 inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg px-5 py-3 font-body text-sm font-semibold lg:mt-0">
-            {language === "id" ? "Konsultasi gratis" : "Free consultation"}
+            {language === "id" ? "Ceritakan Masalah Anda via WhatsApp" : "Tell Us Your Problem on WhatsApp"}
           </a>
         </div>
       </div>

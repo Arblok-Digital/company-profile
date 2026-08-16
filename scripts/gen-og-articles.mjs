@@ -2,7 +2,7 @@
 /**
  * gen-og-articles.mjs
  * Generate public/og/article-<slug>.png (1200x630) untuk setiap artikel.
- * Desain konsisten dengan gen-og.mjs (palet dark graphite + indigo + teal).
+ * Desain konsisten dengan gen-og.mjs (palet warm graphite + burnt orange #E2823F + emerald).
  * Run: tsx scripts/gen-og-articles.mjs
  */
 import { createCanvas, GlobalFonts } from "@napi-rs/canvas";
@@ -30,14 +30,14 @@ try {
 const W = 1200;
 const H = 630;
 const PALETTE = {
-  PAPER: "#1c1b26",
-  PAPER2: "#26242f",
-  INK: "#eef0f6",
-  INK2: "#9aa3b7",
-  ACCENT: "#6a7bff",
-  ACCENT2: "#4ed6bf",
-  RULE: "rgba(238,240,246,0.14)",
-  RULE_SOFT: "rgba(238,240,246,0.09)",
+  PAPER: "#1b1712",
+  PAPER2: "#26201a",
+  INK: "#f2ece2",
+  INK2: "#a99d8c",
+  ACCENT: "#E2823F",
+  ACCENT2: "#4BD9A3",
+  RULE: "rgba(242,236,226,0.14)",
+  RULE_SOFT: "rgba(242,236,226,0.09)",
 };
 const FONT_SANS = "'Segoe UI', 'DejaVu Sans', sans-serif";
 const FONT_MONO = "'Cascadia Mono', 'Consolas', 'DejaVu Sans Mono', monospace";
@@ -75,24 +75,24 @@ for (const article of ARTICLES_DATA) {
 
   // ── Background ──
   const bg = ctx.createLinearGradient(0, 0, 0, H);
-  bg.addColorStop(0, "#21202c");
-  bg.addColorStop(1, "#14131f");
+  bg.addColorStop(0, "#241e16");
+  bg.addColorStop(1, "#14100b");
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, W, H);
 
   const glow = ctx.createRadialGradient(W - 60, 20, 0, W - 60, 20, 560);
-  glow.addColorStop(0, "rgba(106,123,255,0.3)");
-  glow.addColorStop(1, "rgba(106,123,255,0)");
+  glow.addColorStop(0, "rgba(226,130,63,0.3)");
+  glow.addColorStop(1, "rgba(226,130,63,0)");
   ctx.fillStyle = glow;
   ctx.fillRect(W - 700, -300, 760, 760);
 
   const glow2 = ctx.createRadialGradient(150, H + 60, 0, 150, H + 60, 500);
-  glow2.addColorStop(0, "rgba(78,214,190,0.18)");
-  glow2.addColorStop(1, "rgba(78,214,190,0)");
+  glow2.addColorStop(0, "rgba(75,217,163,0.18)");
+  glow2.addColorStop(1, "rgba(75,217,163,0)");
   ctx.fillStyle = glow2;
   ctx.fillRect(-380, H - 260, 700, 520);
 
-  ctx.fillStyle = "rgba(238,240,246,0.05)";
+  ctx.fillStyle = "rgba(242,236,226,0.05)";
   for (let y = 22; y < H; y += 48) {
     for (let x = 22; x < W; x += 48) ctx.fillRect(x, y, 1.6, 1.6);
   }
@@ -107,7 +107,7 @@ for (const article of ARTICLES_DATA) {
   const brandW = ctx.measureText(brand).width + 44;
   const chipY = 56;
   rr(ctx, LX, chipY, brandW, 34, 17);
-  ctx.fillStyle = "rgba(238,240,246,0.08)";
+  ctx.fillStyle = "rgba(242,236,226,0.08)";
   ctx.fill();
   ctx.strokeStyle = PALETTE.RULE;
   ctx.lineWidth = 1;
@@ -126,7 +126,7 @@ for (const article of ARTICLES_DATA) {
   const catW = ctx.measureText(article.category).width + 34;
   const catX = LX + brandW + 12;
   rr(ctx, catX, chipY, catW, 34, 17);
-  ctx.fillStyle = "rgba(106,123,255,0.14)";
+  ctx.fillStyle = "rgba(226,130,63,0.14)";
   ctx.fill();
   ctx.strokeStyle = PALETTE.RULE_SOFT;
   ctx.stroke();
@@ -166,7 +166,7 @@ for (const article of ARTICLES_DATA) {
 
   // ── Meta footer ──
   ctx.textBaseline = "alphabetic";
-  ctx.fillStyle = "rgba(154,163,183,0.7)";
+  ctx.fillStyle = "rgba(169,157,140,0.7)";
   ctx.font = `400 15px ${FONT_MONO}`;
   ctx.fillText("arblok-digital.vercel.app", LX, H - 34);
   ctx.textAlign = "right";

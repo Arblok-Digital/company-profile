@@ -67,7 +67,7 @@
 
 ### 1.4 — OG Image Branded
 **Lokasi**: `/public/og-image.png`
-**Spesifikasi**: 1200×630px, <200KB, dark tema + cyan/indigo gradient + "ARBLOK Digital" + tagline
+**Spesifikasi**: 1200×630px, <200KB, dark tema + burnt orange gradient (#E2823F) + "ARBLOK Digital" + tagline
 **How to create**: Canva / Figma / image_generate tool (AI)
 **Dependencies**: 1.1 (sitemap refer OG image)
 **Aman untuk dikerjakan?**: ✅ 100% — asset baru

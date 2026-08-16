@@ -14,10 +14,10 @@ if (!existsSync(OUT_DIR)) {
 const BASE_URL = "https://arblok-digital.vercel.app";
 
 const homeHeadline =
-  "Jualan tanpa fee marketplace di setiap transaksi.";
+  "Hentikan Potongan Fee Marketplace. Miliki Sistem Toko & Kasir Sendiri yang Otomatis.";
 
 const homeSubtitle =
-  "Arblok Digital membangun toko online dan kasir sendiri — omzet dan stok terpantau dari HP, dan pekerjaannya tetap berjalan walau Anda sedang tidak melihat.";
+  "Arblok Digital membangun sistem kasir, toko online, dan operasional bisnis khusus tanpa komisi per transaksi. Kontrol stok, kelola laporan keuangan, dan pantau omzet secara real-time langsung dari smartphone Anda.";
 
 const servicesID = [
   {
@@ -84,24 +84,24 @@ function serveHtml(content, extraSchema) {
   <meta property="og:title" content="${content.title}">
   <meta property="og:description" content="${content.desc}">
   <meta property="og:url" content="${content.canonical}">
-  <meta property="og:image" content="${BASE_URL}/og-image.png?v=2">
+  <meta property="og:image" content="${BASE_URL}/og-image.png?v=3">
   <meta name="twitter:card" content="summary_large_image">
   ${extraSchema || ""}
   <style>
     body { font-family: system-ui, sans-serif; max-width: 960px; margin: 0 auto; padding: 1rem; color: #1a1a2e; line-height: 1.7; }
     h1 { font-size: 2rem; }
-    h2 { font-size: 1.4rem; color: #0ea5e9; margin-top: 2rem; }
+    h2 { font-size: 1.4rem; color: #E2823F; margin-top: 2rem; }
     h3 { font-size: 1.1rem; }
     .service { border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
     .portfolio-item { border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.8rem; margin: 0.8rem 0; }
     .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; font-size: 0.9rem; color: #666; }
-    .cta { background: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 1rem; text-align: center; margin: 1rem 0; }
-    .cta a { color: #0ea5e9; font-weight: bold; text-decoration: none; }
+    .cta { background: #fbeedd; border: 1px solid #E2823F; border-radius: 8px; padding: 1rem; text-align: center; margin: 1rem 0; }
+    .cta a { color: #E2823F; font-weight: bold; text-decoration: none; }
     ul { padding-left: 1.5rem; }
     li { margin-bottom: 0.3rem; }
-    .badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+    .badge { display: inline-block; background: #fde9d3; color: #a34f17; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
     .wa { background: #22c55e; color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; display: inline-block; font-weight: bold; }
-    nav a { color: #0ea5e9; text-decoration: none; margin-right: 1rem; }
+    nav a { color: #E2823F; text-decoration: none; margin-right: 1rem; }
   </style>
 </head>
 <body>
@@ -136,7 +136,8 @@ const homeContent = {
 <p>Studio perangkat lunak · Tasikmalaya</p>
 <h1>${homeHeadline}</h1>
 <p>${homeSubtitle}</p>
-<p><a class="wa" href="https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20menceritakan%20masalah%20pencatatan%20atau%20alur%20kerja%20di%20organisasi%20saya.">Konsultasi via WhatsApp</a></p>
+<p><a class="wa" href="https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20mau%20konsultasi%20sistem%20kasir%2Ftoko%20online%20tanpa%20fee.">Hitung Penghematan Bisnis Anda (WA)</a></p>
+<p><strong>0%</strong> Potongan Transaksi · <strong>100%</strong> Hak Milik Data &amp; Pelanggan · <strong>24/7</strong> Akses Realtime dari HP</p>
 
 <h2>Masalah yang dapat dibenahi</h2>
 <div class="case-study">
