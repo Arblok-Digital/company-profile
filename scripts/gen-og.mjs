@@ -4,15 +4,23 @@
  * Generate public/og-image.png (1200x630) = tiruan desain hero situs Arblok Digital:
  * kiri = headline + tagline, kanan = kartu "Contoh peta pekerjaan" (mockup alur sistem).
  * Palet dari src/index.css (warm graphite + burnt orange #E2823F + emerald).
- * Run: node scripts/gen-og.mjs
+ * Run: node scripts/gen-og.mjs         (SKIP kalau og-image.png sudah ada)
+ * Run: node scripts/gen-og.mjs --force (paksa overwrite)
  */
 import { createCanvas } from "@napi-rs/canvas";
-import { writeFileSync } from "fs";
+import { writeFileSync, existsSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
+
+// ── Guard: og-image.png adalah desain custom (logo Arblok Digital), jangan di-overwrite tanpa sengaja ──
+const out = join(ROOT, "public", "og-image.png");
+if (existsSync(out) && !process.argv.includes("--force")) {
+  console.log(`⚠️  ${out} sudah ada (desain custom dengan logo). Lewati — pakai --force untuk overwrite.`);
+  process.exit(0);
+}
 
 const W = 1200;
 const H = 630;
@@ -307,6 +315,5 @@ ctx.font = `400 15px ${FONT_MONO}`;
 ctx.fillText("arblok-digital.vercel.app", LX, H - 34);
 
 // ── Save ──
-const out = join(ROOT, "public", "og-image.png");
 writeFileSync(out, canvas.toBuffer("image/png"));
 console.log(`✅ og-image.png ${canvas.width}x${canvas.height} → ${out}`);
