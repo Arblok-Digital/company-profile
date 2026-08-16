@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "../LanguageContext";
 import { useInView } from "../hooks/useInView";
 import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
+import { InstagramLogo, TiktokLogo, LinkedinLogo } from "@phosphor-icons/react";
+
+const SOCIALS = [
+  { name: "LinkedIn", Icon: LinkedinLogo, href: "https://www.linkedin.com/in/ardi-jobin-455446380" },
+  { name: "Instagram", Icon: InstagramLogo, href: "https://www.instagram.com/arblokd/" },
+  { name: "TikTok", Icon: TiktokLogo, href: "https://www.tiktok.com/@ardiblokchine" },
+];
 
 export default function Footer() {
   const { language } = useLanguage();
@@ -110,6 +117,26 @@ export default function Footer() {
               <MessageCircle className="h-4 w-4" aria-hidden="true" />
               {language === "id" ? "Mulai dari WhatsApp" : "Start on WhatsApp"}
             </a>
+
+            <div className="mt-7">
+              <div className="font-body text-xs font-semibold uppercase tracking-[0.15em] text-ink">
+                {language === "id" ? "Ikuti kami" : "Follow us"}
+              </div>
+              <div className="mt-3 flex items-center gap-2.5">
+                {SOCIALS.map(({ name, href, Icon }) => (
+                  <a
+                    key={name}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Arblok Digital di ${name}`}
+                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-rule bg-paper-2 text-ink-2 transition-colors hover:border-accent hover:text-accent"
+                  >
+                    <Icon className="h-5 w-5" weight="fill" aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
