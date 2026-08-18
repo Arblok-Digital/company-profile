@@ -208,7 +208,6 @@ const statusLive = isReducedMotion || phase >= 2;
 
   return (
     <section id="hero" className="relative overflow-hidden border-b border-rule bg-paper pb-16 pt-24 sm:pb-20 sm:pt-28">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" aria-hidden="true" />
       <div
         className="blob-breathe pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full blur-2xl"
         style={{

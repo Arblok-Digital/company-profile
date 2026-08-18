@@ -1,14 +1,14 @@
-﻿import { useRef, type CSSProperties } from "react";
+import { useRef, type CSSProperties } from "react";
 import { useLanguage } from "../LanguageContext";
 import { useInView } from "../hooks/useInView";
 import { Ear, Crosshair, FlaskConical, LifeBuoy } from "lucide-react";
 
 const stepIcons = [Ear, Crosshair, FlaskConical, LifeBuoy];
 const stepIconColor = [
-  "oklch(0.85 0.12 85)",
+  "var(--color-amber)",
   "var(--color-accent)",
-  "oklch(0.75 0.13 165)",
-  "oklch(0.68 0.16 45)",
+  "var(--color-accent-2)",
+  "var(--color-coral)",
 ];
 
 export default function About() {
@@ -44,22 +44,39 @@ export default function About() {
             </p>
           </div>
 
-<ol className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
-            {steps.map((step, index) => (
-              <li key={step.title} className="card card-hover p-6 sm:p-7">
-                <div className="flex items-center justify-between gap-4">
-                  <span className="stat-number font-mono text-sm font-semibold text-accent">0{index + 1}</span>
-                  <span className="status-glow" style={{ "--node-color": stepIconColor[index], "--icon-delay": `${index * 0.6}s` } as CSSProperties}>
-                    {(() => {
-                      const Icon = stepIcons[index];
-                      return <Icon className="h-6 w-6" aria-hidden="true" strokeWidth={2} />;
-                    })()}
+          {/* Vertical timeline, bukan kartu 2x2: node ikon disambung garis vertikal.
+              Orientasi sengaja beda dari RunsItself (horizontal) biar ritme halaman
+              tidak monoton — tapi tetap satu bahasa visual (status-glow, stat-number).
+              Tetap <ol>/<li> supaya urutan 4 langkah tetap semantik untuk crawler. */}
+          <ol className="lg:col-span-8">
+            {steps.map((step, index) => {
+              const Icon = stepIcons[index];
+              const isLast = index === steps.length - 1;
+              return (
+                <li key={step.title} className={`relative flex gap-5 ${isLast ? "" : "pb-10"}`}>
+                  {!isLast && (
+                    <span
+                      className="absolute left-[19px] top-11 w-px bg-rule"
+                      style={{ height: "calc(100% - 2.75rem)" }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  <span
+                    className="status-glow relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-rule bg-paper-2"
+                    style={{ "--node-color": stepIconColor[index], "--icon-delay": `${index * 0.6}s` } as CSSProperties}
+                  >
+                    <Icon className="h-5 w-5" aria-hidden="true" strokeWidth={2} />
                   </span>
-                </div>
-                <h3 className="mt-6 font-body text-lg font-semibold text-ink">{step.title}</h3>
-                <p className="mt-3 font-body text-sm leading-6 text-ink-2">{step.desc}</p>
-              </li>
-            ))}
+                  <div className="flex-1 pb-1 pt-1.5">
+                    <div className="flex items-baseline gap-3">
+                      <span className="stat-number font-mono text-xs font-semibold text-accent">0{index + 1}</span>
+                      <h3 className="font-body text-lg font-semibold text-ink">{step.title}</h3>
+                    </div>
+                    <p className="mt-2 max-w-xl font-body text-sm leading-6 text-ink-2">{step.desc}</p>
+                  </div>
+                </li>
+              );
+            })}
           </ol>
         </div>
 

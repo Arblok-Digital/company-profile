@@ -1,17 +1,17 @@
 ﻿import React, { useRef, type CSSProperties } from "react";
 import { useLanguage } from "../LanguageContext";
 import { useInView } from "../hooks/useInView";
-import { Storefront, ChalkboardTeacher, Stamp, GlobeSimple, ArrowsClockwise } from "@phosphor-icons/react";
+import { Store, School, Stamp, Globe, RefreshCw } from "lucide-react";
 
 const WHATSAPP_URL =
   "https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20mendiskusikan%20sistem%20untuk%20kebutuhan%20organisasi%20saya.";
 
 const serviceIcons = [
-  Storefront,
-  ChalkboardTeacher,
+  Store,
+  School,
   Stamp,
-  GlobeSimple,
-  ArrowsClockwise,
+  Globe,
+  RefreshCw,
 ];
 
 export default function Services() {
@@ -56,7 +56,7 @@ export default function Services() {
                 <div className="flex items-center justify-between">
                   <span className="stat-number font-mono text-sm font-semibold text-accent">0{index + 1}</span>
                   <span className="status-glow" style={{ "--icon-delay": `${index * 0.3}s` } as CSSProperties}>
-                    <Icon className="h-7 w-7" weight="duotone" aria-hidden="true" />
+                    <Icon className="h-7 w-7" strokeWidth={2} aria-hidden="true" />
                   </span>
                 </div>
                 <h3 className="mt-5 font-body text-lg font-semibold text-ink">{service.title}</h3>

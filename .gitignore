@@ -3,9 +3,14 @@ build/
 dist/
 coverage/
 .DS_Store
+Thumbs.db
 *.log
+*.tsbuildinfo
 .env*
 !.env.example
 .kilo/
 .playwright-mcp/
 .hermes/
+.vscode/
+.idea/
+.vercel/

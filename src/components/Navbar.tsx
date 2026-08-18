@@ -47,7 +47,7 @@ export default function Navbar() {
       }`}
     >
       <div className="accent-line w-full" />
-      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+      <div className="mx-auto w-full px-6 sm:px-8 lg:max-w-none lg:px-14 xl:px-20">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <Link

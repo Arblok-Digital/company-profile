@@ -20,7 +20,7 @@ export default function Footer() {
 
   return (
     <footer ref={ref} className={`border-t border-rule bg-paper py-14 sm:py-18 animate-fade-up ${visible ? "visible" : ""}`}>
-      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+      <div className="mx-auto w-full px-6 sm:px-8 lg:max-w-none lg:px-14 xl:px-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           {/* Brand */}
           <div className="lg:col-span-5">

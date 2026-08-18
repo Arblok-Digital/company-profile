@@ -1,10 +1,11 @@
 import { type CSSProperties } from "react";
 import { useLanguage } from "../LanguageContext";
 import { Store, School } from "lucide-react";
+import { SekolahProblemIllustration, UmkmProblemIllustration } from "./ProblemIllustrations";
 
 const caseColor: Record<string, string> = {
-  "01": "oklch(0.85 0.12 85)",
-  "02": "oklch(0.75 0.13 165)",
+  "01": "var(--color-amber)",
+  "02": "var(--color-accent-2)",
 };
 
 export default function Problems() {
@@ -15,14 +16,14 @@ export default function Problems() {
         {
           id: "01",
           tag: "Studi kasus · UMKM",
-          title: "Pemilik toko tidak bisa memantau penjualan kasir secara langsung.",
-          pain: "Kirim barang ke pelanggan tapi keuntungan tergerus potongan 10–15%? Saatnya punya platform sendiri tanpa biaya tersembunyi.",
+          title: "Jualan ramai di marketplace, tapi keuntungan tergerus potongan 10–15% tiap transaksi.",
+          pain: "Kirim barang ke pelanggan, tapi platform motong komisi, biaya iklan, dan ongkos admin duluan — belum lagi kasir manual bikin omzet dan stok susah dipantau dari toko sendiri.",
           steps: [
             { key: "Input", title: "Kasir mencatat jualan di HP atau komputer", desc: "Transaksi dan stok tercatat saat itu juga" },
             { key: "Proses", title: "Sistem menyusun rekap dan mengurangi stok otomatis", desc: "Tidak perlu rekap ulang di buku" },
             { key: "Hasil", title: "Pemilik membuka ponsel: omzet, stok, dan kas terlihat", desc: "Dipantau realtime dari mana saja" },
           ],
-          result: "Toko punya kasir sendiri tanpa fee per transaksi — omzet dan stok terpantau realtime dari ponsel pemilik.",
+          result: "Toko jualan langsung dari platform sendiri — potongan 10–15% yang biasa hilang ke marketplace sekarang jadi margin penuh milik toko, omzet dan stok tetap terpantau realtime.",
         },
         {
           id: "02",
@@ -41,14 +42,14 @@ export default function Problems() {
         {
           id: "01",
           tag: "Case study · SME",
-          title: "A store owner cannot monitor sales at the register in real time.",
-          pain: "You ship goods to customers, yet 10-15% of the profit is eaten by fees? Time to own a platform with no hidden costs.",
+          title: "Sales are strong on the marketplace, but a 10-15% cut eats the profit on every transaction.",
+          pain: "You ship the goods, but the platform takes its commission, ad fees, and admin costs first — on top of a manual register that makes revenue and stock hard to track.",
           steps: [
             { key: "Input", title: "The cashier records sales from a phone or computer", desc: "Transactions and stock are captured instantly" },
             { key: "Process", title: "The system builds the report and reduces stock automatically", desc: "No manual re-totalling" },
             { key: "Result", title: "The owner opens their phone: sales, stock, and cash are visible", desc: "Monitored in real time" },
           ],
-          result: "The store has its own register with no per-sale fee — revenue and stock are monitored in real time from the owner's phone.",
+          result: "The store sells directly from its own platform — the 10-15% cut that used to go to the marketplace stays as full margin, while revenue and stock remain visible in real time.",
         },
         {
           id: "02",
@@ -83,67 +84,104 @@ export default function Problems() {
           </p>
         </div>
 
-        <div className="mt-12 space-y-8">
-          {cases.map((item, index) => (
-            <article key={item.id} className="card card-hover grid gap-8 p-6 sm:p-8 lg:grid-cols-12 lg:items-center">
-              <div className="lg:col-span-4 lg:max-w-md">
-                <div className="flex items-center justify-between gap-x-3 gap-y-2">
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <span className="stat-number font-mono text-xs font-semibold text-accent">{item.id}</span>
-                    <span className="badge-chip font-body font-medium normal-case tracking-normal text-ink">{item.tag}</span>
-                  </div>
-                  <span className="status-glow" style={{ "--node-color": caseColor[item.id], "--icon-delay": `${index * 0.6}s` } as CSSProperties}>
-                    {item.id === "01" ? (
-                      <Store className="h-6 w-6" aria-hidden="true" strokeWidth={2} />
-                    ) : (
-                      <School className="h-6 w-6" aria-hidden="true" strokeWidth={2} />
-                    )}
-                  </span>
-                </div>
+        <div className="mt-16">
+          {cases.map((item, caseIndex) => {
+            const Icon = item.id === "01" ? Store : School;
+            const reversed = caseIndex % 2 === 1;
 
-                <h3 className="mt-4 text-balance font-body text-lg font-semibold leading-6 text-ink sm:text-xl">{item.title}</h3>
+            return (
+              <article
+                key={item.id}
+                className={`relative overflow-hidden ${caseIndex > 0 ? "mt-16 border-t border-rule pt-16 sm:mt-20 sm:pt-20" : ""}`}
+              >
+                {/* Signature element: oversized ghost numeral anchoring each case */}
+                <span
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute -top-6 select-none font-mono text-[8rem] font-bold leading-none text-ink/[0.04] sm:text-[10rem] lg:text-[13rem] ${
+                    reversed ? "right-0" : "left-0"
+                  }`}
+                >
+                  {item.id}
+                </span>
 
-                {item.pain && (
-                  <p className="mt-4 border-l-2 border-amber pl-4 font-body text-sm leading-6 text-ink-2">
-                    {item.pain}
-                  </p>
-                )}
-              </div>
-
-              <div className="lg:col-span-8">
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {item.steps.map((step, index) => (
-                    <div key={`${item.id}-${step.key}`} className="relative rounded-lg border border-rule bg-paper p-4">
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">{step.key}</span>
-                        <span
-                          className={`h-1.5 w-1.5 shrink-0 rounded-full ${
-                            index === item.steps.length - 1 ? "pulse-dot bg-accent-2" : "bg-rule"
-                          }`}
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <p className="mt-2.5 font-body text-sm font-semibold leading-5 text-ink text-balance">{step.title}</p>
-                      <p className="mt-1.5 font-body text-xs leading-5 text-ink-2">{step.desc}</p>
-                      {index < item.steps.length - 1 ? (
-                        <span
-                          aria-hidden="true"
-                          className="absolute right-0 top-1/2 z-10 hidden -translate-y-1/2 translate-x-1/2 rounded-md border border-rule bg-paper px-1 font-mono text-sm text-accent sm:block"
-                        >
-                          →
-                        </span>
-                      ) : null}
+                <div className="relative grid gap-10 lg:grid-cols-12 lg:gap-16">
+                  {/* Meta column: icon, title, pain, result */}
+                  <div className={`lg:col-span-5 ${reversed ? "lg:order-2" : "lg:order-1"}`}>
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="status-glow"
+                        style={{ "--node-color": caseColor[item.id], "--icon-delay": `${caseIndex * 0.6}s` } as CSSProperties}
+                      >
+                        <Icon className="h-6 w-6" aria-hidden="true" strokeWidth={2} />
+                      </span>
+                      <span className="badge-chip font-body font-medium normal-case tracking-normal text-ink">{item.tag}</span>
                     </div>
-                  ))}
-                </div>
 
-                <div className="mt-5 flex gap-3 border-t border-rule pt-5">
-                  <span className="mt-1 h-4 w-1 shrink-0 rounded-full bg-accent-2" aria-hidden="true" />
-                  <p className="font-body text-sm font-medium leading-5 text-ink">{item.result}</p>
+                    <h3 className="mt-5 text-balance font-body text-xl font-semibold leading-tight text-ink sm:text-2xl">
+                      {item.title}
+                    </h3>
+
+                    {item.pain && (
+                      <p className="mt-4 border-l-2 border-amber pl-4 font-body text-sm leading-6 text-ink-2">
+                        {item.pain}
+                      </p>
+                    )}
+
+                    <div className="mt-6 flex items-start gap-3 border-t border-rule pt-6">
+                      <span className="mt-1 h-4 w-1 shrink-0 rounded-full bg-accent-2" aria-hidden="true" />
+                      <p className="font-body text-sm font-medium leading-5 text-ink">{item.result}</p>
+                    </div>
+                  </div>
+
+                  {/* Flow column: illustration + steps as a connected timeline */}
+                  <div className={`lg:col-span-7 ${reversed ? "lg:order-1" : "lg:order-2"} lg:self-center`}>
+                    <div className="mb-8 w-full sm:mb-10">
+                      {item.id === "01" ? (
+                        <UmkmProblemIllustration />
+                      ) : (
+                        <SekolahProblemIllustration />
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-6">
+                      {item.steps.map((step, i) => {
+                        const isLast = i === item.steps.length - 1;
+                        return (
+                          <div key={`${item.id}-${step.key}`} className="relative pl-6 sm:pl-0">
+                            {/* vertical connector — mobile only */}
+                            {!isLast && (
+                              <span
+                                aria-hidden="true"
+                                className="absolute left-[4px] top-2 h-[calc(100%+1.5rem)] w-px bg-rule sm:hidden"
+                              />
+                            )}
+                            {/* node + horizontal connector — sm and up */}
+                            <div className="flex items-center">
+                              <span
+                                aria-hidden="true"
+                                className={`absolute left-0 top-1 z-10 h-2.5 w-2.5 rounded-full sm:static sm:left-auto sm:top-auto sm:mr-2 ${
+                                  isLast ? "pulse-dot bg-accent-2" : "border-2 border-accent bg-paper-2"
+                                }`}
+                              />
+                              {!isLast && (
+                                <span aria-hidden="true" className="hidden h-px flex-1 bg-rule sm:block" />
+                              )}
+                            </div>
+
+                            <span className="mt-3 block font-mono text-[10px] uppercase tracking-[0.18em] text-accent sm:mt-4">
+                              {step.key}
+                            </span>
+                            <p className="mt-1.5 font-body text-sm font-semibold leading-5 text-ink text-balance">{step.title}</p>
+                            <p className="mt-1.5 font-body text-xs leading-5 text-ink-2">{step.desc}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

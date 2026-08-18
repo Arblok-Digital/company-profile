@@ -58,19 +58,33 @@ export default function RunsItself() {
             </p>
           </div>
 
-          <ol className="grid gap-4 sm:grid-cols-3 lg:col-span-8">
-            {items.map((item, index) => (
-              <li key={item.key} className="card card-hover flex flex-col gap-3 p-6">
-                <div className="flex items-center justify-between">
-                  <span className="stat-number font-mono text-sm font-semibold text-accent">0{index + 1}</span>
-                  <span className="status-glow" style={{ "--node-color": "oklch(0.75 0.13 165)", "--icon-delay": `${index * 0.5}s` } as CSSProperties} aria-hidden="true">
-                    <span className="arrow-flow font-mono text-base leading-none">→</span>
-                  </span>
-                </div>
-                <h3 className="font-body text-base font-semibold leading-6 text-ink">{item.title}</h3>
-                <p className="mt-auto font-body text-sm leading-6 text-ink-2">{item.desc}</p>
-              </li>
-            ))}
+          {/* Flow, bukan kartu: nomor + garis + panah bergerak (arrow-flow) menyambung tiap langkah,
+              reuse motif yang sudah ada di CSS (status-glow/.arrow-flow) — cocok literal dengan
+              "Data mengalir" di headline. Tetap <ol>/<li> supaya urutan tetap semantik untuk crawler. */}
+          <ol className="grid gap-10 sm:grid-cols-3 lg:col-span-8 lg:items-start">
+            {items.map((item, index) => {
+              const isLast = index === items.length - 1;
+              return (
+                <li key={item.key} className="relative">
+                  <div className="flex items-center">
+                    <span className="stat-number font-mono text-sm font-semibold text-accent">0{index + 1}</span>
+                    {!isLast && (
+                      <span className="ml-3 flex flex-1 items-center gap-2" aria-hidden="true">
+                        <span className="h-px flex-1 bg-rule" />
+                        <span
+                          className="status-glow"
+                          style={{ "--node-color": "var(--color-accent-2)", "--icon-delay": `${index * 0.5}s` } as CSSProperties}
+                        >
+                          <span className="arrow-flow font-mono text-sm leading-none">{"\u2192"}</span>
+                        </span>
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-4 font-body text-base font-semibold leading-6 text-ink">{item.title}</h3>
+                  <p className="mt-2 font-body text-sm leading-6 text-ink-2">{item.desc}</p>
+                </li>
+              );
+            })}
           </ol>
         </div>
       </div>
