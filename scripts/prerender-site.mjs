@@ -22,8 +22,8 @@ const homeSubtitle =
 const servicesID = [
   {
     title: "Penjualan dan persediaan",
-    desc: "Untuk usaha yang perlu mencatat transaksi, stok, dan laporan tanpa berpindah-pindah catatan.",
-    details: ["Kasir dan pencatatan transaksi", "Perubahan stok", "Ringkasan yang dapat diperiksa"],
+    desc: "Toko online dan kasir sendiri untuk usaha — jualan tanpa fee marketplace yang terus naik.",
+    details: ["Cetak struk & catat stok otomatis", "QR Order langsung dari meja", "Laporan keuangan otomatis tanpa Excel"],
   },
   {
     title: "Administrasi sekolah",
@@ -59,6 +59,7 @@ const faqID = [
 ];
 
 const portfolioItems = [
+  { title: "RESAH.CO — AI E-Commerce", badge: "AI E-Commerce", desc: "Toko online streetwear yang buka 24 jam tanpa jaga CS: AI Assistant berbasis Gemini jualan, rekomendasi produk, cek stok real-time, hitung ongkir, sampai proses pembayaran (QRIS, E-Wallet, VA) — semua otomatis lewat chat. Admin dashboard lengkap untuk kelola produk, stok, order, dan analisis penjualan.", link: "/portfolio/resah-co.html" },
   { title: "SekolahRapi", badge: "Fintech Edukasi", desc: "Platform administrasi & keuangan sekolah — pendaftaran online, SPP otomatis, laporan real-time.", link: "https://sekolah-rapi.vercel.app/" },
   { title: "SekolahPro", badge: "EduTech ERP", desc: "Sistem Informasi Manajemen Sekolah (ERP) all-in-one.", link: "https://sekolah-pro.vercel.app/" },
   { title: "Solana Warung", badge: "Google Top 100 Global", desc: "Platform rewards Web3 untuk UMKM. Top 100 Global dalam Google Solution Challenge.", cert: "JVC2605-N74Z-Y7DN" },

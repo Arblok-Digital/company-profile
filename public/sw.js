@@ -1,4 +1,4 @@
-const CACHE = "arblok-v1";
+const CACHE = "arblok-v2";
 const ASSETS = ["/", "/offline"];
 
 self.addEventListener("install", (event) => {
