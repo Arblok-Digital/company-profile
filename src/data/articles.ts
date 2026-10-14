@@ -799,6 +799,118 @@ Kekacauan pendaftaran online bukan karena orang tua, melainkan karena sistem tid
 Butuh diskusi untuk sistem pendaftaran sekolah Anda? Konsultasi 30 menit pertama gratis.
 
 👉 **Chat WhatsApp (Ardi - Arblok Digital): https://wa.me/6289508053795**`
+  },
+  {
+    id: "bendahara-sekolah-rekap-excel",
+    slug: "bendahara-sekolah-rekap-excel-masalah-administrasi",
+    title: "Bendahara Sekolah Masih Rekap di Excel? 6 Masalah yang Sering Tidak Terlihat",
+    excerpt: "Excel bukan musuh administrasi sekolah. Namun saat catatan pembayaran tersebar, bukti sulit dicari, dan laporan harus disusun ulang, pekerjaan bendahara bisa makin berat. Kenali enam tanda bahwa alur pencatatan perlu dibenahi.",
+    category: "Administrasi Sekolah",
+    publishedAt: "2026-10-14",
+    dateModified: "2026-10-14",
+    readTime: "6 Menit Bacaan",
+    tags: ["Administrasi Sekolah", "Bendahara Sekolah", "Pencatatan Pembayaran", "Laporan Keuangan Sekolah", "SekolahRapi"],
+    author: {
+      name: "Ardi",
+      role: "Founder @ Arblok Digital"
+    },
+    faq: [
+      {
+        question: "Apakah sekolah harus berhenti menggunakan Excel?",
+        answer: "Tidak. Excel tetap berguna untuk banyak pekerjaan. Yang perlu dievaluasi adalah alur kerja: apakah data dicatat berulang, sulit dicocokkan, rawan tertimpa, atau bergantung pada satu orang. Jika Excel masih memenuhi kebutuhan dan prosesnya terkendali, tidak ada alasan untuk menggantinya hanya karena tren."
+      },
+      {
+        question: "Apa tanda administrasi pembayaran sekolah perlu dibenahi?",
+        answer: "Contohnya, petugas harus membuka banyak file untuk mencari satu transaksi, angka pada rekap berbeda dengan bukti pembayaran, tunggakan perlu dihitung ulang setiap kali diminta, atau laporan bulanan menghabiskan waktu karena data tersebar."
+      },
+      {
+        question: "Apakah aplikasi administrasi otomatis membuat data sekolah aman?",
+        answer: "Tidak otomatis. Sekolah tetap perlu mengatur hak akses, membuat cadangan data, menguji pemulihan cadangan, dan memastikan petugas memahami prosedur. Pilih sistem yang menjelaskan cara perlindungan data dan batas tanggung jawabnya dengan jelas."
+      },
+      {
+        question: "Kapan sekolah sebaiknya mempertimbangkan aplikasi khusus?",
+        answer: "Saat proses yang sama berulang setiap hari, jumlah transaksi bertambah, beberapa petugas perlu bekerja dengan data yang sama, atau laporan rutin semakin sulit disiapkan. Mulailah dengan memetakan masalah dan kebutuhan sebelum memilih aplikasi."
+      }
+    ],
+    content: `### Masalahnya Bukan Excel, tetapi Pekerjaan yang Terus Bertambah
+
+Banyak bendahara sekolah memulai pencatatan dengan cara yang masuk akal: sebuah file Excel, daftar pembayaran, dan folder untuk menyimpan bukti transaksi. Cara ini bisa berjalan baik ketika jumlah data masih sedikit dan hanya satu orang yang mengelolanya.
+
+Namun, seiring waktu, pertanyaan mulai berdatangan. Siapa yang sudah membayar? Mana transaksi yang belum cocok? Berapa tunggakan yang tersisa? Mengapa angka pada rekap berbeda dengan catatan sebelumnya?
+
+Di titik ini, pekerjaan bendahara bukan sekadar memasukkan angka. Waktu juga habis untuk mencari, mencocokkan, memperbaiki, dan menjelaskan data yang sama berulang kali.
+
+Excel bukan masalahnya. Yang perlu diperiksa adalah apakah cara kerja saat ini masih membantu, atau justru membuat pekerjaan administratif semakin berat.
+
+### 1. Satu Informasi Tersimpan di Banyak Tempat
+
+Catatan pembayaran ada di satu file, bukti transfer di ponsel, daftar tunggakan di file lain, sementara laporan akhir bulan dibuat di dokumen terpisah.
+
+Ketika ada koreksi, setiap salinan harus diperbarui. Jika satu saja tertinggal, angka yang muncul bisa berbeda.
+
+**Yang bisa dilakukan:** tentukan satu catatan utama untuk setiap transaksi. Simpan bukti dengan penamaan yang konsisten dan hubungkan bukti itu dengan catatan yang relevan, sesuai prosedur sekolah.
+
+### 2. Mencari Bukti Pembayaran Memakan Waktu
+
+Orang tua mengirim pesan, “Pembayaran bulan lalu sudah masuk, kan?” Bendahara lalu mencari nama siswa di daftar, membuka percakapan WhatsApp, memeriksa mutasi, dan memastikan tanggal serta nominalnya.
+
+Satu pertanyaan mungkin hanya memakan beberapa menit. Namun, jika pertanyaan serupa datang berkali-kali, pekerjaan lain ikut tertunda.
+
+**Yang bisa dilakukan:** gunakan format pencatatan yang konsisten, misalnya nama siswa, jenis pembayaran, tanggal, nominal, status verifikasi, dan lokasi bukti. Batasi akses ke bukti yang berisi informasi pribadi.
+
+### 3. Status Tunggakan Harus Dihitung Ulang
+
+Daftar tunggakan sering kali bukan masalah angka semata. Petugas perlu memastikan pembayaran mana yang sudah diverifikasi, apakah ada pembayaran sebagian, dan apakah ada koreksi yang belum masuk ke rekap.
+
+Jika status pembayaran tidak diperbarui pada catatan utama, angka tunggakan bisa cepat ketinggalan.
+
+**Yang bisa dilakukan:** tetapkan alur sederhana untuk mencatat pembayaran, memverifikasi bukti, dan memperbarui status. Jangan menyamakan pesan atau tangkapan layar yang diterima dengan pembayaran yang sudah terverifikasi.
+
+### 4. Laporan Bulanan Baru Dikerjakan Saat Diminta
+
+Ketika kepala sekolah meminta ringkasan, bendahara mungkin harus menggabungkan beberapa file terlebih dahulu. Laporan yang seharusnya merangkum kondisi justru menjadi pekerjaan tambahan yang mendadak.
+
+**Yang bisa dilakukan:** sepakati laporan rutin yang benar-benar dibutuhkan, jadwal pembaruan, dan siapa yang memeriksa hasilnya. Tidak semua sekolah membutuhkan dashboard rumit; kadang format rekap yang konsisten sudah sangat membantu.
+
+### 5. Pekerjaan Bergantung pada Satu Orang
+
+Selama petugas yang biasa mengelola file hadir, semuanya terasa lancar. Namun ketika ia cuti, pindah tugas, atau perlu menyerahkan pekerjaan, orang berikutnya mungkin kesulitan memahami format, rumus, folder, dan kebiasaan yang selama ini hanya diketahui satu orang.
+
+**Yang bisa dilakukan:** tulis petunjuk kerja singkat, gunakan format yang disepakati bersama, atur hak akses, dan pastikan ada proses serah terima serta pencadangan data.
+
+### 6. Cadangan Data Tidak Pernah Diuji
+
+File yang tersimpan di laptop atau satu akun belum tentu merupakan cadangan yang memadai. Perangkat bisa rusak, file terhapus, atau akses akun bermasalah.
+
+**Yang bisa dilakukan:** buat jadwal pencadangan, simpan salinan di lokasi terpisah dengan akses terbatas, dan sesekali uji apakah data benar-benar dapat dipulihkan. Cadangan yang tidak pernah diuji bisa memberi rasa aman yang keliru.
+
+### Mulai dari Perbaikan Proses, Bukan Langsung Membeli Aplikasi
+
+Sebelum memilih software, coba jawab tiga pertanyaan berikut:
+
+- Pekerjaan administratif apa yang paling sering membuat petugas mengulang langkah yang sama?
+- Informasi apa yang paling sulit ditemukan saat dibutuhkan?
+- Laporan apa yang paling sering terlambat atau perlu diperbaiki?
+
+Catat prosesnya selama satu atau dua minggu. Dari sana, sekolah bisa membedakan masalah yang cukup diselesaikan dengan prosedur yang lebih rapi dan masalah yang memang membutuhkan sistem terpusat.
+
+Jika satu aplikasi mulai dipertimbangkan, periksa kemudahan penggunaan, hak akses, pencadangan dan pemulihan, ekspor data, dukungan setelah pemasangan, serta biaya yang mungkin muncul. Jangan memilih hanya karena tampilannya menarik.
+
+### Bagaimana SekolahRapi Bisa Membantu?
+
+SekolahRapi dikembangkan untuk membantu administrasi keuangan sekolah lebih tertata. Tujuannya bukan mengganti semua kebiasaan sekaligus, melainkan membantu sekolah mengelola pencatatan dan pemantauan dengan alur yang lebih jelas.
+
+Setiap sekolah tetap perlu menilai kecocokan fitur dengan proses yang berjalan, memahami cara pengelolaan data, dan memastikan petugas mendapat pendampingan yang cukup.
+
+Tidak yakin apakah sekolah Anda sudah membutuhkan sistem khusus? Mulailah dengan membahas alur kerja yang paling menyita waktu. Konsultasi awal dapat digunakan untuk memetakan kebutuhan sebelum memutuskan langkah berikutnya.
+
+👉 **Diskusikan kebutuhan administrasi sekolah:** https://wa.me/6289508053795?text=Halo%20Arblok%20Digital%2C%20saya%20ingin%20berdiskusi%20tentang%20administrasi%20keuangan%20sekolah.
+
+### Kesimpulan
+
+Administrasi yang rapi bukan berarti harus memakai teknologi paling canggih. Yang terpenting, data mudah ditelusuri, proses verifikasi jelas, laporan bisa dipertanggungjawabkan, dan pekerjaan tidak bergantung pada ingatan satu orang.
+
+Jika Excel masih mampu menjalankan semua itu, gunakan dengan prosedur yang baik. Jika pekerjaan mulai berulang dan sulit dikendalikan, saatnya mengevaluasi alur kerja dan mempertimbangkan alat yang sesuai dengan kebutuhan sekolah.`
   }
 ];
 
@@ -1268,6 +1380,118 @@ First 30 minutes of consultation are free. If it clicks, we move to a proposal. 
 
 👉 **WhatsApp Chat (Ardi - Arblok Digital): https://wa.me/6289508053795**
 👉 **View our portfolio: https://arblok-digital.vercel.app/#portfolio**`
+  },
+  {
+    id: "school-treasurer-excel-records",
+    slug: "school-treasurer-excel-records-admin-problems",
+    title: "Still Tracking School Payments in Spreadsheets? 6 Problems You May Not Notice",
+    excerpt: "Spreadsheets are not the enemy of school administration. But when payment records are scattered, receipts are hard to find, and reports must be rebuilt, the treasurer's workload can grow. Here are six signs the process may need attention.",
+    category: "School Administration",
+    publishedAt: "2026-10-14",
+    dateModified: "2026-10-14",
+    readTime: "6 min read",
+    tags: ["School Administration", "School Treasurer", "Payment Records", "School Finance", "SekolahRapi"],
+    author: {
+      name: "Ardi",
+      role: "Founder @ Arblok Digital"
+    },
+    faq: [
+      {
+        question: "Does a school need to stop using spreadsheets?",
+        answer: "No. Spreadsheets remain useful for many tasks. Review the workflow instead: are records duplicated, difficult to reconcile, easy to overwrite, or dependent on one person? If spreadsheets still meet the school's needs and the process is controlled, there is no need to replace them just to follow a trend."
+      },
+      {
+        question: "What are signs that a school's payment administration needs improvement?",
+        answer: "Examples include opening several files to find one transaction, discrepancies between a summary and payment evidence, recalculating outstanding balances whenever requested, or spending too much time assembling monthly reports because records are scattered."
+      },
+      {
+        question: "Does an administration app automatically make school data safe?",
+        answer: "No. Schools still need to manage access permissions, create backups, test restoration, and ensure staff understand the procedures. Choose a system that clearly explains its data protections and limitations."
+      },
+      {
+        question: "When should a school consider dedicated software?",
+        answer: "When the same tasks recur every day, transaction volume grows, multiple staff members need to work with the same records, or routine reports become increasingly difficult to prepare. Map the problem and requirements before choosing an app."
+      }
+    ],
+    content: `### The Problem Is Not the Spreadsheet. It Is the Growing Workload.
+
+Many school treasurers start with a reasonable process: an Excel file, a payment list, and a folder for transaction evidence. This can work well when there are only a few records and one person manages them.
+
+Over time, questions begin to pile up. Who has paid? Which transaction has not been matched? What balance is still outstanding? Why does the summary differ from the previous record?
+
+At that point, the job is no longer just entering numbers. Time is also spent searching, reconciling, correcting, and explaining the same information repeatedly.
+
+Spreadsheets are not the problem by themselves. The real question is whether the current workflow still helps or is making administration harder.
+
+### 1. The Same Information Lives in Several Places
+
+Payment records are in one file, bank transfer evidence is on a phone, outstanding balances are in another file, and the monthly report is a separate document.
+
+When a correction is made, every copy needs to be updated. If one is missed, the numbers can differ.
+
+**What to do:** define one primary record for each transaction. Use consistent file names for evidence and link each file to the relevant record, following the school's procedures.
+
+### 2. Finding Payment Evidence Takes Too Long
+
+A parent asks, “Did last month's payment arrive?” The treasurer searches the student list, opens a WhatsApp conversation, checks the transaction record, and confirms the date and amount.
+
+One question may take only a few minutes. Repeated many times, these searches delay other work.
+
+**What to do:** use consistent fields such as student name, payment type, date, amount, verification status, and evidence location. Limit access to documents containing personal information.
+
+### 3. Outstanding Balances Must Be Recalculated
+
+Outstanding balances are not just a numbers problem. Staff need to confirm which payments have been verified, whether a partial payment was made, and whether a correction is missing from the summary.
+
+If payment status is not updated in the primary record, the outstanding figure can quickly become outdated.
+
+**What to do:** define a simple process for recording payments, verifying evidence, and updating status. A message or screenshot should not automatically be treated as a verified payment.
+
+### 4. Reports Are Only Prepared When Someone Asks
+
+When the principal requests a summary, the treasurer may need to combine several files first. A report that should explain the current situation becomes an urgent extra task.
+
+**What to do:** agree on the reports the school actually needs, how often records are updated, and who reviews the results. Not every school needs a complex dashboard; a consistent summary may be enough.
+
+### 5. The Process Depends on One Person
+
+When the usual staff member is available, everything seems fine. But if they take leave, change roles, or hand over responsibilities, the next person may struggle to understand the formulas, folders, file formats, and unwritten habits.
+
+**What to do:** write a short procedure, use agreed formats, manage access permissions, and maintain a proper handover and backup process.
+
+### 6. Backups Have Never Been Tested
+
+A file stored on a laptop or in one account is not necessarily an adequate backup. A device can fail, a file can be deleted, or account access can be lost.
+
+**What to do:** schedule backups, keep a separate copy with restricted access, and occasionally test whether the data can actually be restored. An untested backup can create a false sense of security.
+
+### Improve the Process Before Buying Another App
+
+Before choosing software, answer three questions:
+
+- Which administrative tasks most often make staff repeat the same steps?
+- Which information is hardest to find when it is needed?
+- Which reports are most often late or need corrections?
+
+Track the process for a week or two. This helps separate issues that can be solved with clearer procedures from those that genuinely need a shared system.
+
+If you consider an app, review ease of use, access permissions, backup and recovery, data export, post-launch support, and possible ongoing costs. Do not choose based on appearance alone.
+
+### How Can SekolahRapi Help?
+
+SekolahRapi is being developed to help schools organize financial administration and monitoring with a clearer workflow. The goal is not to replace every existing habit at once, but to help schools manage records and oversight more consistently.
+
+Each school should assess whether the features fit its process, understand how its data is managed, and ensure staff receive enough guidance.
+
+Not sure whether your school needs a dedicated system? Start by discussing the workflow that takes up the most time. An initial consultation can help map the need before you decide on the next step.
+
+👉 **Discuss your school's administration needs:** https://wa.me/6289508053795?text=Hello%20Arblok%20Digital%2C%20I%20would%20like%20to%20discuss%20school%20financial%20administration.
+
+### Conclusion
+
+Good administration does not require the most advanced technology. What matters is that records can be traced, verification is clear, reports are accountable, and the process does not depend on one person's memory.
+
+If spreadsheets still do all of that, keep using them with sound procedures. If work is becoming repetitive and hard to control, review the workflow and consider tools that fit the school's needs.`
   }
 ];
 
