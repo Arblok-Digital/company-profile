@@ -246,9 +246,41 @@
       REMOVED: Fake Product/AggregateRating schema.
       Risiko: Google manual action untuk fabricated reviews.
       TODO: Ganti dengan testimonial ASLI dari klien (KasirPro, E-Warga, SekolahRapi).
-    -->  </head>
+    -->    <style>
+      /* Keep SEO fallback in the source, but prevent it flashing before React mounts. */
+      #crawler-content { display: none !important; }
+      #initial-loader {
+        min-height: 100svh;
+        display: grid;
+        place-content: center;
+        gap: 12px;
+        padding: 24px;
+        background: #201C17;
+        color: #F5F0E8;
+        font: 500 14px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        text-align: center;
+      }
+      #initial-loader .loader-mark {
+        width: 34px;
+        height: 34px;
+        margin: 0 auto;
+        border: 3px solid rgba(245, 240, 232, .22);
+        border-top-color: #D6A85C;
+        border-radius: 50%;
+        animation: arblok-spin .8s linear infinite;
+      }
+      @keyframes arblok-spin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) {
+        #initial-loader .loader-mark { animation: none; }
+      }
+    </style>
+  </head>
   <body>
     <div id="root">
+      <div id="initial-loader" role="status" aria-live="polite">
+        <span class="loader-mark" aria-hidden="true"></span>
+        <span>Menyiapkan Arblok Digital…</span>
+      </div>
       <main id="crawler-content">
         <article>
           <header>
