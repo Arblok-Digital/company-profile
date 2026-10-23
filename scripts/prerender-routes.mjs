@@ -64,12 +64,6 @@ const routes = [
 function escapeHtml(value) {
   return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
-function setMeta(html, selector, replacement) {
-  const escaped = replacement.replaceAll("$", "$$");
-  const regex = new RegExp(selector, "i");
-  if (regex.test(html)) return html.replace(regex, escaped);
-  return html.replace("</head>", `  ${replacement}\n</head>`);
-}
 function upsertMeta(html, name, content) {
   const safe = escapeHtml(content);
   const regex = new RegExp(`<meta\\s+name=["']${name}["'][^>]*>`, "i");
@@ -100,8 +94,8 @@ for (const route of routes) {
   html = upsertProperty(html, "og:title", route.title);
   html = upsertProperty(html, "og:description", route.description);
   html = upsertProperty(html, "og:url", canonical);
-  html = upsertProperty(html, "twitter:title", route.title);
-  html = upsertProperty(html, "twitter:description", route.description);
+  html = upsertMeta(html, "twitter:title", route.title);
+  html = upsertMeta(html, "twitter:description", route.description);
 
   const linkList = route.links.map(([href, label]) => `<li><a href="${escapeHtml(href)}">${escapeHtml(label)}</a></li>`).join("");
   const fallback = `<main id="seo-fallback"><article><p>Arblok Digital · Tasikmalaya</p><h1>${escapeHtml(route.h1)}</h1><p>${escapeHtml(route.body)}</p><nav aria-label="Tautan terkait"><ul>${linkList}</ul></nav><p><a href="https://wa.me/6289508053795">Hubungi Arblok Digital via WhatsApp</a></p></article></main>`;
