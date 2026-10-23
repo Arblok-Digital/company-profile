@@ -358,3 +358,51 @@ Gunakan dokumentasi resmi yang berlaku saat implementasi; jangan mengandalkan kl
 5. Konversi utama yang ingin diukur: WhatsApp, formulir konsultasi, demo produk, atau beberapa sekaligus?
 
 **Prinsip akhir:** audit dulu, buktikan masalah, lakukan perubahan sekecil mungkin, uji hasil build dan produksi, baru ukur dampaknya. Jangan menimpa repo terbaru dengan salinan lokal yang tertinggal.
+
+
+---
+
+## 10. Hasil validasi produksi — 23 Oktober 2026
+
+Pemeriksaan read-only dilakukan pada URL publik `https://arblok-digital.vercel.app` menggunakan fetch Vercel. Temuan berikut berasal dari respons HTTP/HTML yang diamati pada tanggal tersebut; cache dapat memengaruhi snapshot, jadi ulangi setelah deployment.
+
+### Konteks deployment
+
+- Project Vercel: `arblok-digital`, framework Vite, terhubung ke `Arblok-Digital/company-profile`.
+- Deployment terbaru yang tercatat saat audit berasal dari branch `docs/seo-ieo-roadmap` dan SHA `9a09fe874a3f36034727f19c1337e9c11200409c`; ini deployment preview (target bukan production), bukan bukti bahwa branch dokumen telah dipromosikan ke produksi.
+- Deployment produksi terakhir yang tercatat pada daftar deployment: branch `main`, SHA `096f6a0d11a17a61f829ea92cf521039329cd482`, status `READY`.
+- Jangan menganggap deployment preview sebagai production. Semua perubahan aplikasi harus diuji di preview sebelum dipromosikan secara eksplisit.
+
+### Temuan yang sudah terkonfirmasi
+
+| URL / file | Hasil observasi | Dampak / tindak lanjut |
+|---|---|---|
+| `/` | HTTP 200; title dan canonical beranda hadir; meta robots `index, follow`; HTML awal memuat crawler-content dan loader React | Fondasi beranda tersedia. Selaraskan konten fallback dengan positioning yang dipilih dan pastikan fallback tidak menyebabkan flash visual atau membingungkan pengguna. |
+| `/articles` | HTTP 200, tetapi respons HTML awal yang diamati memakai title, description, dan canonical beranda | Masalah SEO nyata: halaman daftar artikel tidak memiliki metadata server-side yang unik di HTML awal. Perlu halaman statis/prerender dengan metadata dan isi yang sesuai atau solusi rendering server yang setara. |
+| `/consultant` | HTTP 200, tetapi respons HTML awal yang diamati sama dengan beranda, termasuk canonical beranda | Halaman konsultasi tidak terwakili dengan baik untuk crawler yang membaca HTML awal. Buat metadata/konten awal khusus dan canonical sesuai URL jika halaman ini memang ingin diindeks. |
+| URL acak `/this-should-not-exist-seo-audit` | HTTP 200 dan respons HTML awal beranda | Soft-404 terkonfirmasi pada lapisan HTTP. React menampilkan komponen NotFoundPage di sisi klien, tetapi status server tetap 200. Atur routing agar URL yang tidak dikenal menghasilkan status HTTP 404, tanpa merusak SPA routes yang valid. |
+| `vercel.json` | Rewrite terakhir `/(.*)` ke `/index.html`; rewrite artikel spesifik `/articles/:slug` ke `/articles/:slug.html` ada sebelumnya | Catch-all menjelaskan mengapa route tidak dikenal memperoleh HTML aplikasi. Perubahan harus mempertahankan route valid, aset, file statis, dan artikel. |
+| `/sitemap.xml` | HTTP 200 dan XML valid secara bentuk; response cache HIT. URL beranda dan halaman statis menunjukkan `lastmod` 2026-10-14; artikel banyak bertanggal 2026-08-09 | Sitemap belum mencerminkan waktu perubahan konten terbaru yang teramati pada repo/deployment. Periksa alur build dan cache serta gunakan `lastmod` yang benar-benar berdasarkan perubahan konten, bukan tanggal build semata. |
+| `/robots.txt` | HTTP 200; mengizinkan crawler umum dan beberapa crawler AI; menunjuk ke sitemap yang benar | Tidak ditemukan larangan crawling global dalam file ini. Kebijakan crawler tetap keputusan bisnis; izin robots bukan jaminan indexing atau sitasi AI. |
+| `/llms.txt` | HTTP 200 dan berisi ringkasan brand, layanan, kontak, serta URL utama | File tersedia, tetapi bukan pengganti metadata HTML, sitemap, atau konten halaman yang dapat dirayapi. |
+| Artikel contoh `/articles/cara-memilih-software-house-umkm-tasikmalaya` | HTTP 200; HTML artikel statis memiliki title, canonical, Open Graph, BlogPosting, FAQ dan Breadcrumb schema | Jalur artikel individual tampak lebih siap dibanding route listing/konsultasi. Tetap audit akurasi klaim dan konsistensi schema/isi. |
+
+### Catatan interpretasi
+
+- Pengamatan HTML awal menunjukkan masalah metadata server-side. Karena SPA dapat mengubah DOM setelah JavaScript berjalan, ini bukan bukti bahwa Google tidak pernah dapat memahami halaman; namun HTML awal tetap perlu dibuat benar untuk crawling yang andal, social preview, dan mesin yang tidak menjalankan JavaScript.
+- Status HTTP 200 pada URL acak adalah bukti yang lebih kuat dari sekadar metadata dinamis: server perlu mengembalikan 404 untuk route yang tidak ada.
+- File `public/prerendered/home.html` yang dibaca dari branch `main` memiliki `noindex, follow`, sedangkan URL beranda publik yang diamati memiliki `index, follow`. Belum ada bukti bahwa snapshot `public/prerendered/home.html` disajikan sebagai URL publik. Jangan mengubah robots snapshot sebelum alur penggunaannya dipastikan.
+- `robots.txt` dan `sitemap.xml` menunjukkan header `Last-Modified`/cache yang berbeda-beda. Perlu diperiksa apakah hasil fetch yang diamati dilayani oleh deployment dan cache yang sama; lakukan validasi ulang setelah deploy.
+- Belum dijalankan build bersih di lingkungan lokal/container dan belum diuji browser/DOM setelah JavaScript. Kriteria SEO-03 dan pengujian visual tetap terbuka.
+
+### Backlog hasil validasi — urutan eksekusi yang diperbarui
+
+1. **P0 — Perbaiki respons 404 server-side** untuk URL yang tidak dikenal, sambil mempertahankan semua route valid.
+2. **P0 — Sediakan HTML awal khusus untuk `/articles`, `/consultant`, dan `/referral`** (metadata unik, canonical yang tepat, H1 dan konten yang cocok) atau pilih arsitektur rendering setara yang terbukti mengirim HTML tepat.
+3. **P0 — Uji ulang rewrite Vercel** agar aset/file statis dan `/articles/:slug` tetap bekerja; hindari catch-all yang menutupi 404.
+4. **P0 — Sinkronkan sitemap produksi** dengan route valid yang memang ingin diindeks; validasi seluruh URL, status, canonical, dan `lastmod`.
+5. **P1 — Audit semua metadata dan schema** pada HTML awal beranda, listing artikel, konsultasi, referral, dan artikel individual.
+6. **P1 — Audit konten artikel** untuk klaim angka yang perlu bukti, termasuk penghematan 70%, hosting Rp 0, harga pasar, dan penghargaan/sertifikasi. Hapus atau beri konteks bila tidak dapat dibuktikan.
+7. **P1 — Baru setelah masalah di atas selesai**, putuskan perubahan title/description beranda dan pembuatan halaman layanan baru.
+
+**Status pengerjaan:** hasil di atas adalah audit read-only. Belum ada source aplikasi yang diubah, belum ada perubahan pada branch `main`, dan belum ada deployment produksi yang dipromosikan.
