@@ -87,7 +87,7 @@ for (const route of routes) {
   const canonical = `${BASE_URL}${route.path}`;
   let html = baseHtml;
   html = html.replace(/<title>[^<]*<\/title>/i, `<title>${escapeHtml(route.title)}</title>`);
-  html = upsertMeta(html, "description", route.description);
+  html = upsertMeta(html, "title", route.title);\n  html = upsertMeta(html, "description", route.description);
   html = upsertMeta(html, "robots", "index, follow");
   html = upsertCanonical(html, canonical);
   html = upsertProperty(html, "og:type", "website");
