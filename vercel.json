@@ -15,10 +15,6 @@
     {
       "source": "/referral",
       "destination": "/referral.html"
-    },
-    {
-      "source": "/portfolio/(.*)",
-      "destination": "/portfolio/$1"
     }
   ],
   "headers": [
