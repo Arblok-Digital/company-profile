@@ -45,7 +45,7 @@ Pricing is flexible; no budget is considered too small. A Starter/MVP package is
 
 ## Articles
 
-Article URLs and their latest modification dates are listed in the XML sitemap. Article detail pages include visible article text and structured data in generated HTML.
+Article URLs and their content modification dates are listed in the XML sitemap. Article detail pages include visible article text and structured data in generated HTML. Main indexable routes (`/articles`, `/consultant`, `/referral`) have route-specific initial HTML metadata and canonical URLs.
 
 ## Entity and citation notes
 
@@ -60,4 +60,4 @@ Article URLs and their latest modification dates are listed in the XML sitemap. 
 - Facebook: https://web.facebook.com/profile.php?id=61591871531409
 - Do not infer an exact street address, opening hours, or client count; these are not published as verified facts. Pricing and timeline ranges are published as approximations above, not fixed quotes.
 
-Last updated: 2026-08-16
+Last updated: 2026-10-23

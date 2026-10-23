@@ -1,5 +1,5 @@
 # Arblok Digital - robots.txt
-# Updated: 2026-07-17
+# Updated: 2026-10-23
 
 User-agent: *
 Allow: /
