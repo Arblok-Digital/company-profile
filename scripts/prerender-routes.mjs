@@ -99,7 +99,8 @@ for (const route of routes) {
 
   const linkList = route.links.map(([href, label]) => `<li><a href="${escapeHtml(href)}">${escapeHtml(label)}</a></li>`).join("");
   const fallback = `<main id="seo-fallback"><article><p>Arblok Digital · Tasikmalaya</p><h1>${escapeHtml(route.h1)}</h1><p>${escapeHtml(route.body)}</p><nav aria-label="Tautan terkait"><ul>${linkList}</ul></nav><p><a href="https://wa.me/6289508053795">Hubungi Arblok Digital via WhatsApp</a></p></article></main>`;
-  html = html.replace(/<div id="root"><\/div>/i, `<div id="root">${fallback}</div>`);
+  // Replace existing root fallback/loader markup so homepage content does not leak into route HTML.
+  html = html.replace(/(<div id="root">)[\s\S]*?(?=\s*<\/body>)/i, (_match, rootOpen) => `${rootOpen}${fallback}</div>\n  `);
   writeFileSync(join(DIST, route.file), html, "utf8");
   console.log(`Generated dist/${route.file} (${canonical})`);
 }
