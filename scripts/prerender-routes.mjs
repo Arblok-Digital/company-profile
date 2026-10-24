@@ -25,7 +25,7 @@ const routes = [
     file: "articles.html",
     title: "Artikel Digitalisasi Bisnis & Software | Arblok Digital",
     description: "Baca panduan, tips, dan studi kasus tentang aplikasi kasir, administrasi sekolah, otomatisasi, dan pengembangan sistem digital dari Arblok Digital.",
-    h1: "Artikel dan panduan digital",
+    h1: "Artikel & Wawasan Teknologi",
     body: "Jelajahi panduan praktis tentang digitalisasi usaha, administrasi sekolah, pengembangan software, dan otomatisasi proses kerja.",
     links: [
       ["/articles/cara-memilih-software-house-umkm-tasikmalaya", "Cara memilih software house untuk UMKM"],
@@ -82,6 +82,12 @@ function upsertCanonical(html, href) {
   const tag = `<link rel="canonical" href="${safe}" />`;
   return regex.test(html) ? html.replace(regex, tag) : html.replace("</head>", `  ${tag}\n</head>`);
 }
+function upsertAlternate(html, hreflang, href) {
+  const safe = escapeHtml(href);
+  const regex = new RegExp(`<link\\s+rel=["']alternate["'][^>]*hreflang=["']${hreflang}["'][^>]*>`, "i");
+  const tag = `<link rel="alternate" hreflang="${hreflang}" href="${safe}" />`;
+  return regex.test(html) ? html.replace(regex, tag) : html.replace("</head>", `  ${tag}\n</head>`);
+}
 
 for (const route of routes) {
   const canonical = `${BASE_URL}${route.path}`;
@@ -91,6 +97,9 @@ for (const route of routes) {
   html = upsertMeta(html, "description", route.description);
   html = upsertMeta(html, "robots", "index, follow");
   html = upsertCanonical(html, canonical);
+  // Bahasa utama tiap URL adalah Indonesia; versi English hanya toggle klien pada URL yang sama.
+  html = upsertAlternate(html, "id", canonical);
+  html = upsertAlternate(html, "x-default", canonical);
   html = upsertProperty(html, "og:type", "website");
   html = upsertProperty(html, "og:title", route.title);
   html = upsertProperty(html, "og:description", route.description);
