@@ -46,12 +46,12 @@ export default function Articles() {
     const title = article
       ? `${article.title} | Arblok Digital`
       : language === "id"
-        ? "Artikel | Tips & Studi Kasus Digital | Arblok Digital"
+        ? "Artikel Digitalisasi Bisnis & Software | Arblok Digital"
         : "Articles | Digital Tips & Case Studies | Arblok Digital";
     const desc = article
       ? article.excerpt || title
       : language === "id"
-        ? "Kumpulan artikel seputar sistem digital untuk usaha, sekolah, dan instansi — narasi kasus nyata dari Tasikmalaya."
+        ? "Baca panduan, tips, dan studi kasus tentang aplikasi kasir, administrasi sekolah, otomatisasi, dan pengembangan sistem digital dari Arblok Digital."
         : "Articles about digital systems for businesses, schools, and government offices — real case studies from Tasikmalaya.";
 
     document.title = title;
@@ -225,9 +225,9 @@ export default function Articles() {
           <span className="font-mono text-xs text-ink-2 uppercase tracking-[0.15em]">
             {language === "id" ? "Edukasi & Wawasan" : "Education & Insights"}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-ink leading-[1.1] mt-3 tracking-tight">
+          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl text-ink leading-[1.1] mt-3 tracking-tight">
             {language === "id" ? "Artikel & Wawasan Teknologi" : "Tech Articles & Insights"}
-          </h2>
+          </h1>
           <p className="font-body text-base text-ink-2 mt-4 leading-relaxed">
             {language === "id"
               ? "Pelajari strategi akselerasi digital, tips otomatisasi, dan wawasan teknologi."
